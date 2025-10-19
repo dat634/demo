@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ví Dụ Hiệu Ứng Layer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+
+        .container {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+        }
+
+        .layer1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #ffcccc, #ccffcc);
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .layer2 {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 70%;
+            height: 70%;
+            background: rgba(0, 123, 255, 0.8);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .container:hover .layer2 {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .overlay-example {
+            position: relative;
+            width: 400px;
+            height: 200px;
+            margin: 20px auto;
+            background: url('https://via.placeholder.com/400x200') no-repeat center;
+            background-size: cover;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .overlay-example:hover .overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ví Dụ Hiệu Ứng Layer trong CSS</h1>
+    <p>Hover vào các container dưới đây để xem hiệu ứng lớp chồng và overlay.</p>
+
+    <div class="container">
+        <div class="layer1">Lớp Cơ Sở</div>
+        <div class="layer2">Lớp Trên (Xuất Hiện Khi Hover)</div>
+    </div>
+
+    <div class="overlay-example">
+        <div class="overlay">Overlay: Thông Tin Bổ Sung</div>
+    </div>
+
+    <p><strong>Giải thích:</strong> Container đầu tiên dùng z-index để xếp chồng hai lớp, với lớp trên xuất hiện mượt mà khi hover. Container thứ hai là ví dụ overlay trên hình ảnh.</p>
+</body>
+</html>

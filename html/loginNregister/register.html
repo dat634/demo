@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng ký - Học Vui</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ff6b35;
+      --secondary: #ffb86b;
+      --bg-dark: rgb(15, 23, 36);
+      --text: #e6eef8;
+      --muted: #9aa7bf;
+      font-family: 'Inter', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* === HEADER / NAVBAR === */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(15, 23, 36, 0.95);
+      backdrop-filter: blur(6px);
+      padding: 16px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--secondary);
+    }
+    .brand span {
+      background: linear-gradient(135deg,var(--primary),var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      transition: color .2s ease;
+    }
+    nav ul li a:hover {
+      color: var(--secondary);
+    }
+
+    /* === MAIN CONTENT SPLIT === */
+    main {
+      display: flex;
+      flex: 1;
+      margin-top: 80px; /* space for navbar */
+    }
+
+    /* FORM BÊN TRÁI */
+    .left-panel {
+      flex: 1;
+      background: radial-gradient(circle at top left, rgba(255,107,53,0.15), transparent 60%), var(--bg-dark);
+      padding: 80px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* GIỚI THIỆU BÊN PHẢI */
+    .right-panel {
+      flex: 1;
+      background: radial-gradient(circle at bottom right, rgba(255,107,53,0.15), transparent 60%), var(--bg-dark); 
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    /* === FORM === */
+    form {
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      background: rgba(255,255,255,0.02);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(255,107,53,0.1);
+    }
+
+    form h2 {
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--secondary);
+    }
+
+    label {
+      font-size: 14px;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    input:hover{
+      border-color: var(--secondary);
+      box-shadow: 0 0 8px rgba(255,184,107,0.2);
+    }
+    input, select {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 12px;
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    input:focus, select:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 8px rgba(255,184,107,0.3);
+    }
+
+    button {
+      background: linear-gradient(90deg,var(--primary),var(--secondary));
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      color: #0f1724;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform .1s ease;
+    }
+    button:hover { transform: scale(1.02); }
+
+    #feedback { text-align: center; font-size: 13px; min-height: 18px; }
+    .error { color: #ff4d6d; }
+    .success { color: #2dd4bf; }
+
+    .right-panel h1 {
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--secondary);
+    }
+    .right-panel p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 500px;
+    }
+    .feature-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .tag {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--secondary);
+      cursor: default;
+    }
+
+    footer {
+      text-align: center;
+      padding: 14px;
+      background: rgba(15, 23, 36, 0.9);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media(max-width: 900px){
+      main { flex-direction: column; }
+      .left-panel, .right-panel { padding: 60px 30px; }
+    }
+    #signup-form {
+    min-width: 100%  !important;
+     border: linear-gradient(270deg,rgba(23,32,22,0.11),rgba(23,32,22,0.11)) !important;
+     box-shadow: none !important;
+     background: linear-gradient(-350deg,rgba(255, 123, 0, 0.123),rgba(15, 23, 36, 0)) !important;
+     z-index: 1000000 !important;
+    }
+    .RegisterToLogin {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .RegisterToLogin a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    option {
+      background-color: var(--bg-dark);
+      color: var(--text);
+    }
+    .intro {
+      width: 90%;height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">Học<span>Vui</span></div>
+    <nav>
+      <ul>
+        <li><a href="../html/stydy-place/main.study.html">Study</a></li>
+        <li><a href="../html/playground/MainConsole_Playground.html">Game</a></li>
+        <li><a href="#">Advance</a></li>
+        <li><a href="#">Setting</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- FORM BÊN TRÁI -->
+    <section class="left-panel">
+        <!--rìa-->
+        <div class="added-design"><p></p></div>
+        <!--rìa-->
+      <form id="signup-form">
+        <h2>Tạo tài khoản mới</h2>
+        <label>How can i call you?
+          <input type="text" id="fullName" required placeholder="Dexter Morgan">
+        </label>
+        <label>Email
+          <input type="email" id="email" required placeholder="email@hocvui.edu">
+        </label>
+        <label>Password
+          <input type="password" id="password" required minlength="6" placeholder="Tối thiểu 6 ký tự">
+        </label>
+        <label>Confirm Password
+          <input type="password" id="confirmPassword" required placeholder="Gõ lại mật khẩu">
+        </label>
+        <label>Role
+          <select  id="role" required>
+            <option value="none" disabled selected>Role</option>
+            <option value="student">Học sinh</option>
+            <option value="teacher">Giáo viên</option>
+          </select>
+        </label>
+        <label>Age
+          <input type="number" id="age" min="13" max="99" placeholder="14" required>
+        </label>
+        <div id="feedback"></div>
+        <button type="submit">Đăng ký</button>
+        <div class="RegisterToLogin"><p>Already have an account?</p><a href="../loginNregister/login.html">Login</a></div>
+      </form>
+    </section>
+
+    <!-- GIỚI THIỆU BÊN PHẢI -->
+    <section class="right-panel">
+      <div class="intro"> 
+        <h1 class="rgst-intro">Chào mừng đến với Học Vui 🎓</h1>
+      <p>
+        Nơi kết hợp giữa học tập, giải trí và sáng tạo.  
+        Bạn có thể học, chơi mini game, theo dõi tiến độ và chia sẻ thành tích với bạn bè.
+      </p>
+     
+      <div class="feature-tags">
+        <div class="tag">📚 Bài học tương tác</div>
+        <div class="tag">🎮 Trò chơi học tập</div>
+        <div class="tag">🏆 Thành tích & Huy hiệu</div>
+        <div class="tag">🧠 Câu đố logic</div>
+      </div>
+       </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 Học Vui. Nền tảng học tập sáng tạo cho học sinh & giáo viên Việt Nam.
+  </footer>
+
+  <!-- FIREBASE SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyC_8Y5vYXvXc0kvYH0jNOziiR0t1TtStTg",
+      authDomain: "myproject-7ba9f.firebaseapp.com",
+      projectId: "myproject-7ba9f",
+      storageBucket: "myproject-7ba9f.firebasestorage.app",
+      messagingSenderId: "614709937741",
+      appId: "1:614709937741:web:d11e5325162c249cfdfe04",
+      measurementId: "G-LB9VZG4BHB"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const form = document.getElementById('signup-form');
+    const feedback = document.getElementById('feedback');
+
+    function showFeedback(msg, type='') {
+      feedback.textContent = msg;
+      feedback.className = type;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = fullName.value.trim();
+      const emailVal = email.value.trim();
+      const pass = password.value;
+      const confirm = confirmPassword.value;
+      const roleVal = role.value;
+      const ageVal = age.value;
+      const UpeerCase = /[A-Z]/;
+      const lowerCase = /[a-z]/;
+      const numberCase = /[0-9]/;
+      const specialCase = /[!@#\$%\^\&*\)\(+=._-]/;
+      if (!UpeerCase.test(pass) || !lowerCase.test(pass) || !numberCase.test(pass) || !specialCase.test(pass)) {
+        showFeedback('Mật khẩu phải chứa chữ hoa, chữ thường, số và ký tự đặc biệt.', 'error');
+        return;
+      }
+      if (pass.length < 8) {
+        showFeedback('Mật khẩu phải có ít nhất 8 ký tự.', 'error');
+        return;
+      }
+      if (pass !== confirm) {
+        showFeedback('Mật khẩu xác nhận không khớp.', 'error');
+        return;
+      }
+
+      try {
+        const userCred = await auth.createUserWithEmailAndPassword(emailVal, pass);
+        await userCred.user.updateProfile({ displayName: name });
+        await db.collection('users').doc(userCred.user.uid).set({
+          name, email: emailVal, role: roleVal, age: parseInt(ageVal), createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        showFeedback('Đăng ký thành công!', 'success');
+        form.reset();
+      } catch (err) {
+        showFeedback(err.message, 'error');
+      }
+    });
+  </script>
+</body>
+</html>

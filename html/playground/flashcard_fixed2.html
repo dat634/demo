@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Flash Card - Học Vui (Playground)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: rgb(15,23,36);
+  --accent:#ff6b35;
+  --accent2:#ffb86b;
+  --muted:#9aa7bf;
+  --glass: rgba(255,255,255,0.03);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;min-height:100vh;background:linear-gradient(180deg,var(--bg), #07101a);color:#e6eef8;display:flex;flex-direction:column;align-items:center}
+
+/* header */
+.header{height:64px;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;width:100%;position:fixed;top:0;left:0;right:0;background:rgba(8,12,18,0.75);z-index:40}
+.brand{font-weight:800;color:var(--accent2)}
+.back-link{color:var(--muted);text-decoration:none}
+
+/* container */
+.wrap{width:100%;max-width:980px;padding:100px 20px 36px;display:flex;flex-direction:column;gap:18px;align-items:center}
+
+/* initial form */
+.form-card{width:100%;max-width:520px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:8px;align-items:center}
+.select, button, input{font-family:inherit}
+select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:inherit}
+
+/* big card area */
+.stage{width:100%;display:flex;justify-content:center;align-items:center;min-height:520px}
+.card{width:360px;height:540px;perspective:1300px;display:flex;align-items:center;justify-content:center}
+.card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.8,.2,1);border-radius:14px}
+.card.flipped .card-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:22px;box-shadow:0 18px 50px rgba(0,0,0,0.6)}
+.front{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12))}
+.back{transform:rotateY(180deg);background:linear-gradient(180deg,#fff, #ffd9b8);color:#07101a}
+.word{font-size:44px;font-weight:800;letter-spacing:0.6px;text-align:center}
+.meaning{font-size:20px;color:var(--muted);margin-top:18px;text-align:center}
+
+/* controls under card */
+.controls{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:12px}
+.btn{background:linear-gradient(90deg,var(--accent),var(--accent2));border:none;padding:10px 14px;border-radius:10px;color:#07101a;font-weight:800;cursor:pointer}
+.btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+/* footer info */
+.footer-bar{width:100%;max-width:720px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:14px}
+
+/* fade transition for mode swap */
+.fadewrap{transition:opacity .35s, transform .35s}
+
+/* summary overlay slide up */
+.summary-overlay{position:fixed;left:0;right:0;bottom:-100%;height:auto;display:flex;align-items:flex-end;justify-content:center;z-index:100;transition:bottom .45s cubic-bezier(.2,.9,.2,1)}
+.summary-overlay.show{bottom:0}
+.summary-card{width:100%;max-width:720px;background:linear-gradient(180deg,#081017,rgba(255,255,255,0.02));border-radius:12px;padding:18px;border-top-left-radius:20px;border-top-right-radius:20px;box-shadow:0 -12px 40px rgba(0,0,0,0.6);margin:0 12px 12px}
+.summary-title{font-size:20px;font-weight:800;color:var(--accent2)}
+.summary-body{margin-top:8px;color:var(--muted)}
+.summary-actions{display:flex;gap:10px;margin-top:12px;justify-content:flex-end}
+
+/* progress bar */
+.progress{width:100%;max-width:720px;background:rgba(255,255,255,0.03);height:10px;border-radius:999px;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%}
+
+/* small modal overlay (used for TF / fill) */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:120}
+.modal-card{background:linear-gradient(180deg,rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;color:inherit;max-width:480px;width:90%}
+
+/* responsive */
+@media(max-width:720px){
+  .card{width:88vw;height:62vh}
+  .word{font-size:34px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="brand">Học<span style="background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Vui</span></div>
+  <div><a class="back-link" href="../playground/MainConsole_Playground.html">↩ Playground</a></div>
+</div>
+
+<div class="wrap">
+
+  <!-- initial selection form -->
+  <div id="startCard" class="form-card fadewrap">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <strong>Flash Card — Chọn cấp độ</strong>
+      <div class="small" id="vocabCount">Loading...</div>
+    </div>
+
+    <div class="row">
+      <select id="levelSelect">
+        <option value="all">All (A1..C2)</option>
+        <option value="A1">A1</option>
+        <option value="A2">A2</option>
+        <option value="B1">B1</option>
+        <option value="B2">B2</option>
+        <option value="C1">C1</option>
+        <option value="C2">C2</option>
+      </select>
+    </div>
+
+    <div style="display:flex;gap:10px;justify-content:flex-end">
+      <button id="playBtn" class="btn">Play</button>
+    </div>
+    <div class="small">Chế độ: Learn 19 từ → tự sang Test (14 T/F + 5 Fill-in)</div>
+  </div>
+
+  <!-- game stage -->
+  <div id="gameArea" class="fadewrap" style="width:100%;display:none;flex-direction:column;align-items:center;gap:12px">
+    <div class="stage">
+      <div id="cardContainer" class="card">
+        <div id="cardInner" class="card-inner">
+          <div id="faceFront" class="face front">
+            <div class="word" id="frontWord">—</div>
+            <div class="meaning" id="frontHint">(Click để lật)</div>
+          </div>
+          <div id="faceBack" class="face back">
+            <div class="word" id="backWord">—</div>
+            <div class="meaning" id="backMeaning">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="prevBtn" class="btn secondary">« Prev</button>
+      <button id="flipBtn" class="btn">Flip</button>
+      <button id="nextBtn" class="btn secondary">Next »</button>
+    </div>
+
+    <div style="width:100%;max-width:720px;display:flex;flex-direction:column;gap:8px;align-items:center">
+      <div class="progress"><div id="progressBar" class="progress-bar"></div></div>
+      <div class="footer-bar">
+        <div id="posInfo" class="small">0 / 19</div>
+        <div id="scoreInfo" class="small">Score: <span id="curScore">0</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- summary overlay slide-up -->
+<div class="summary-overlay" id="summaryOverlay" aria-hidden="true">
+  <div class="summary-card">
+    <div class="summary-title" id="summaryTitle">Kết quả</div>
+    <div class="summary-body" id="summaryBody">Tổng điểm: <strong id="summaryScore">0</strong></div>
+    <div class="summary-actions">
+      <button id="btnReplay" class="btn">Chơi lại</button>
+      <button id="btnView" class="btn secondary">Xem kết quả</button>
+      <button id="btnExit" class="btn secondary">Thoát</button>
+    </div>
+  </div>
+</div>
+
+<!-- firebase compat -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<script>
+/* Config (kept as you provided) */
+const firebaseConfig = {
+  apiKey: "AIzaSyC_8Y5vYXvXc0kvYH0jNOziiR0t1TtStTg",
+  authDomain: "myproject-7ba9f.firebaseapp.com",
+  projectId: "myproject-7ba9f",
+  storageBucket: "myproject-7ba9f.firebasestorage.app",
+  messagingSenderId: "614709937741",
+  appId: "1:614709937741:web:d11e5325162c249cfdfe04",
+  measurementId: "G-LB9VZG4BHB"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+/* DOM refs */
+let startCard = document.getElementById('startCard');
+let playBtn = document.getElementById('playBtn');
+let levelSelect = document.getElementById('levelSelect');
+let vocabCount = document.getElementById('vocabCount');
+
+let gameArea = document.getElementById('gameArea');
+let cardContainer = document.getElementById('cardContainer');
+let cardInner = document.getElementById('cardInner');
+let faceFront = document.getElementById('faceFront');
+let faceBack = document.getElementById('faceBack');
+let frontWord = document.getElementById('frontWord');
+let frontHint = document.getElementById('frontHint');
+let backWord = document.getElementById('backWord');
+let backMeaning = document.getElementById('backMeaning');
+
+let flipBtn = document.getElementById('flipBtn');
+const nextBtn = document.getElementById('nextBtn');
+const prevBtn = document.getElementById('prevBtn');
+
+const posInfo = document.getElementById('posInfo');
+const curScoreEl = document.getElementById('curScore');
+const progressBar = document.getElementById('progressBar');
+
+const summaryOverlay = document.getElementById('summaryOverlay');
+const summaryTitle = document.getElementById('summaryTitle');
+const summaryScoreEl = document.getElementById('summaryScore');
+const btnReplay = document.getElementById('btnReplay');
+const btnView = document.getElementById('btnView');
+const btnExit = document.getElementById('btnExit');
+
+let currentUser = null;
+let vocab = []; // all words
+let pool = []; // 19 words for current Learn/Test
+let curIndex = 0;
+let sessionScore = 0;
+let mode = 'learn'; // learn -> test
+let testOrder = [];
+let answeredCount = 0;
+
+/* load auth + vocab */
+auth.onAuthStateChanged(async (u)=>{
+  if(!u){
+    window.location.href = "../loginNregister/login.html";
+    return;
+  }
+  currentUser = u;
+  await loadVocab(); // populate vocab
+  vocabCount.textContent = vocab.length + ' words loaded';
+});
+
+/* load vocabularies collection */
+async function loadVocab(){
+  try{
+    const snap = await db.collection('vocabularies').get();
+    if(!snap.empty){
+      vocab = snap.docs.map(d=>({ id:d.id, ...d.data() })).filter(x=>x.en && x.vi && x.level);
+    } else throw new Error('empty');
+  }catch(e){
+    console.warn('fallback vocab', e);
+    vocab = [
+      {"en":"apple","vi":"quả táo","level":"A1"},
+      {"en":"book","vi":"quyển sách","level":"A1"},
+      {"en":"cat","vi":"con mèo","level":"A1"},
+      {"en":"teacher","vi":"giáo viên","level":"A1"},
+      {"en":"mountain","vi":"ngọn núi","level":"A2"},
+      {"en":"hospital","vi":"bệnh viện","level":"A2"},
+      {"en":"bicycle","vi":"xe đạp","level":"A2"},
+      {"en":"beautiful","vi":"đẹp","level":"A2"},
+      {"en":"decision","vi":"quyết định","level":"B1"},
+      {"en":"pollution","vi":"ô nhiễm","level":"B1"},
+      {"en":"adventure","vi":"cuộc phiêu lưu","level":"B1"},
+      {"en":"experience","vi":"kinh nghiệm","level":"B1"},
+      {"en":"achievement","vi":"thành tựu","level":"B2"},
+      {"en":"consequence","vi":"hậu quả","level":"B2"},
+      {"en":"priority","vi":"ưu tiên","level":"B2"},
+      {"en":"negotiate","vi":"đàm phán","level":"B2"},
+      {"en":"coherent","vi":"mạch lạc","level":"C1"},
+      {"en":"substantial","vi":"đáng kể","level":"C1"},
+      {"en":"perspective","vi":"quan điểm","level":"C1"},
+      {"en":"diversity","vi":"đa dạng","level":"C1"},
+      {"en":"ubiquitous","vi":"phổ biến khắp nơi","level":"C2"},
+      {"en":"paradigm","vi":"mô hình, khuôn mẫu","level":"C2"},
+      {"en":"meticulous","vi":"tỉ mỉ","level":"C2"},
+      {"en":"ambivalence","vi":"mâu thuẫn nội tâm","level":"C2"}
+    ]
+  }
+}
+
+/* utils */
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a}
+function pickN(arr,n){ return shuffle(arr.slice()).slice(0,Math.min(n,arr.length))}
+
+/* Play button */
+playBtn.addEventListener('click', ()=>{
+  const lvl = levelSelect.value;
+  startLearn(lvl);
+});
+
+/* start learn: prepare pool of 19 and show first card */
+function startLearn(level){
+  console.log("▶ Start Learn mode, level:", level);
+
+  mode = 'learn';
+  sessionScore = 0;
+  curScoreEl.textContent = sessionScore;
+
+  // build pool
+  let candidates = (level === 'all') ? vocab.slice() : vocab.filter(w=>w.level === level);
+  if(candidates.length === 0){
+    alert('Không có từ cho level này. Thử chọn All.');
+    return;
+  }
+  pool = pickN(candidates, 19);
+  curIndex = 0;
+
+  // show area with small delay to ensure DOM ready
+  startCard.style.display = 'none';
+  gameArea.style.display = 'flex';
+  gameArea.style.opacity = 0;
+  setTimeout(()=>{
+    gameArea.style.opacity = 1;
+    showCard(pool[curIndex]);
+    updateProgress();
+    cardContainer.classList.remove('flipped');
+    // ensure card click flips in Learn mode only
+    // remove old handlers by replacing the node
+    cardContainer.replaceWith(cardContainer.cloneNode(true));
+    // requery refs
+    const newCardContainer = document.getElementById('cardContainer');
+    window.cardContainer = newCardContainer;
+    // requery child refs because we replaced DOM nodes
+    cardInner = document.getElementById('cardInner');
+    faceFront = document.getElementById('faceFront');
+    faceBack = document.getElementById('faceBack');
+    frontWord = document.getElementById('frontWord');
+    frontHint = document.getElementById('frontHint');
+    backWord = document.getElementById('backWord');
+    backMeaning = document.getElementById('backMeaning');
+    // attach click to flip only in learn mode
+    newCardContainer.addEventListener('click', ()=>{
+      if(mode === 'learn') toggleFlip();
+    });
+  },150);
+}
+
+
+/* show card content (front = EN only; back = meaning) */
+function showCard(wordObj){
+  frontWord.textContent = wordObj.en || '—';
+  frontHint.textContent = '(Nhấn Flip để xem nghĩa)';
+  backWord.textContent = wordObj.en || '—';
+  backMeaning.textContent = wordObj.vi || '—';
+  posInfo.textContent = (curIndex+1) + ' / ' + pool.length;
+}
+
+/* flip handlers */
+flipBtn.addEventListener('click', ()=> toggleFlip());
+
+function toggleFlip(){
+  const cc = document.getElementById('cardContainer');
+  if(cc) cc.classList.toggle('flipped');
+}
+
+/* navigation prev/next for learn */
+prevBtn.addEventListener('click', ()=>{
+  if(curIndex > 0){
+    curIndex--;
+    showCard(pool[curIndex]);
+    cardContainer.classList.remove('flipped');
+    updateProgress();
+  }
+});
+nextBtn.addEventListener('click', ()=>{
+  if(mode === 'learn'){
+    // nếu đang ở cuối danh sách (card cuối)
+    if(curIndex >= pool.length - 1){
+      console.log("✅ Đã học xong 19 từ, chuyển sang Test Mode...");
+      // thêm hiệu ứng mượt trước khi chuyển
+      gameArea.style.opacity = 0;
+      setTimeout(()=>{
+        transitionToTest();
+        gameArea.style.opacity = 1;
+      }, 500);
+      return;
+    }
+
+    // nếu chưa hết thì tiếp tục
+    curIndex++;
+    showCard(pool[curIndex]);
+    cardContainer.classList.remove('flipped');
+    updateProgress();
+  }
+});
+
+
+/* progress UI */
+function updateProgress(){
+  const pct = Math.round(((curIndex)/pool.length)*100);
+  progressBar.style.width = pct + '%';
+  posInfo.textContent = (curIndex+1) + ' / ' + pool.length;
+  curScoreEl.textContent = sessionScore;
+}
+
+/* transition animation -> Test */
+function transitionToTest(){
+  // fade out the card area then start test
+  const wrapper = document.querySelector('#gameArea');
+  wrapper.style.opacity = 0;
+  wrapper.style.transform = 'translateY(12px)';
+  setTimeout(()=>{
+    // prepare testOrder and reset state
+    mode = 'test';
+    // testOrder: we will use same pool but treat first 14 as TF, last 5 as fill-in (randomize)
+    pool = shuffle(pool);
+    // ensure at least 19 length; if less, adjust counts
+    const needed = pool.length;
+    const tfCount = Math.min(14, Math.max(0, needed - 5)); // give priority to fill-in 5 if possible
+    const fillCount = Math.min(5, needed - tfCount);
+    // we'll keep order: first tfCount TF, then fillCount fill
+    testOrder = [];
+    for(let i=0;i<tfCount;i++) testOrder.push({ type:'tf', idx:i });
+    for(let j=0;j<fillCount;j++) testOrder.push({ type:'fill', idx:tfCount + j });
+    // reset test pointers
+    curIndex = 0; answeredCount = 0;
+   // bring back UI
+wrapper.style.opacity = 1;
+wrapper.style.transform = 'translateY(0)';
+
+// ✅ hiển thị chế độ test ở header (thay cho headerFlash)
+const brand = document.querySelector('.brand');
+if (brand) {
+  brand.innerHTML = 'Học<span style="background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Vui</span> <small style="font-weight:400;color:var(--muted)">| Test Mode</small>';
+}
+console.log("➡ Bắt đầu Test mode...");
+
+// show first test card front (locked)
+showTestCard(curIndex);
+updateProgressTest();
+
+  }, 320);
+}
+
+/* show a test card (front masked, reveal on flip -> triggers answer overlay) */
+function showTestCard(testPos){
+  const t = testOrder[testPos];
+  if(!t){ endTest(); return; }
+  const w = pool[t.idx];
+
+  // hiển thị mặt trước
+  frontWord.textContent = w.en || '—';
+  frontHint.textContent = '🔒 (Nhấn Flip để reveal)';
+  backWord.textContent = w.en || '—';
+  backMeaning.textContent = '🔓 (Flip để xem nghĩa)';
+  cardContainer.classList.remove('flipped');
+
+  // Gỡ tất cả listener cũ (tránh lặp)
+  // replace flip button to remove previous listeners, then re-bind
+  flipBtn.replaceWith(flipBtn.cloneNode(true));
+  flipBtn = document.querySelector('#flipBtn');
+  const newFlipBtn = flipBtn;
+  // update reference
+  window.flipBtn = newFlipBtn; // also update global var
+
+  // Khi bấm Flip thì chỉ xử lý 1 lần cho từng card
+  const flipHandler = ()=>{
+    // prevent double clicks quickly
+    newFlipBtn.disabled = true;
+    cardContainer.classList.toggle('flipped');
+    backMeaning.textContent = w.vi || '—';
+
+    // hiện modal tương ứng 1 lần duy nhất
+    if(t.type === 'tf'){
+      showTFModal(w, (res)=>{ handleAnswer(res); newFlipBtn.disabled = false; });
+    } else {
+      showFillModal(w, (res)=>{ handleAnswer(res); newFlipBtn.disabled = false; });
+    }
+  };
+  newFlipBtn.addEventListener('click', flipHandler);
+
+  function handleAnswer(correct){
+    sessionScore += (correct ? 10 : -5);
+    curScoreEl.textContent = sessionScore;
+    answeredCount++;
+    curIndex++;
+    if(curIndex >= testOrder.length) return endTest();
+    setTimeout(()=> showTestCard(curIndex), 300);
+    updateProgressTest();
+  }
+}
+setTimeout(()=> showTestCard(curIndex), 700);
+
+/* TF modal */
+
+function showTFModal(wordObj, cb){
+  // remove any existing modal overlays to prevent duplicates
+  document.querySelectorAll('.modal-overlay').forEach(el=>el.remove());
+  // 50% chance to show a fake meaning (from another random word in pool)
+  const isFake = Math.random() < 0.5;
+  let shownMeaning = wordObj.vi;
+  let correctAnswer = true;
+  if(isFake && pool.length > 1){
+    const others = pool.filter(w => w.en !== wordObj.en);
+    const fake = others[Math.floor(Math.random()*others.length)];
+    if(fake) { shownMeaning = fake.vi; correctAnswer = false; }
+  }
+
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay';
+  modal.innerHTML = `
+    <div class="modal-card">
+      <div style="text-align:center">
+        <div class="small">Từ:</div>
+        <strong style="font-size:18px">${wordObj.en}</strong>
+        <div style="margin-top:8px">→ "${shownMeaning}"</div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:12px">
+        <button id="mTrue" class="btn">Đúng</button>
+        <button id="mFalse" class="btn secondary">Sai</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  // protect against double clicks: once answer chosen, remove listeners
+  const btnTrue = modal.querySelector('#mTrue');
+  const btnFalse = modal.querySelector('#mFalse');
+
+  function cleanup(answer){
+    try{ modal.remove(); }catch(e){}
+    // re-enable flip button if disabled
+    const fb = document.querySelector('#flipBtn');
+    if(fb) fb.disabled = false;
+    cb(answer);
+  }
+
+  btnTrue.addEventListener('click', ()=>{ cleanup(correctAnswer === true); });
+  btnFalse.addEventListener('click', ()=>{ cleanup(correctAnswer === false); });
+}
+
+function showFillModal(wordObj, cb){
+  // remove existing modals
+  document.querySelectorAll('.modal-overlay').forEach(el=>el.remove());
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay';
+  modal.innerHTML = `<div class="modal-card">
+    <div style="text-align:center"><div class="small">Điền từ tiếng Anh cho:</div><div style="margin-top:8px"><strong>${wordObj.vi}</strong></div></div>
+    <input id="fillInp" placeholder="Type English..." style="margin-top:12px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);width:100%" />
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px">
+      <button id="fillOk" class="btn">Gửi</button>
+      <button id="fillCancel" class="btn secondary">Không</button>
+    </div>
+  </div>`;
+  document.body.appendChild(modal);
+
+  const ok = modal.querySelector('#fillOk');
+  const cancel = modal.querySelector('#fillCancel');
+
+  function cleanup(result){
+    try{ modal.remove(); }catch(e){}
+    const fb = document.querySelector('#flipBtn');
+    if(fb) fb.disabled = false;
+    cb(result);
+  }
+
+  ok.addEventListener('click', ()=>{
+    const val = modal.querySelector('#fillInp').value.trim().toLowerCase();
+    const correct = val === (wordObj.en||'').toLowerCase();
+    cleanup(correct);
+  });
+  cancel.addEventListener('click', ()=> cleanup(false));
+}
+/* Fill modal */
+function showFillModal(wordObj, cb){
+  // remove existing modals
+  document.querySelectorAll('.modal-overlay').forEach(el=>el.remove());
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay';
+  modal.innerHTML = `<div class="modal-card">
+    <div style="text-align:center"><div class="small">Điền từ tiếng Anh cho:</div><div style="margin-top:8px"><strong>${wordObj.vi}</strong></div></div>
+    <input id="fillInp" placeholder="Type English..." style="margin-top:12px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);width:100%" />
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px">
+      <button id="fillOk" class="btn">Gửi</button>
+      <button id="fillCancel" class="btn secondary">Không</button>
+    </div>
+  </div>`;
+  document.body.appendChild(modal);
+  modal.querySelector('#fillOk').addEventListener('click', ()=>{
+    const val = modal.querySelector('#fillInp').value.trim().toLowerCase();
+    const ok = val === (wordObj.en||'').toLowerCase();
+    modal.remove(); cb(ok);
+  });
+  modal.querySelector('#fillCancel').addEventListener('click', ()=>{
+    modal.remove(); cb(false);
+  });
+}
+
+/* update progress for test mode (curIndex/testOrder.length) */
+function updateProgressTest(){
+  const total = testOrder.length;
+  const pos = Math.min(curIndex+1, total);
+  posInfo.textContent = pos + ' / ' + total;
+  const pct = Math.round((pos/total)*100);
+  progressBar.style.width = pct + '%';
+  curScoreEl.textContent = sessionScore;
+}
+
+/* end test */
+function endTest(){
+  // show summary slide up
+  showSummary(sessionScore);
+  // save to Firestore & local
+  saveResult(sessionScore);
+}
+
+/* summary utilities */
+function scoreTitle(x){
+  if(x <= 40) return "Hãy cố gắng hết sức nhé !!";
+  if(x <= 100) return "Continue your Streak !!!";
+  if(x <= 190) return "Phá vỡ mọi giới hạn.";
+  return "Legend!";
+}
+function showSummary(score){
+  summaryScoreEl.textContent = score;
+  summaryTitle.textContent = scoreTitle(score);
+  summaryOverlay.classList.add('show');
+  summaryOverlay.setAttribute('aria-hidden','false');
+}
+
+/* summary buttons */
+btnReplay.addEventListener('click', ()=>{
+  summaryOverlay.classList.remove('show');
+  // replay: go back to startCard for choosing (or replay same level?) We'll replay same level
+  startLearn(levelSelect.value);
+});
+btnView.addEventListener('click', async ()=>{
+  // show recent history small modal
+  summaryOverlay.classList.remove('show');
+  await showHistoryModal();
+});
+btnExit.addEventListener('click', ()=>{
+  // go back to playground
+  window.location.href = "../MainPlayground-console.html";
+});
+
+/* persist result */
+async function saveResult(score){
+  if(!currentUser) return;
+  try{
+    const userRef = db.collection('users').doc(currentUser.uid);
+    const gameDoc = userRef.collection('games').doc('flash-card');
+    const inc = firebase.firestore.FieldValue.increment;
+    await gameDoc.set({
+      lastScore: score,
+      totalPlays: inc(1),
+      totalPoints: inc(score),
+      lastPlayed: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+    await userRef.collection('gameHistory').add({
+      gameId:'flash-card', score, playedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  }catch(e){
+    console.error('save error', e);
+  }
+  // local
+  const keyBest = 'flash_best_' + currentUser.uid;
+  const keyPlays = 'flash_plays_' + currentUser.uid;
+  const prevBest = parseInt(localStorage.getItem(keyBest) || '0',10);
+  const plays = parseInt(localStorage.getItem(keyPlays) || '0',10) + 1;
+  localStorage.setItem(keyPlays, plays);
+  localStorage.setItem(keyBest, Math.max(prevBest, score));
+}
+
+/* show recent history modal */
+async function showHistoryModal(){
+  if(!currentUser) return alert('No user');
+  try{
+    const q = await db.collection('users').doc(currentUser.uid).collection('gameHistory').where('gameId','==','flash-card').orderBy('playedAt','desc').limit(10).get();
+    let html = '<div style="max-height:60vh;overflow:auto">';
+    if(q.empty) html += '<div class="small">Không có lịch sử.</div>';
+    else {
+      q.docs.forEach(d=>{
+        const dt = d.data();
+        const t = dt.playedAt ? dt.playedAt.toDate().toLocaleString() : '';
+        html += `<div style="padding:8px;border-bottom:1px dashed rgba(255,255,255,0.03)"><strong>Score: ${dt.score||0}</strong><div class="small" style="margin-top:6px">${t}</div></div>`;
+      });
+    }
+    html += '</div>';
+    const modal = document.createElement('div'); modal.className='modal-overlay';
+    modal.innerHTML = `<div class="modal-card"><h3>Flash Card - Recent</h3>${html}<div style="display:flex;justify-content:flex-end;margin-top:12px"><button id="closeHist" class="btn">Close</button></div></div>`;
+    document.body.appendChild(modal);
+    modal.querySelector('#closeHist').addEventListener('click', ()=> modal.remove());
+  }
+  catch(e){ console.error(e); 
+    alert('Lỗi tải lịch sử'); }
+}
+
+/* init UI defaults */
+(function init(){
+  gameArea.style.display = 'none';
+  posInfo.textContent = '0 / 19';
+  curScoreEl.textContent = '0';
+  progressBar.style.width = '0%';
+})();
+
+</script>
+</body>
+</html>
