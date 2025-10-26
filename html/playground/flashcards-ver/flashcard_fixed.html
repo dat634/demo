@@ -179,22 +179,22 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 /* DOM refs */
-let startCard = document.getElementById('startCard');
-let playBtn = document.getElementById('playBtn');
-let levelSelect = document.getElementById('levelSelect');
-let vocabCount = document.getElementById('vocabCount');
+const startCard = document.getElementById('startCard');
+const playBtn = document.getElementById('playBtn');
+const levelSelect = document.getElementById('levelSelect');
+const vocabCount = document.getElementById('vocabCount');
 
-let gameArea = document.getElementById('gameArea');
-let cardContainer = document.getElementById('cardContainer');
-let cardInner = document.getElementById('cardInner');
-let faceFront = document.getElementById('faceFront');
-let faceBack = document.getElementById('faceBack');
-let frontWord = document.getElementById('frontWord');
-let frontHint = document.getElementById('frontHint');
-let backWord = document.getElementById('backWord');
-let backMeaning = document.getElementById('backMeaning');
+const gameArea = document.getElementById('gameArea');
+const cardContainer = document.getElementById('cardContainer');
+const cardInner = document.getElementById('cardInner');
+const faceFront = document.getElementById('faceFront');
+const faceBack = document.getElementById('faceBack');
+const frontWord = document.getElementById('frontWord');
+const frontHint = document.getElementById('frontHint');
+const backWord = document.getElementById('backWord');
+const backMeaning = document.getElementById('backMeaning');
 
-let flipBtn = document.getElementById('flipBtn');
+const flipBtn = document.getElementById('flipBtn');
 const nextBtn = document.getElementById('nextBtn');
 const prevBtn = document.getElementById('prevBtn');
 
@@ -309,15 +309,6 @@ function startLearn(level){
     // requery refs
     const newCardContainer = document.getElementById('cardContainer');
     window.cardContainer = newCardContainer;
-    // requery child refs because we replaced DOM nodes
-    cardInner = document.getElementById('cardInner');
-    faceFront = document.getElementById('faceFront');
-    faceBack = document.getElementById('faceBack');
-    frontWord = document.getElementById('frontWord');
-    frontHint = document.getElementById('frontHint');
-    backWord = document.getElementById('backWord');
-    backMeaning = document.getElementById('backMeaning');
-    // attach click to flip only in learn mode
     newCardContainer.addEventListener('click', ()=>{
       if(mode === 'learn') toggleFlip();
     });
@@ -351,27 +342,50 @@ prevBtn.addEventListener('click', ()=>{
     updateProgress();
   }
 });
-nextBtn.addEventListener('click', ()=>{
-  if(mode === 'learn'){
-    // nếu đang ở cuối danh sách (card cuối)
-    if(curIndex >= pool.length - 1){
-      console.log("✅ Đã học xong 19 từ, chuyển sang Test Mode...");
-      // thêm hiệu ứng mượt trước khi chuyển
-      gameArea.style.opacity = 0;
-      setTimeout(()=>{
-        transitionToTest();
-        gameArea.style.opacity = 1;
-      }, 500);
-      return;
-    }
+// === SỰ KIỆN NEXT ===
+nextBtn.addEventListener('click', () => {
+  if (isFlipping) return; // tránh spam khi đang lật card
 
-    // nếu chưa hết thì tiếp tục
-    curIndex++;
-    showCard(pool[curIndex]);
-    cardContainer.classList.remove('flipped');
-    updateProgress();
+  if (!vocabList || vocabList.length === 0) {
+    console.warn("⚠️ vocabList trống hoặc chưa load xong.");
+    return;
+  }
+
+  currentIndex++;
+
+  if (currentIndex < vocabList.length) {
+    fadeSlide(() => updateCard());
+  } else {
+    console.log("🎯 Học xong, chuyển sang phần Test...");
+    fadeSlide(startTestMode);
   }
 });
+
+// === HÀM CHUYỂN CẢNH ===
+function fadeSlide(callback) {
+  flashcard.classList.add('fade-out');
+  setTimeout(() => {
+    callback();
+    flashcard.classList.remove('fade-out');
+    flashcard.classList.add('fade-in');
+    setTimeout(() => flashcard.classList.remove('fade-in'), 300);
+  }, 300);
+}
+function updateCard() {
+  if (!vocabList || vocabList.length === 0) {
+    console.error("❌ vocabList chưa sẵn sàng!");
+    return;
+  }
+
+  const word = vocabList[currentIndex];
+  if (!word) {
+    console.error("❌ Không tìm thấy từ ở index", currentIndex);
+    return;
+  }
+
+  flashcardFront.textContent = word.en || "(Không có từ)";
+  flashcardBack.textContent = word.vi || "(Không có nghĩa)";
+}
 
 
 /* progress UI */
@@ -437,8 +451,7 @@ function showTestCard(testPos){
   // Gỡ tất cả listener cũ (tránh lặp)
   // replace flip button to remove previous listeners, then re-bind
   flipBtn.replaceWith(flipBtn.cloneNode(true));
-  flipBtn = document.querySelector('#flipBtn');
-  const newFlipBtn = flipBtn;
+  const newFlipBtn = document.querySelector('#flipBtn');
   // update reference
   window.flipBtn = newFlipBtn; // also update global var
 

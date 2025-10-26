@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Main Lobby - HọcVui</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#ff6b35;
+  --accent:#ffd6a5;
+  --bg:#0f1724;
+  --text:#e6eef8;
+  --muted:#9aa7bf;
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:linear-gradient(180deg,#08111c,#0f1724);color:var(--text);scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.Wtitle{text-align:center;justify-content: space-around ;padding:40px 0 0 0;width:100%;height:13%}
+.header{position:fixed;top:0;left:0;right:0;height:68px;display:flex;align-items:center;justify-content:space-between;padding:10px 24px;background:rgba(10,15,30,0.7);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.05);z-index:50;}
+.h2-bg{display:inline-block;background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.brand{font-size:22px;font-weight:800;color:var(--primary)}
+.nav-links{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.nav-links a{font-weight:600;color:var(--text);padding:6px 10px;border-radius:6px;transition:.2s}
+.nav-links a:hover{background:rgba(255,255,255,0.05)}
+.avatar{width:44px;height:44px;border-radius:50%;border:2px solid var(--primary);object-fit:cover}
+
+.hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 20px; background: linear-gradient(-180deg,rgba(10,15,30,0.7),rgba(10,15,30,0.5)) transparent;}
+.hero h1{font-size:46px;font-weight:800;background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:18px;color:var(--muted);max-width:720px;margin:12px auto 24px}
+.btn{padding:12px 20px;border:none;border-radius:12px;font-weight:700;cursor:pointer}
+.btn.primary{background:linear-gradient(90deg,var(--primary),var(--accent));color:#07101a}
+.btn.ghost{border:1px solid rgba(255,255,255,0.1);background:transparent;color:var(--text)}
+.btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:20px}
+
+.section{padding:0px 20px 40px 20px;max-width:1200px;margin:auto;text-align:center}
+.section h2{font-size:32px;margin-bottom:16px;font-weight:800}
+.section p{color:var(--muted);max-width:680px;margin:0 auto 40px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.card{background:rgba(255,255,255,0.03);border-radius:16px;padding:24px;border:1px solid rgba(255,255,255,0.05);transition:.3s;box-shadow:0 6px 20px rgba(2,6,23,0.5)}
+.card:hover{transform:translateY(-5px)}
+.card h3{margin:10px 0;color:var(--accent)}
+.card p{font-size:14px;color:var(--muted)}
+
+.info-zone{background:rgba(255,255,255,0.02);padding:60px 20px;border-top:1px solid rgba(255,255,255,0.05);text-align:center}
+.info-zone h3{font-size:28px;margin-bottom:16px}
+.info-zone p{max-width:760px;margin:auto;color:var(--muted)}
+
+.footer{text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;border-top:1px solid rgba(255,255,255,0.05)}
+.fadeIn{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease}
+.fadeIn.visible{opacity:1;transform:translateY(0)}
+p{margin-top: 10px;}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">Học<span style="-webkit-background-clip:text;-webkit-text-fill-color:transparent;background:linear-gradient(90deg,var(--primary),var(--accent))">Vui</span></div>
+  <nav class="nav-links">
+    <a href="#">Trang chủ</a>
+    <a href="../study/main-study.html">Học</a>
+    <a href="../games/flashcard.html">Flashcard</a>
+    <a href="../games/quiz.html">Quiz</a>
+    <a href="../games/listening.html">Listening</a>
+    <a href="../navbar-console/navbar-setting/setting_v2.html">Cài đặt</a>
+    <a href="../info/about.html">Giới thiệu</a>
+    <a href="../loginNRegister/login.html" style="color:var(--accent)">Đăng xuất</a>
+  </nav>
+  <img class="avatar" src="https://i.imgur.com/ZCk5pQp.png" alt="user">
+</header>
+
+<section class="hero">
+  <h1>Học là niềm vui — học theo cách của bạn</h1>
+  <p>Khám phá thế giới tri thức qua trò chơi, thẻ nhớ, và những thử thách đầy cảm hứng.<br>Không còn áp lực — chỉ còn lại niềm vui khi học.</p>
+  <div class="btns">
+    <button onclick="goStudy()" class="btn primary">🚀 Bắt đầu học</button>
+    <button onclick="goFlash()" class="btn ghost">🧠 Flashcard</button>
+    <button onclick="goQuiz()" class="btn ghost">🎯 Quiz</button>
+  </div>
+</section>
+<div class="Wtitle"><h2 class="h2-bg">Tại sao chọn HọcVui?</h2></div>
+<section class="section fadeIn">
+  <p>Chúng tôi tin rằng mỗi học sinh đều xứng đáng được học theo cách của riêng mình — thông minh hơn, vui hơn, và hiệu quả hơn.</p>
+  <div class="cards">
+    <div class="card">
+      <h3>🎮 Học như chơi</h3>
+      <p>Các mini game giúp ghi nhớ nhanh và rèn luyện phản xạ tiếng Anh tự nhiên.</p>
+    </div>
+    <div class="card">
+      <h3>📊 "Quản lí" tiến độ</h3>
+      <p>Mọi điểm số, cấp độ và streak của học sinh được bảo mật và quản lí bởi giáo viên của trường họ đang học.</p>
+    </div>
+    <div class="card">
+      <h3>🌤️ Giao diện thân thiện</h3>
+      <p>Thiết kế tối giản, thân thiện với học sinh phù hợp với mọi môi trường học tập.</p>
+    </div>
+    <div class="card">
+      <h3>🥇 Best Support App</h3>
+      <p>Hỗ trợ các trò chơi trên lớp, hỗ trợ giáo viên trong quá trình dạy học trên lớp.</p>
+    </div>
+  </div>
+</section>
+
+<section class="info-zone fadeIn">
+  <h3>Về HọcVui</h3>
+  <p>HọcVui là dự án học tập tương tác dành cho học sinh Việt Nam, giúp bạn tiếp cận tiếng Anh và các môn học khác qua góc nhìn thú vị.  
+  Mục tiêu của chúng tôi: biến việc học thành một hành trình khám phá, không phải nhiệm vụ nhàm chán.</p>
+  <div class="btns" style="margin-top:24px">
+    <button onclick="goAbout()" class="btn primary">📘 Xem thêm</button>
+    <button onclick="goSetting()" class="btn ghost">⚙️ Cài đặt cá nhân</button>
+  </div>
+</section>
+
+<footer class="footer">
+  <div>"Học không chỉ là điểm số, mà là hành trình tự tin hơn mỗi ngày." 🌱</div>
+  <div style="margin-top:6px">© 2025 HọcVui Team</div>
+</footer>
+
+<script>
+function goStudy(){location.href='../study/main-study.html';}
+function goFlash(){location.href='../games/flashcard.html';}
+function goQuiz(){location.href='../games/quiz.html';}
+function goSetting(){location.href='../navbar-console/navbar-setting/setting_v2.html';}
+function goAbout(){location.href='../info/about.html';}
+
+function revealOnScroll(){
+  const els=document.querySelectorAll('.fadeIn');
+  els.forEach(el=>{
+    const rect=el.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 80) el.classList.add('visible');
+  });
+}
+document.addEventListener('scroll',revealOnScroll);
+window.addEventListener('load',revealOnScroll);
+</script>
+
+</body>
+</html>

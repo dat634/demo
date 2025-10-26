@@ -179,22 +179,22 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 /* DOM refs */
-const startCard = document.getElementById('startCard');
-const playBtn = document.getElementById('playBtn');
-const levelSelect = document.getElementById('levelSelect');
-const vocabCount = document.getElementById('vocabCount');
+let startCard = document.getElementById('startCard');
+let playBtn = document.getElementById('playBtn');
+let levelSelect = document.getElementById('levelSelect');
+let vocabCount = document.getElementById('vocabCount');
 
-const gameArea = document.getElementById('gameArea');
-const cardContainer = document.getElementById('cardContainer');
-const cardInner = document.getElementById('cardInner');
-const faceFront = document.getElementById('faceFront');
-const faceBack = document.getElementById('faceBack');
-const frontWord = document.getElementById('frontWord');
-const frontHint = document.getElementById('frontHint');
-const backWord = document.getElementById('backWord');
-const backMeaning = document.getElementById('backMeaning');
+let gameArea = document.getElementById('gameArea');
+let cardContainer = document.getElementById('cardContainer');
+let cardInner = document.getElementById('cardInner');
+let faceFront = document.getElementById('faceFront');
+let faceBack = document.getElementById('faceBack');
+let frontWord = document.getElementById('frontWord');
+let frontHint = document.getElementById('frontHint');
+let backWord = document.getElementById('backWord');
+let backMeaning = document.getElementById('backMeaning');
 
-const flipBtn = document.getElementById('flipBtn');
+let flipBtn = document.getElementById('flipBtn');
 const nextBtn = document.getElementById('nextBtn');
 const prevBtn = document.getElementById('prevBtn');
 
@@ -309,6 +309,15 @@ function startLearn(level){
     // requery refs
     const newCardContainer = document.getElementById('cardContainer');
     window.cardContainer = newCardContainer;
+    // requery child refs because we replaced DOM nodes
+    cardInner = document.getElementById('cardInner');
+    faceFront = document.getElementById('faceFront');
+    faceBack = document.getElementById('faceBack');
+    frontWord = document.getElementById('frontWord');
+    frontHint = document.getElementById('frontHint');
+    backWord = document.getElementById('backWord');
+    backMeaning = document.getElementById('backMeaning');
+    // attach click to flip only in learn mode
     newCardContainer.addEventListener('click', ()=>{
       if(mode === 'learn') toggleFlip();
     });
@@ -428,7 +437,8 @@ function showTestCard(testPos){
   // Gỡ tất cả listener cũ (tránh lặp)
   // replace flip button to remove previous listeners, then re-bind
   flipBtn.replaceWith(flipBtn.cloneNode(true));
-  const newFlipBtn = document.querySelector('#flipBtn');
+  flipBtn = document.querySelector('#flipBtn');
+  const newFlipBtn = flipBtn;
   // update reference
   window.flipBtn = newFlipBtn; // also update global var
 
@@ -458,7 +468,7 @@ function showTestCard(testPos){
     updateProgressTest();
   }
 }
-setTimeout(()=> showTestCard(curIndex), 700);
+//setTimeout(()=> showTestCard(curIndex), 700);
 
 /* TF modal */
 
@@ -672,7 +682,66 @@ async function showHistoryModal(){
   curScoreEl.textContent = '0';
   progressBar.style.width = '0%';
 })();
+/* attach listeners for study safely (prevent duplicate) */
+function attachStudyListeners(){
+  // Clear old listeners by replacing card and flip button nodes,
+  // but use event-delegation for Next (robust even if button is replaced).
+  replaceNodeWithClone(cardContainer);
+  replaceNodeWithClone(flipBtn);
+
+  // Re-query the current nodes
+  const newFlip = document.getElementById('flipBtn');
+  const newCard = document.getElementById('cardContainer');
+
+  // Ensure Next exists and not shadowed by old node (use delegation instead)
+  const oldNext = document.getElementById('nextBtn');
+  if(oldNext) replaceNodeWithClone(oldNext);
+
+  document.removeEventListener('click', __nextDelegateHandler__);
+  window.__nextDelegateHandler__ = function(e){
+    const target = e.target;
+    if(target && (target.id === 'nextBtn' || target.closest && target.closest('#nextBtn'))){
+      e.preventDefault();
+      e.stopPropagation();
+      studyIndex++;
+      if(studyIndex >= studyPool.length){
+        transitionToTest();
+        return;
+      }
+      showStudyCard(studyIndex);
+    }
+  };
+  document.addEventListener('click', window.__nextDelegateHandler__);
+
+  if(newFlip){
+    newFlip.addEventListener('click', (ev)=> {
+      ev.stopPropagation();
+      newCard.classList.toggle('flipped');
+    });
+  }
+
+  newCard.addEventListener('click', (e)=>{
+    const path = e.composedPath ? e.composedPath() : (e.path || []);
+    for(const node of path){
+      if(!node || !node.tagName) continue;
+      if(node.tagName.toLowerCase() === 'button' || node.id === 'nextBtn' || node.id === 'flipBtn'){
+        return;
+      }
+    }
+    newCard.classList.toggle('flipped');
+  });
+
+  const directNext = document.getElementById('nextBtn');
+  if(directNext){
+    directNext.addEventListener('click', (ev)=>{
+      ev.stopPropagation();
+    });
+  }
+}
+
 
 </script>
 </body>
 </html>
+
+

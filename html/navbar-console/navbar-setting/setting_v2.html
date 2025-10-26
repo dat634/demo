@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Setting v2 - HọcVui</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#ff6b35;
+  --accent:#ffd6a5;
+  --bg-dark:#0f1724;
+  --card: rgba(255,255,255,0.03);
+  --muted:#9aa7bf;
+  --text:#e6eef8;
+  --success:#10b981;
+  --error:#ef4444;
+  --warn:#f59e0b;
+  --sync:#fb923c;
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,#07101a,#0b1220);color:var(--text);-webkit-font-smoothing:antialiased}
+.header{position:fixed;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(2,6,23,0.6);backdrop-filter:blur(6px);z-index:60;border-bottom:1px solid rgba(255,255,255,0.03)}
+.brand{font-weight:800;color:var(--primary);font-size:20px; cursor: pointer;}
+.container{display:flex;margin-top:84px;gap:20px;padding:20px;max-width:1200px;margin-left:auto;margin-right:auto}
+aside{width:260px;background:rgba(255,255,255,0.02);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;gap:12px;height:calc(100vh - 140px)}
+.user-mini{display:flex;flex-direction:column;align-items:center;gap:8px}
+.avatar-small{width:64px;height:64px;border-radius:50%;border:3px solid var(--primary);object-fit:cover}
+.email{font-size:13px;color:var(--muted);text-align:center}
+nav{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.tab-btn{background:none;border:none;color:var(--text);text-align:left;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:600;display:flex;align-items:center;gap:10px}
+.tab-btn.active{background:linear-gradient(90deg, rgba(255,107,53,0.12), rgba(255,184,107,0.03));border-left:3px solid var(--primary)}
+.footer-actions{margin-top:auto;display:flex;flex-direction:column;gap:8px}
+.main{flex:1;display:flex;flex-direction:column;gap:18px;min-height:600px}
+.card{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(2,6,23,0.6)}
+.grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+.left{display:flex;flex-direction:column;gap:12px}
+.right{display:flex;flex-direction:column;gap:12px}
+.label{font-size:13px;color:var(--muted);margin-bottom:6px}
+.input,select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text);outline:none}
+.avatar-preview{width:120px;height:120px;border-radius:50%;border:3px solid var(--primary);object-fit:cover}
+.btn{background:linear-gradient(90deg,var(--primary),var(--accent));border:none;padding:10px 12px;border-radius:10px;color:#07101a;font-weight:800;cursor:pointer}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+.small{font-size:13px;color:var(--muted)}
+.badges{display:flex;flex-wrap:wrap;gap:12px}
+.badge{width:160px;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;align-items:center;gap:8px}
+.badge img{width:64px;height:64px}
+
+/* Toast */
+.toast-wrap{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:8px;z-index:200}
+.toast{min-width:220px;padding:12px 14px;border-radius:10px;color:#07101a;font-weight:700;display:flex;gap:10px;align-items:center;box-shadow:0 8px 30px rgba(2,6,23,0.6);transform:translateX(120%);opacity:0}
+.toast.show{transform:translateX(0);opacity:1;transition:transform .34s cubic-bezier(.2,.9,.3,1),opacity .34s}
+.toast.success{background:linear-gradient(90deg,var(--success),#6ee7b7)}
+.toast.error{background:linear-gradient(90deg,var(--error),#fda4af)}
+.toast.warn{background:linear-gradient(90deg,var(--warn),#ffd580)}
+.toast.sync{background:linear-gradient(90deg,var(--sync),#fdba74)}
+.toast small{font-weight:600;color:rgba(7,16,36,0.9)}
+
+/* tab content animation */
+.tab-content{display:none;animation:fadeIn .36s ease both}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* responsive */
+@media(max-width:1000px){ .container{flex-direction:column;padding:12px} aside{width:100%;height:auto} .grid{grid-template-columns:1fr} .right{width:100%} .avatar-preview{width:88px;height:88px} }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="brand"><a src="../../study-place/main-study.html">Học<span style="background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Vui</span></a></div>
+    <div class="small" id="topStatus">Loading...</div>
+  </div>
+
+  <div class="container">
+    <aside>
+      <div class="user-mini">
+        <img id="miniAvatar" class="avatar-small" src="https://i.imgur.com/ZCk5pQp.png" alt="avatar">
+        <div class="email" id="miniEmail">—</div>
+      </div>
+
+      <nav>
+        <button class="tab-btn active" data-tab="profileTab">👤 Hồ sơ</button>
+        <button class="tab-btn" data-tab="themeTab">🎨 Giao diện</button>
+        <button class="tab-btn" data-tab="gameTab">🎮 Trò chơi</button>
+        <button class="tab-btn" data-tab="cloudTab">☁️ Cloud Sync</button>
+        <button class="tab-btn" data-tab="badgeTab">🏆 Thành tích</button>
+        <button class="tab-btn" data-tab="accountTab">⚙️ Tài khoản</button>
+      </nav>
+
+      <div class="footer-actions">
+        <button id="logoutBtn" class="btn ghost">Đăng xuất</button>
+        <button id="deleteAccountBtn" class="btn ghost">Xóa tài khoản</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="grid">
+        <div class="left">
+          <!-- PROFILE -->
+          <div id="profileTab" class="card tab-content active">
+            <h3>Hồ sơ của bạn</h3>
+            <div style="display:flex;gap:18px;align-items:center">
+              <img id="avatarPreview" class="avatar-preview" src="../../../src/ex1.png" alt="avatar">
+              <div style="flex:1">
+                <div class="label">Tải ảnh đại diện (≤ 2MB)</div>
+                <input id="avatarInput" type="file" accept="image/*">
+                <div class="label">Tên hiển thị</div>
+                <input id="displayName" class="input" placeholder="Tên hiển thị">
+                <div class="label">Giới thiệu</div>
+                <textarea id="bio" class="input" placeholder="Mô tả ngắn..."></textarea>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button id="saveProfileBtn" class="btn">Lưu hồ sơ</button>
+                  <button id="clearProfileBtn" class="btn ghost">Reset hồ sơ</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- THEME -->
+          <div id="themeTab" class="card tab-content">
+            <h3>Giao diện</h3>
+            <div class="label">Chế độ</div>
+            <select id="themeMode" class="input">
+              <option value="dark">Dark (mặc định)</option>
+              <option value="light">Light</option>
+            </select>
+            <div class="label">Màu chủ đạo</div>
+            <input id="themeColor" type="color" value="#ff6b35">
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button id="saveThemeBtn" class="btn">Lưu giao diện</button>
+              <button id="resetThemeBtn" class="btn ghost">Reset giao diện</button>
+            </div>
+          </div>
+
+          <!-- GAME -->
+          <div id="gameTab" class="card tab-content">
+            <h3>Cài đặt trò chơi</h3>
+            <div class="label">Mức độ mặc định</div>
+            <select id="defaultLevel" class="input">
+              <option value="A1">A1</option><option value="A2">A2</option><option value="B1">B1</option><option value="B2">B2</option><option value="C1">C1</option><option value="C2">C2</option>
+            </select>
+            <label style="margin-top:8px"><input id="soundToggle" type="checkbox" checked> Bật âm thanh</label>
+            <label><input id="effectToggle" type="checkbox" checked> Hiệu ứng chuyển cảnh</label>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button id="saveGameBtn" class="btn">Lưu cài đặt trò chơi</button>
+              <button id="resetGameBtn" class="btn ghost">Reset trò chơi</button>
+            </div>
+          </div>
+
+          <!-- CLOUD -->
+          <div id="cloudTab" class="card tab-content">
+            <h3>Cloud Sync</h3>
+            <p class="small">Đồng bộ cài đặt giữa thiết bị và tài khoản (Firestore).</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+              <button id="uploadCloudBtn" class="btn">⬆️ Upload lên Cloud</button>
+              <button id="downloadCloudBtn" class="btn ghost">⬇️ Restore từ Cloud</button>
+              <button id="deleteCloudBtn" class="btn ghost">🗑️ Xóa settings trên Cloud</button>
+            </div>
+            <div id="cloudStatus" class="small" style="margin-top:12px;color:var(--muted)">—</div>
+          </div>
+
+          <!-- BADGES -->
+          <div id="badgeTab" class="card tab-content">
+            <h3>Thành tích</h3>
+            <div id="badgesWrap" class="badges"><div class="small">Đang tải huy hiệu...</div></div>
+          </div>
+
+          <!-- ACCOUNT -->
+          <div id="accountTab" class="card tab-content">
+            <h3>Tài khoản</h3>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div class="small">Email</div>
+                <div id="userEmailDisplay" style="font-weight:700">—</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <button id="changePwdBtn" class="btn">Đổi mật khẩu</button>
+                <button id="resetAllBtn" class="btn ghost">Reset tất cả cài đặt</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="right">
+          <div class="card">
+            <div class="small">Thông tin người dùng</div>
+            <div id="infoName" style="font-weight:700">—</div>
+            <div class="small" id="infoBio">—</div>
+            <div style="margin-top:8px" class="small" id="infoEmail">—</div>
+          </div>
+
+          <div class="card">
+            <div class="small">Quick actions</div>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button id="quickSaveCloud" class="btn">Lưu & Upload</button>
+              <button id="quickResetLocal" class="btn ghost">Reset local</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="small">Trợ giúp</div>
+            <div class="small" style="margin-top:8px">Muốn đồng bộ lên cloud trước khi đăng xuất? Nhấn "Lưu & Upload".</div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <!-- tiny base64 pop sound (silent fallback) -->
+  <audio id="popSound" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAIlYAAESsAAACABAAZGF0YQAAAAA="></audio>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<script>
+/* ================= FIREBASE CONFIG ================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyC_8Y5vYXvXc0kvYH0jNOziiR0t1TtStTg",
+  authDomain: "myproject-7ba9f.firebaseapp.com",
+  projectId: "myproject-7ba9f",
+  storageBucket: "myproject-7ba9f.appspot.com",
+  messagingSenderId: "614709937741",
+  appId: "1:614709937741:web:d11e5325162c249cfdfe04",
+  measurementId: "G-LB9VZG4BHB"
+};
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+/* ================= ELEMENTS ================= */
+const tabs = document.querySelectorAll('.tab-btn');
+const contents = document.querySelectorAll('.tab-content');
+const toastWrap = document.getElementById('toastWrap');
+const popSound = document.getElementById('popSound');
+
+const miniAvatar = document.getElementById('miniAvatar');
+const miniEmail = document.getElementById('miniEmail');
+const topStatus = document.getElementById('topStatus');
+
+const avatarInput = document.getElementById('avatarInput');
+const avatarPreview = document.getElementById('avatarPreview');
+const displayNameInput = document.getElementById('displayName');
+const bioInput = document.getElementById('bio');
+const saveProfileBtn = document.getElementById('saveProfileBtn');
+const clearProfileBtn = document.getElementById('clearProfileBtn');
+
+const themeMode = document.getElementById('themeMode');
+const themeColor = document.getElementById('themeColor');
+const saveThemeBtn = document.getElementById('saveThemeBtn');
+const resetThemeBtn = document.getElementById('resetThemeBtn');
+
+const defaultLevel = document.getElementById('defaultLevel');
+const soundToggle = document.getElementById('soundToggle');
+const effectToggle = document.getElementById('effectToggle');
+const saveGameBtn = document.getElementById('saveGameBtn');
+const resetGameBtn = document.getElementById('resetGameBtn');
+
+const uploadCloudBtn = document.getElementById('uploadCloudBtn');
+const downloadCloudBtn = document.getElementById('downloadCloudBtn');
+const deleteCloudBtn = document.getElementById('deleteCloudBtn');
+const cloudStatus = document.getElementById('cloudStatus');
+
+const badgesWrap = document.getElementById('badgesWrap');
+const logoutBtn = document.getElementById('logoutBtn');
+const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+const changePwdBtn = document.getElementById('changePwdBtn');
+const resetAllBtn = document.getElementById('resetAllBtn');
+const quickSaveCloud = document.getElementById('quickSaveCloud');
+const quickResetLocal = document.getElementById('quickResetLocal');
+
+const infoName = document.getElementById('infoName');
+const infoBio = document.getElementById('infoBio');
+const infoEmail = document.getElementById('infoEmail');
+const userEmailDisplay = document.getElementById('userEmailDisplay');
+
+/* ================= CONSTANTS ================= */
+const LS = { PROFILE: 'hv_profile_v2', THEME: 'hv_theme_v2', GAME: 'hv_game_v2' };
+const AVATAR_MAX = 2 * 1024 * 1024; // 2MB
+
+/* ================= TOAST ================= */
+function toast(message, type='success', timeout=3000) {
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.innerHTML = `<small>${message}</small>`;
+  toastWrap.prepend(el);
+  try { popSound.currentTime = 0; popSound.play().catch(()=>{}); } catch(e){}
+  requestAnimationFrame(()=>el.classList.add('show'));
+  setTimeout(()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(),350); }, timeout);
+}
+
+/* ================= TABS ================= */
+tabs.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    tabs.forEach(b=>b.classList.remove('active'));
+    contents.forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ================= AVATAR HANDLER ================= */
+function fileToBase64(file){
+  return new Promise((res,rej)=>{
+    const fr = new FileReader();
+    fr.onload=()=>res(fr.result);
+    fr.onerror=rej;
+    fr.readAsDataURL(file);
+  });
+}
+
+avatarInput.addEventListener('change', async e=>{
+  const f = e.target.files[0];
+  if(!f) return;
+  if(f.size > AVATAR_MAX) return toast('Ảnh quá lớn (>2MB)!', 'error');
+  const b64 = await fileToBase64(f);
+  avatarPreview.src = miniAvatar.src = b64;
+  avatarPreview.dataset.base64 = b64;
+  saveProfileLocal();
+});
+
+/* ================= SAVE/LOAD LOCAL ================= */
+function saveProfileLocal(){
+  const obj = { name: displayNameInput.value, bio: bioInput.value, avatar: avatarPreview.dataset.base64||'' };
+  localStorage.setItem(LS.PROFILE, JSON.stringify(obj));
+  infoName.textContent = obj.name || '—';
+  infoBio.textContent = obj.bio || '—';
+  toast('Đã lưu hồ sơ', 'success');
+}
+
+function loadProfileLocal(){
+  const raw = localStorage.getItem(LS.PROFILE);
+  if(!raw) return;
+  try {
+    const p = JSON.parse(raw);
+    displayNameInput.value = p.name||'';
+    bioInput.value = p.bio||'';
+    if(p.avatar) avatarPreview.src = miniAvatar.src = p.avatar;
+    infoName.textContent = p.name || '—';
+    infoBio.textContent = p.bio || '—';
+  } catch(e){}
+}
+
+function saveThemeLocal(){
+  const obj = { mode: themeMode.value, color: themeColor.value };
+  localStorage.setItem(LS.THEME, JSON.stringify(obj));
+  applyTheme(obj);
+  toast('Đã lưu giao diện', 'success');
+}
+function loadThemeLocal(){
+  const raw = localStorage.getItem(LS.THEME);
+  if(!raw) return;
+  const t = JSON.parse(raw);
+  themeMode.value = t.mode;
+  themeColor.value = t.color;
+  applyTheme(t);
+}
+
+function saveGameLocal(){
+  const obj = { level: defaultLevel.value, sound: soundToggle.checked, effect: effectToggle.checked };
+  localStorage.setItem(LS.GAME, JSON.stringify(obj));
+  toast('Đã lưu cài đặt trò chơi', 'success');
+}
+function loadGameLocal(){
+  const raw = localStorage.getItem(LS.GAME);
+  if(!raw) return;
+  const g = JSON.parse(raw);
+  defaultLevel.value = g.level;
+  soundToggle.checked = g.sound;
+  effectToggle.checked = g.effect;
+}
+
+/* ================= THEME ================= */
+function applyTheme(t){
+  const mode = t.mode || 'dark';
+  const color = t.color || '#ff6b35';
+  document.documentElement.style.setProperty('--primary', color);
+  document.documentElement.style.setProperty('--accent', shadeColor(color,40));
+  document.body.style.background = mode === 'light' ? '#f7f8fb' : 'linear-gradient(180deg,#07101a,#0b1220)';
+  document.body.style.color = mode === 'light' ? '#07101a' : 'var(--text)';
+}
+function shadeColor(hex, percent){
+  const f=parseInt(hex.slice(1),16),t=percent<0?0:255,p=Math.abs(percent)/100;
+  const R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
+  const newR=Math.round((t-R)*p)+R,newG=Math.round((t-G)*p)+G,newB=Math.round((t-B)*p)+B;
+  return "#"+(0x1000000+(newR<<16)+(newG<<8)+newB).toString(16).slice(1);
+}
+
+/* ================= CLOUD SYNC ================= */
+let currentUser = null;
+
+async function uploadToCloud(){
+  if(!currentUser) return toast('Cần đăng nhập','warn');
+  const payload = {
+    profile: JSON.parse(localStorage.getItem(LS.PROFILE)||'{}'),
+    theme: JSON.parse(localStorage.getItem(LS.THEME)||'{}'),
+    game: JSON.parse(localStorage.getItem(LS.GAME)||'{}'),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  };
+  await db.collection('users').doc(currentUser.uid).collection('meta').doc('settings').set(payload);
+  toast('Upload thành công','success');
+}
+
+async function restoreFromCloud(){
+  if(!currentUser) return toast('Cần đăng nhập','warn');
+  const ref = db.collection('users').doc(currentUser.uid).collection('meta').doc('settings');
+  const snap = await ref.get();
+  if(!snap.exists) return toast('Không có dữ liệu','warn');
+  const data = snap.data();
+  if(data.profile) localStorage.setItem(LS.PROFILE, JSON.stringify(data.profile));
+  if(data.theme) localStorage.setItem(LS.THEME, JSON.stringify(data.theme));
+  if(data.game) localStorage.setItem(LS.GAME, JSON.stringify(data.game));
+  loadProfileLocal(); loadThemeLocal(); loadGameLocal();
+  toast('Restore thành công','success');
+}
+
+/* ================= ACCOUNT ================= */
+logoutBtn.addEventListener('click', ()=>{
+  auth.signOut().then(()=>{
+    toast('Đã đăng xuất','success');
+    setTimeout(()=>window.location.href='../../../loginNregister/login.html',800);
+  }).catch(e=>toast(e.message,'error'));
+});
+
+deleteAccountBtn.addEventListener('click', async ()=>{
+  if(!currentUser) return toast('Chưa đăng nhập','warn');
+  if(!confirm('Bạn có chắc muốn xóa tài khoản?')) return;
+  await db.collection('users').doc(currentUser.uid).delete().catch(()=>{});
+  await currentUser.delete().catch(()=>{});
+  toast('Đã xóa tài khoản','success');
+  setTimeout(()=>location.href='../../loginNregister/login.html',800);
+});
+
+changePwdBtn.addEventListener('click', ()=>{
+  if(!currentUser) return toast('Chưa đăng nhập','warn');
+  auth.sendPasswordResetEmail(currentUser.email).then(()=>toast('Đã gửi email đổi mật khẩu','success'));
+});
+
+resetAllBtn.addEventListener('click', ()=>{
+  if(confirm('Reset tất cả cài đặt?')){
+    localStorage.clear();
+    toast('Đã reset toàn bộ','success');
+    setTimeout(()=>location.reload(),700);
+  }
+});
+
+/* ================= QUICK ================= */
+quickSaveCloud.addEventListener('click',()=>{ saveProfileLocal(); saveThemeLocal(); saveGameLocal(); uploadToCloud(); });
+quickResetLocal.addEventListener('click',()=>{ localStorage.clear(); toast('Reset local','success'); setTimeout(()=>location.reload(),700); });
+
+/* ================= AUTH STATE ================= */
+auth.onAuthStateChanged(async u=>{
+  currentUser = u;
+  if(!u){
+    topStatus.textContent = 'Chưa đăng nhập';
+    miniEmail.textContent = '—';
+    loadProfileLocal(); loadThemeLocal(); loadGameLocal();
+  } else {
+    topStatus.textContent = `Xin chào, ${u.displayName || u.email}`;
+    miniEmail.textContent = u.email;
+    userEmailDisplay.textContent = u.email;
+    loadProfileLocal(); loadThemeLocal(); loadGameLocal();
+  }
+});
+
+/* ================= INIT ================= */
+loadProfileLocal(); loadThemeLocal(); loadGameLocal();
+
+/* fix first sound interaction */
+document.addEventListener('click',()=>{try{popSound.play().then(()=>popSound.pause(),()=>{});}catch(e){}},{once:true});
+</script>
+
+</body>
+</html>
