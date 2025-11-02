@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Quiz - HọcVui</title>
+
+<style>
+body{
+  font-family:'Inter',sans-serif;
+  margin:0;padding:0;
+  display:flex;flex-direction:column;align-items:center;
+  min-height:100vh;background:#f4f4f4;
+}
+#container{
+  max-width:900px;width:95%;margin:20px auto;
+  background:white;padding:24px;border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
+  min-height:60vh;display:flex;flex-direction:column;justify-content:space-between;
+}
+#question{font-size:1.3em;font-weight:700;margin-bottom:16px;text-align:center;}
+#options{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:10px;margin-top:3px;
+}
+.option{
+  padding:12px;border:1px solid #ccc;border-radius:8px;
+  cursor:pointer;transition:0.25s;background:white;text-align:left;
+  display:flex;align-items:center;
+}
+.option div:first-child{font-weight:700;margin-right:8px;}
+.option.selected{border-color:#007BFF;background:#e0f0ff;}
+.option.correct{border-color:#28a745;background:#c8f7c5;}
+.option.wrong{border-color:#dc3545;background:#f7c5c5;}
+#controls{display:flex;justify-content:flex-end;gap:10px;margin-bottom:10px;}
+button{padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:600;transition:0.3s;}
+#btnConfirm{background:#007BFF;color:white;}
+#btnSkip{background:#6c757d;color:white;}
+#progress{font-size:0.9em;color:#555;margin-bottom:10px;text-align:center;}
+#toast{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:#333;color:white;padding:12px 20px;border-radius:6px;
+  opacity:0;pointer-events:none;transition:0.3s;z-index:1000;
+}
+#toast.show{opacity:1;}
+@media(max-width:500px){#options{grid-template-columns:1fr;}}
+</style>
+</head>
+
+<body>
+<div id="container">
+  <div id="question">Loading question...</div>
+  <div id="options"></div>
+  <div id="controls">
+    <button id="btnSkip">Bỏ qua</button>
+    <button id="btnConfirm">Xác nhận</button>
+  </div>
+  <div id="progress"></div>
+</div>
+<div id="toast"></div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+// ===== Firebase Config =====
+const firebaseConfig = {
+  apiKey: "AIzaSyC_8Y5vYXvXc0kvYH0jNOziiR0t1TtStTg",
+  authDomain: "myproject-7ba9f.firebaseapp.com",
+  projectId: "myproject-7ba9f",
+  storageBucket: "myproject-7ba9f.firebasestorage.app",
+  messagingSenderId: "614709937741",
+  appId: "1:614709937741:web:d11e5325162c249cfdfe04",
+  measurementId: "G-LB9VZG4BHB"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// ===== Elements =====
+const qEl = document.getElementById("question");
+const optsWrap = document.getElementById("options");
+const btnConfirm = document.getElementById("btnConfirm");
+const btnSkip = document.getElementById("btnSkip");
+const progress = document.getElementById("progress");
+const toast = document.getElementById("toast");
+
+// ===== State =====
+let vocabList = [], current = null, selected = null, index = 0;
+let correctNow = false, canNext = false;
+
+// ===== Helper =====
+function showToast(msg,ms=1100){
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(()=>toast.classList.remove("show"), ms);
+}
+function shuffle(arr){return arr.map(v=>({v, r:Math.random()})).sort((a,b)=>a.r-b.r).map(x=>x.v);}
+
+// ===== Load Data =====
+async function loadData(){
+  try {
+    const snap = await db.collection("vocabularies").get();
+    vocabList = snap.docs.map(d=>d.data()).filter(v=>v.en && v.vi);
+    if(vocabList.length < 4){
+      qEl.textContent = "❗Không đủ dữ liệu để tạo quiz.";
+      return;
+    }
+    startQuiz();
+  } catch(e){
+    console.error(e);
+    qEl.textContent = "❌ Lỗi tải dữ liệu Firebase";
+  }
+}
+
+// ===== Render =====
+function renderQuestion(){
+  selected = null; correctNow = false; canNext = false;
+  current = vocabList[index % vocabList.length];
+  const wrongs = shuffle(vocabList.filter(v => v.en !== current.en)).slice(0,3);
+  const answers = shuffle([current.vi, ...wrongs.map(w => w.vi)]);
+  
+  qEl.innerHTML = `
+    What is the meaning of "<b>${current.en}</b>"?<br>
+    <small style="color:#666;">Level: ${current.level || "?"} | Topic: ${current.topic || "?"}</small>`;
+  
+  optsWrap.innerHTML = "";
+  answers.forEach((ans,i)=>{
+    const div = document.createElement("div");
+    div.className = "option";
+    div.dataset.index = i;
+    div.innerHTML = `<div>${String.fromCharCode(65+i)}.</div><div>${ans}</div>`;
+    div.onclick = ()=>selectOption(div);
+    optsWrap.appendChild(div);
+  });
+  progress.textContent = `Câu ${index+1}/${vocabList.length}`;
+}
+
+// ===== Select Option =====
+function selectOption(el){
+  if(canNext) return;
+  document.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  selected = el;
+}
+
+// ===== Confirm =====
+function handleConfirm(){
+  if(!selected){showToast("Chưa chọn đáp án");return;}
+  const correct = (current.vi || "").trim().toLowerCase();
+  const selText = selected.textContent.slice(3).trim().toLowerCase();
+
+  if(!canNext){
+    if(selText === correct){
+      selected.classList.add("correct");
+      correctNow = true;
+      canNext = true;
+      showToast("✅ Chính xác! Nhấn Enter lần nữa để qua câu");
+    } else {
+      selected.classList.add("wrong");
+      showToast("❌ Sai rồi, chọn lại!");
+      setTimeout(()=>{
+        selected.classList.remove("wrong");
+        selected.classList.remove("selected");
+        selected = null;
+      },600);
+    }
+  } else {
+    index++;
+    if(index >= vocabList.length){ index = 0; shuffle(vocabList); }
+    renderQuestion();
+  }
+}
+
+// ===== Skip =====
+function handleSkip(){
+  index++;
+  if(index >= vocabList.length){ index = 0; }
+  renderQuestion();
+}
+
+// ===== Hotkeys =====
+document.addEventListener("keydown",(e)=>{
+  if(e.key >= '1' && e.key <= '4'){
+    const idx = Number(e.key) - 1;
+    const opt = document.querySelectorAll(".option")[idx];
+    if(opt) selectOption(opt);
+  } else if(e.key === "Enter"){
+    handleConfirm();
+  }
+});
+
+btnConfirm.onclick = handleConfirm;
+btnSkip.onclick = handleSkip;
+
+// ===== Start =====
+function startQuiz(){
+  shuffle(vocabList);
+  index = 0;
+  renderQuestion();
+}
+
+loadData();
+</script>
+</body>
+</html>

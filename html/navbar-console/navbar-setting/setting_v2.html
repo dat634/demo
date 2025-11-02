@@ -6,23 +6,56 @@
 <title>Setting v2 - HọcVui</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --primary:#ff6b35;
-  --accent:#ffd6a5;
-  --bg-dark:#0f1724;
+:root {
+  --primary: #ff6b35;
+  --accent: #ffd6a5;
+  --bg-dark: #0f1724;
   --card: rgba(255,255,255,0.03);
-  --muted:#9aa7bf;
-  --text:#e6eef8;
-  --success:#10b981;
-  --error:#ef4444;
-  --warn:#f59e0b;
-  --sync:#fb923c;
-  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+  --muted: #9aa7bf;
+  --text: #e6eef8;
+  --success: #10b981;
+  --error: #ef4444;
+  --warn: #f59e0b;
+  --sync: #fb923c;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+
+.brand, .logo-gradient {
+  color: var(--primary) !important;
+}
+
+option{
+  background:var(--bg-dark);
+  color:var(--success);
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;background:linear-gradient(180deg,#07101a,#0b1220);color:var(--text);-webkit-font-smoothing:antialiased}
 .header{position:fixed;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(2,6,23,0.6);backdrop-filter:blur(6px);z-index:60;border-bottom:1px solid rgba(255,255,255,0.03)}
-.brand{font-weight:800;color:var(--primary);font-size:20px; cursor: pointer;}
+/* === LOGO “HọcVui” fix lỗi gradient và hover === */
+.brand {font-weight: 800;font-size: 20px;color: var(--primary);display: inline-flex;align-items: center;gap: 4px;cursor: pointer;transition: transform 0.35s ease, filter 0.35s ease;}
+
+/* Gradient chữ “Vui” */
+.logo-gradient {
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  line-height: 1;
+  transition: transform 0.35s ease, background-position 0.6s ease, filter 0.35s ease;
+  background-size: 200% auto;
+  background-position: 0 center;
+}
+
+
+/* Khi hover toàn bộ logo */
+.brand:hover {transform: scale(1.05);filter: brightness(1.15);}
+
+/* Khi hover riêng phần “Vui” */
+.brand:hover .logo-gradient {background-position: 100% center;background-image: linear-gradient(90deg, var(--accent), var(--primary));transform: scale(1.15);filter: drop-shadow(0 0 10px rgba(255, 200, 0, 0.5));text-decoration: overline;}
+
+/* Ngăn gradient bị lỗi khi đổi theme */
+:root {--primary: #ff6b35;--accent: #ffd6a5;}
+
 .container{display:flex;margin-top:84px;gap:20px;padding:20px;max-width:1200px;margin-left:auto;margin-right:auto}
 aside{width:260px;background:rgba(255,255,255,0.02);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;gap:12px;height:calc(100vh - 140px)}
 .user-mini{display:flex;flex-direction:column;align-items:center;gap:8px}
@@ -41,10 +74,10 @@ nav{display:flex;flex-direction:column;gap:6px;margin-top:6px}
 .input,select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text);outline:none}
 .avatar-preview{width:120px;height:120px;border-radius:50%;border:3px solid var(--primary);object-fit:cover}
 .btn{background:linear-gradient(90deg,var(--primary),var(--accent));border:none;padding:10px 12px;border-radius:10px;color:#07101a;font-weight:800;cursor:pointer}
-.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+.btn.ghost{background:transparent;border:1px solid rgba(255, 0, 0, 0.06);color:var(--muted)}
 .small{font-size:13px;color:var(--muted)}
 .badges{display:flex;flex-wrap:wrap;gap:12px}
-.badge{width:160px;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;align-items:center;gap:8px}
+.badge{width:160px;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255, 0, 0, 0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;align-items:center;gap:8px}
 .badge img{width:64px;height:64px}
 
 /* Toast */
@@ -61,14 +94,36 @@ nav{display:flex;flex-direction:column;gap:6px;margin-top:6px}
 .tab-content{display:none;animation:fadeIn .36s ease both}
 .tab-content.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
+.quick-save-cloud{
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border: none;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: #07101a;
+  font-weight: 800;
+  cursor: pointer;
+}
+.quickSaveCloud{
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border: none;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: #07101a;
+  font-weight: 800;
+  cursor: pointer;
+}
 /* responsive */
-@media(max-width:1000px){ .container{flex-direction:column;padding:12px} aside{width:100%;height:auto} .grid{grid-template-columns:1fr} .right{width:100%} .avatar-preview{width:88px;height:88px} }
+@media(max-width:1000px)
+{ .container{flex-direction:column;padding:12px}
+ aside{width:100%;height:auto}
+  .grid{grid-template-columns:1fr}
+  .right{width:100%}
+  .avatar-preview{width:88px;height:88px} }
 </style>
 </head>
 <body>
   <div class="header">
-    <div class="brand"><a src="../../study-place/main-study.html">Học<span style="background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Vui</span></a></div>
+    <div class="brand"><span class="logo-gradient" style="background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent">HọcVui</span></div>
     <div class="small" id="topStatus">Loading...</div>
   </div>
 
@@ -86,6 +141,7 @@ nav{display:flex;flex-direction:column;gap:6px;margin-top:6px}
         <button class="tab-btn" data-tab="cloudTab">☁️ Cloud Sync</button>
         <button class="tab-btn" data-tab="badgeTab">🏆 Thành tích</button>
         <button class="tab-btn" data-tab="accountTab">⚙️ Tài khoản</button>
+        <a class="tab-btn" href="../../mainAll/main-lobby.html" style="text-decoration: none;"> ⬅ Back to main page</a>
       </nav>
 
       <div class="footer-actions">
@@ -144,7 +200,8 @@ nav{display:flex;flex-direction:column;gap:6px;margin-top:6px}
             <label><input id="effectToggle" type="checkbox" checked> Hiệu ứng chuyển cảnh</label>
             <div style="display:flex;gap:8px;margin-top:8px">
               <button id="saveGameBtn" class="btn">Lưu cài đặt trò chơi</button>
-              <button id="resetGameBtn" class="btn ghost">Reset trò chơi</button>
+              <button class="btn"><a href="../../playground/MainConsole_Playground.html"><p>Chơi ngay</p></a></button>
+               <button id="resetGameBtn" class="btn ghost">Reset trò chơi</button>
             </div>
           </div>
 
@@ -384,6 +441,8 @@ function applyTheme(t){
   document.documentElement.style.setProperty('--primary', color);
   document.documentElement.style.setProperty('--accent', shadeColor(color,40));
   document.body.style.background = mode === 'light' ? '#f7f8fb' : 'linear-gradient(180deg,#07101a,#0b1220)';
+  document.documentElement.style.setProperty('--primary', '#ff6b35');
+  document.documentElement.style.setProperty('--accent', '#ffd6a5');
   document.body.style.color = mode === 'light' ? '#07101a' : 'var(--text)';
 }
 function shadeColor(hex, percent){
@@ -475,6 +534,7 @@ loadProfileLocal(); loadThemeLocal(); loadGameLocal();
 
 /* fix first sound interaction */
 document.addEventListener('click',()=>{try{popSound.play().then(()=>popSound.pause(),()=>{});}catch(e){}},{once:true});
+
 </script>
 
 </body>

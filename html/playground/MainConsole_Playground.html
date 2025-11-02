@@ -1,11 +1,3912 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+    <title>Học Online - DOL English</title>
+    <link rel="stylesheet" href="../css/learning-hub.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Learning Hub Design System */
+:root {
+    --dol-red: #e74c3c;
+    --dol-orange: #f39c12;
+    --dol-blue: #3498db;
+    --dol-dark-blue: #2c3e50;
+    --dol-light-gray: #f8f9fa;
+    --dol-medium-gray: #6c757d;
+    --dol-dark-gray: #343a40;
+    --dol-white: #ffffff;
+    --dol-beige: #f5f5dc;
+    --dol-green: #27ae60;
+    --dol-purple: #9b59b6;
+    --dol-yellow: #f1c40f;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dol-dark-gray);
+    background: linear-gradient(135deg, var(--dol-light-gray), var(--dol-beige));
+    min-height: 100vh;
+}
+
+/* Navigation */
+.navbar {
+    background: linear-gradient(135deg, var(--dol-white), var(--dol-light-gray));
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--dol-red);
+    display: flex;
+    align-items: center;
+}
+
+.logo::before {
+    content: "🎯";
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--dol-dark-gray);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--dol-white);
+    background: linear-gradient(135deg, var(--dol-red), var(--dol-orange));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.inbox-btn {
+    background: linear-gradient(135deg, var(--dol-red), var(--dol-orange));
+    color: var(--dol-white);
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.inbox-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+    color: var(--dol-white);
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--dol-red), var(--dol-orange), var(--dol-blue));
+    padding: 4rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+}
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--dol-white);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    color: var(--dol-white);
+    margin-bottom: 2rem;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.stats-bar {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.stat-item {
+    text-align: center;
+    background: rgba(255,255,255,0.2);
+    padding: 1rem;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dol-orange);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--dol-orange);
+    opacity: 0.9;
+}
+
+.hero-illustration {
+    position: relative;
+    height: 300px;
+}
+
+.floating-elements {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.floating-word {
+    position: absolute;
+    font-size: 3rem;
+    animation: float 3s ease-in-out infinite;
+    animation-delay: var(--delay);
+}
+
+.floating-word:nth-child(1) { top: 20%; left: 20%; }
+.floating-word:nth-child(2) { top: 30%; right: 20%; }
+.floating-word:nth-child(3) { bottom: 30%; left: 30%; }
+.floating-word:nth-child(4) { bottom: 20%; right: 30%; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* Games Section */
+.games-section {
+    padding: 4rem 0;
+    background: var(--dol-white);
+}
+
+.games-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--dol-dark-gray);
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--dol-red), var(--dol-orange), var(--dol-blue));
+    border-radius: 2px;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.game-card {
+    background: linear-gradient(135deg, var(--dol-white), var(--dol-light-gray));
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--dol-red), var(--dol-orange), var(--dol-blue));
+}
+
+.game-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    border-color: var(--dol-orange);
+}
+
+.game-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.game-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--dol-white);
+}
+
+.game-badge.easy { background: var(--dol-green); }
+.game-badge.medium { background: var(--dol-yellow); color: var(--dol-dark-gray); }
+.game-badge.hard { background: var(--dol-orange); }
+.game-badge.expert { background: var(--dol-red); }
+
+.game-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dol-dark-gray);
+    margin-bottom: 1rem;
+}
+
+.game-description {
+    color: var(--dol-medium-gray);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.game-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--dol-medium-gray);
+}
+
+.game-stats span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.game-stats i {
+    color: var(--dol-orange);
+}
+
+.play-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--dol-red), var(--dol-orange));
+    color: var(--dol-white);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.play-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+.play-btn i {
+    margin-right: 0.5rem;
+}
+
+/* Game Actions */
+.game-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.favorite-btn, .history-btn {
+    background: var(--dol-white);
+    border: 2px solid var(--dol-medium-gray);
+    color: var(--dol-medium-gray);
+    padding: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.favorite-btn:hover, .history-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.favorite-btn.active {
+    background: var(--dol-red);
+    border-color: var(--dol-red);
+    color: var(--dol-white);
+}
+
+.favorite-btn.active:hover {
+    background: #c0392b;
+    border-color: #c0392b;
+}
+
+.history-btn:hover {
+    background: var(--dol-blue);
+    border-color: var(--dol-blue);
+    color: var(--dol-white);
+}
+
+.practice-card {
+    background: linear-gradient(135deg, var(--dol-blue), var(--dol-purple));
+    color: var(--dol-white);
+}
+
+.practice-card .game-title,
+.practice-card .game-description {
+    color: var(--dol-white);
+}
+
+.practice-card .play-btn {
+    background: var(--dol-white);
+    color: var(--dol-blue);
+}
+
+.practice-card .play-btn:hover {
+    background: var(--dol-light-gray);
+}
+
+/* Leaderboard Section */
+.leaderboard-section {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, var(--dol-light-gray), var(--dol-beige));
+}
+
+.leaderboard-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.leaderboard-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--dol-orange);
+    background: var(--dol-white);
+    color: var(--dol-orange);
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+    background: var(--dol-orange);
+    color: var(--dol-white);
+}
+
+.leaderboard-list {
+    background: var(--dol-white);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.leaderboard-item:hover {
+    background: var(--dol-light-gray);
+}
+
+.leaderboard-item.rank-1 { background: linear-gradient(135deg, #ffd700, #ffed4e); }
+.leaderboard-item.rank-2 { background: linear-gradient(135deg, #c0c0c0, #e8e8e8); }
+.leaderboard-item.rank-3 { background: linear-gradient(135deg, #cd7f32, #daa520); }
+
+.rank-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-right: 1rem;
+    min-width: 30px;
+}
+
+.player-name {
+    flex: 1;
+    font-weight: 600;
+}
+
+.player-score {
+    font-weight: 700;
+    color: var(--dol-red);
+}
+
+/* Floating Action Buttons */
+.floating-buttons {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 1000;
+}
+
+.floating-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+}
+
+.floating-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.fb-btn {
+    background: #1877f2;
+    color: var(--dol-white);
+}
+
+.zalo-btn {
+    background: #0068ff;
+    color: var(--dol-white);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: var(--dol-white);
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.vocab-modal {
+    max-width: 600px;
+}
+
+.close {
+    color: var(--dol-medium-gray);
+    float: right;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+}
+
+.close:hover {
+    color: var(--dol-red);
+}
+
+/* Game Styles */
+.game-container {
+    text-align: center;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--dol-light-gray), var(--dol-beige));
+    border-radius: 15px;
+}
+
+.game-score {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dol-red);
+}
+
+.game-timer {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dol-blue);
+}
+
+.game-question {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--dol-light-gray);
+    border-radius: 15px;
+    border-left: 5px solid var(--dol-orange);
+}
+
+.game-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.option-btn {
+    padding: 1rem;
+    border: 2px solid var(--dol-orange);
+    background: var(--dol-white);
+    color: var(--dol-dark-gray);
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.option-btn:hover {
+    background: var(--dol-orange);
+    color: var(--dol-white);
+    transform: translateY(-2px);
+}
+
+.option-btn:active {
+    background: var(--dol-green);
+    border-color: var(--dol-green);
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+}
+
+.option-btn.correct {
+    background: var(--dol-green);
+    border-color: var(--dol-green);
+    color: var(--dol-white);
+}
+
+.option-btn.incorrect {
+    background: var(--dol-red);
+    border-color: var(--dol-red);
+    color: var(--dol-white);
+}
+
+.game-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--dol-orange);
+    border-radius: 15px;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.game-input:focus {
+    outline: none;
+    border-color: var(--dol-red);
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.game-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.action-btn {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.action-btn.primary {
+    background: linear-gradient(135deg, var(--dol-red), var(--dol-orange));
+    color: var(--dol-white);
+    height: 100%;
+    width: 100%;
+}
+
+.action-btn.secondary {
+    background: var(--dol-light-gray);
+    color: var(--dol-dark-gray);
+    border: 2px solid var(--dol-medium-gray);
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Vocabulary List */
+.vocab-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.vocab-item {
+    background: var(--dol-light-gray);
+    padding: 1rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--dol-orange);
+    transition: all 0.2s ease;
+}
+
+.vocab-item:hover {
+    background: var(--dol-orange);
+    color: var(--dol-white);
+    transform: translateY(-2px);
+}
+
+.vocab-english {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.vocab-vietnamese {
+    color: var(--dol-medium-gray);
+}
+
+.vocab-item:hover .vocab-vietnamese {
+    color: var(--dol-white);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .stats-bar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .game-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .floating-buttons {
+        bottom: 1rem;
+        right: 1rem;
+    }
+    
+    .floating-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .modal-content {
+        margin: 10% auto;
+        width: 95%;
+        padding: 1rem;
+    }
+}
+
+/* New Game Styles */
+@keyframes flyDown {
+    from { transform: translateY(-50px); }
+    to { transform: translateY(450px); }
+}
+
+/* Puzzle Game Styles */
+.puzzle-letters {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+
+.puzzle-letter {
+    background: var(--dol-orange);
+    color: var(--dol-white);
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.puzzle-letter:hover {
+    background: var(--dol-red);
+    transform: translateY(-2px);
+}
+
+.puzzle-answer {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 1rem 0;
+    min-height: 2rem;
+    padding: 1rem;
+    background: var(--dol-light-gray);
+    border-radius: 10px;
+    border: 2px dashed var(--dol-orange);
+}
+
+/* Memory Game Styles */
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.memory-card {
+    aspect-ratio: 1;
+    background: var(--dol-orange);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    perspective: 1000px;
+}
+
+.memory-card:hover {
+    background: var(--dol-red);
+    transform: scale(1.05);
+}
+
+.memory-card.flipped {
+    background: var(--dol-white);
+    color: var(--dol-dark-gray);
+    border: 2px solid var(--dol-orange);
+}
+
+.memory-card.matched {
+    background: var(--dol-green);
+    color: var(--dol-white);
+    transform: scale(0.95);
+}
+
+.card-content {
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+
+/* Responsive adjustments for new games */
+@media (max-width: 768px) {
+    .puzzle-letters {
+        gap: 0.25rem;
+    }
+    
+    .puzzle-letter {
+        padding: 0.5rem 0.75rem;
+        font-size: 1rem;
+    }
+    
+    .memory-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .card-content {
+        font-size: 0.8rem;
+    }
+}
+
+/* Learning Hub Navigation */
+.learning-navbar {
+    background: linear-gradient(135deg, var(--dol-red), var(--dol-orange));
+    padding: 1rem 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 100%;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    width: 100%;
+}
+
+.learning-navbar .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.learning-navbar .nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.learning-navbar .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--dol-white);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.learning-navbar .logo:hover {
+    color: var(--dol-yellow);
+    transform: scale(1.05);
+}
+
+.learning-modes {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.mode-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--dol-white);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+    font-size: 0.9rem;
+}
+
+.mode-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.mode-btn.active {
+    background: var(--dol-white);
+    color: var(--dol-red);
+    border-color: var(--dol-white);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+}
+
+.mode-btn.active:hover {
+    background: var(--dol-yellow);
+    color: var(--dol-red);
+    transform: translateY(-2px);
+}
+
+.home-btn {
+    background: var(--dol-white);
+    color: var(--dol-red);
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.home-btn:hover {
+    background: var(--dol-yellow);
+    color: var(--dol-red);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.home-btn i {
+    font-size: 1.1rem;
+}
+
+/* Learning Navbar Responsive */
+@media (max-width: 768px) {
+    .learning-navbar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .learning-navbar .nav-left {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+    }
+    
+    .learning-modes {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .mode-btn {
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Animation for game filtering */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Difficulty Selection */
+.difficulty-selection {
+    text-align: center;
+    padding: 2rem;
+}
+
+.difficulty-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.difficulty-card {
+    background: var(--dol-white);
+    border: 2px solid var(--dol-light-gray);
+    border-radius: 15px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.difficulty-card:hover {
+    border-color: var(--dol-blue);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.2);
+}
+
+.difficulty-card h3 {
+    color: var(--dol-blue);
+    margin-bottom: 0.5rem;
+}
+
+/* Flashcard Styles */
+.flashcard-mode-selection {
+    text-align: center;
+    padding: 2rem;
+}
+
+.mode-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.mode-card {
+    background: var(--dol-white);
+    border: 2px solid var(--dol-light-gray);
+    border-radius: 15px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mode-card:hover {
+    border-color: var(--dol-green);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.2);
+}
+
+.mode-card h3 {
+    color: var(--dol-green);
+    margin-bottom: 0.5rem;
+}
+
+.difficulty-info {
+    background: var(--dol-light-gray);
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.difficulty-info p {
+    margin: 0;
+    color: var(--dol-dark-gray);
+    font-size: 1.1rem;
+}
+
+/* Flashcard Container */
+.flashcard-container {
+    perspective: 1000px;
+    margin: 2rem 0;
+}
+
+.flashcard {
+    width: 300px;
+    height: 400px;
+    margin: 0 auto;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.flashcard.flipped {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.flashcard-front {
+    background: linear-gradient(135deg, var(--dol-blue), var(--dol-purple));
+    color: var(--dol-white);
+}
+
+.flashcard-back {
+    background: linear-gradient(135deg, var(--dol-green), var(--dol-yellow));
+    color: var(--dol-dark-gray);
+    transform: rotateY(180deg);
+}
+
+.word-english {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.word-pronunciation {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.word-example {
+    font-size: 1rem;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.word-vietnamese {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.flip-hint {
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    opacity: 0.7;
+}
+
+/* Test Styles */
+.true-false-options {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.fill-blank {
+    margin-top: 2rem;
+}
+
+.fill-blank .game-input {
+    width: 100%;
+    max-width: 300px;
+    margin: 1rem 0;
+}
+
+.test-feedback {
+    margin-top: 2rem;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.correct-answer {
+    background: rgba(39, 174, 96, 0.1);
+    border: 2px solid var(--dol-green);
+    color: var(--dol-green);
+}
+
+.wrong-answer {
+    background: rgba(231, 76, 60, 0.1);
+    border: 2px solid var(--dol-red);
+    color: var(--dol-red);
+}
+
+/* Game History */
+.game-history {
+    padding: 2rem;
+    text-align: center;
+}
+
+.history-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.history-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin: 2rem 0;
+}
+
+.history-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--dol-light-gray);
+    align-items: center;
+}
+
+/* Multiple Choice Layout */
+.multiple-choice-layout {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.multiple-choice-layout .option-btn {
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    min-height: 60px;
+}
+
+/* 4 options layout */
+.multiple-choice-layout:has(.option-btn:nth-child(4):last-child) {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* 6 options layout */
+.multiple-choice-layout:has(.option-btn:nth-child(6):last-child) {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* 8 options layout */
+.multiple-choice-layout:has(.option-btn:nth-child(8):last-child) {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Speed Mode Styles */
+.speed-ready-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    text-align: center;
+}
+
+.ready-container {
+    background: var(--dol-white);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    max-width: 500px;
+}
+
+.ready-container h2 {
+    font-size: 2.5rem;
+    color: var(--dol-blue);
+    margin-bottom: 2rem;
+}
+
+.speed-settings {
+    background: var(--dol-light-gray);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    text-align: left;
+}
+
+.speed-settings p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.ready-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.speed-countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    background: var(--dol-dark-blue);
+    color: var(--dol-white);
+}
+
+.countdown-container {
+    text-align: center;
+}
+
+.countdown-number {
+    font-size: 8rem;
+    font-weight: bold;
+    color: var(--dol-white);
+    text-shadow: 0 0 20px rgba(255,255,255,0.5);
+    transition: opacity 0.5s ease;
+}
+
+.speed-layout {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* Speed layout configurations */
+.speed-layout[data-choices="3"] {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.speed-layout[data-choices="3"] .option-btn:first-child {
+    grid-column: 1 / -1;
+}
+
+.speed-layout[data-choices="4"] {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.speed-layout[data-choices="5"] {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.speed-layout[data-choices="5"] .option-btn:nth-child(1),
+.speed-layout[data-choices="5"] .option-btn:nth-child(2) {
+    grid-row: 1;
+}
+
+.speed-layout[data-choices="5"] .option-btn:nth-child(3) {
+    grid-column: 1 / -1;
+    grid-row: 2;
+}
+
+.speed-layout[data-choices="6"] {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .difficulty-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .mode-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .flashcard {
+        width: 250px;
+        height: 350px;
+    }
+    
+    .word-english {
+        font-size: 1.5rem;
+    }
+    
+    .game-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .favorite-btn, .history-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+    
+    /* Multiple choice responsive */
+    .multiple-choice-layout:has(.option-btn:nth-child(4):last-child),
+    .multiple-choice-layout:has(.option-btn:nth-child(6):last-child),
+    .multiple-choice-layout:has(.option-btn:nth-child(8):last-child) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Speed mode responsive */
+    .speed-layout[data-choices="3"],
+    .speed-layout[data-choices="4"],
+    .speed-layout[data-choices="5"],
+    .speed-layout[data-choices="6"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: none !important;
+    }
+    
+    .speed-layout[data-choices="3"] .option-btn:first-child,
+    .speed-layout[data-choices="5"] .option-btn:nth-child(3) {
+        grid-column: 1 / -1 !important;
+        grid-row: auto !important;
+    }
+    
+    .countdown-number {
+        font-size: 5rem;
+    }
+    
+    .ready-container {
+        padding: 2rem;
+        margin: 1rem;
+    }
+    
+    .ready-container h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Word Shooter Game Styles */
+.flying-shooter-word {
+    z-index: 5;
+}
+
+/* Flashcard Test Styles */
+.word-pair {
+    background: var(--dol-light-gray);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.word-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.word-item:last-child {
+    margin-bottom: 0;
+}
+
+.word-label {
+    font-weight: bold;
+    color: var(--dol-dark-gray);
+    font-size: 1.1rem;
+}
+
+.word-text {
+    font-size: 1.3rem;
+    color: var(--dol-green);
+    font-weight: bold;
+}
+
+.word-display {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--dol-green);
+    text-align: center;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: var(--dol-light-gray);
+    border-radius: 10px;
+}
+
+/* Action Button Tertiary */
+.action-btn.tertiary {
+    background: var(--dol-light-gray);
+    color: var(--dol-dark-gray);
+    border: 2px solid var(--dol-light-gray);
+}
+
+.action-btn.tertiary:hover {
+    background: #e0e0e0;
+    border-color: #e0e0e0;
+}
+
+/* Total Stats */
+.total-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-right: 1rem;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--dol-light-gray);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: var(--dol-dark-gray);
+}
+
+.stat-item i {
+    color: var(--dol-green);
+    font-size: 1rem;
+}
+
+.stat-item strong {
+    color: var(--dol-green);
+    font-size: 1.1rem;
+}
+
+/* Responsive Design for Total Stats */
+@media (max-width: 768px) {
+    .total-stats {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-right: 0.5rem;
+    }
+    
+    .stat-item {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .stat-item i {
+        font-size: 0.9rem;
+    }
+    
+    .stat-item strong {
+        font-size: 1rem;
+    }
+}
+:root {
+  --primary:#ff6b35;--accent:#ffd580;--bg:#0f1724;--text:#f2f5f9;--muted:#a2aec7;
+  --card:rgba(255,255,255,0.03);font-family:"Inter",sans-serif;
+}
+body {
+  margin:0;background:linear-gradient(180deg,#07101a,#0b1220);color:var(--text);
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+header {
+  position:fixed;top:0;left:0;right:0;height:70px;display:flex;
+  justify-content:space-between;align-items:center;
+  background:rgba(15,23,36,0.75);backdrop-filter:blur(8px);
+  padding:0 24px;border-bottom:1px solid rgba(255,255,255,0.05);z-index:100;
+}
+.brand {
+  font-weight:800;font-size:22px;color:var(--text);
+  display:flex;align-items:center;gap:6px;transition:transform .3s ease;
+}
+.brand span {
+  background:linear-gradient(90deg,var(--primary),var(--accent));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.brand:hover{transform:scale(1.06);cursor:pointer;}
+nav {display:flex;gap:22px;}
+nav a {
+  text-decoration:none;color:var(--text);font-weight:600;
+  transition:color .3s,transform .2s;
+}
+nav a:hover {color:var(--accent);transform:translateY(-2px);}
+main {margin-top:100px;text-align:center;padding:60px 20px;}
+h1 {
+  font-size:48px;background:linear-gradient(90deg,var(--primary),var(--accent));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  font-weight:800;margin-bottom:20px;
+}
+p {color:var(--muted);font-size:18px;max-width:720px;margin:0 auto 40px;}
+.action-buttons {
+  display:flex;justify-content:center;flex-wrap:wrap;gap:18px;
+}
+.btn {
+  padding:14px 24px;border-radius:10px;font-weight:700;border:none;cursor:pointer;
+  background:linear-gradient(90deg,var(--primary),var(--accent));color:#07101a;
+  transition:transform .2s,box-shadow .3s;text-decoration:none;display:inline-block;
+}
+.btn:hover {transform:translateY(-3px);box-shadow:0 10px 25px rgba(255,107,53,.3);}
+.card-section {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;max-width:1100px;margin:60px auto;padding:0 20px;
+}
+.card {
+  background:var(--card);border-radius:16px;padding:24px;text-align:left;
+  border:1px solid rgba(255,255,255,0.04);
+  transition:transform .3s,box-shadow .3s;
+}
+.card:hover {transform:translateY(-5px);box-shadow:0 10px 30px rgba(15,23,36,.6);}
+.card h3{color:var(--accent);margin-bottom:8px;}
+.card p{font-size:15px;color:var(--muted);}
+footer {
+  margin-top:80px;padding:20px;text-align:center;color:var(--muted);
+  border-top:1px solid rgba(255,255,255,0.05);font-size:14px;
+}
+.fade-in {opacity:0;transform:translateY(30px);animation:fadeSlideIn 1s ease forwards;}
+@keyframes fadeSlideIn {to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<header>
+  <div class="brand" onclick="location.href='../mainAll/main-lobby.html'"><span>HọcVui</span></div>
+  <nav>
+    <a href="../mainAll/main-lobby.html">Trang chủ</a>
+    <a href="../../html/study-place/main-study.html">Học tập</a>
+    <a href="../../html/playground/MainConsole_Playground.html">Mini Game</a>
+    <a href="../../html/advance-mode-for-teacher/main-advance-console.html">Nâng cao</a>
+    <a href="../navbar-console/navbar-setting/setting_v2.html">Cài đặt</a>
+    <a href="../navbar-console/info/info.html">Giới thiệu</a>
+  </nav>
+</header>
+
+<main>
+  <h1 class="fade-in">Học thông minh, chơi vui vẻ</h1>
+  <p class="fade-in">Nơi bạn vừa học, vừa chơi, vừa phát triển bản thân.  
+  Từng bài học, từng trò chơi — đều giúp bạn tiến bộ mỗi ngày.</p>
+
+  <div class="action-buttons fade-in">
+    <a href="../study/main-study.html" class="btn">🚀 Bắt đầu học</a>
+    <a href="../game/main-play.html" class="btn">🎮 Chơi ngay</a>
+    <a href="../setting/setting_v2.html" class="btn">⚙️ Cài đặt</a>
+  </div>
+
+  <div class="card-section fade-in">
+    <div class="card">
+      <h3>📖 Học tập cá nhân hóa</h3>
+      <p>Tự động lưu tiến độ, theo dõi cấp độ và gợi ý bài học phù hợp cho bạn.</p>
+    </div>
+    <div class="card">
+      <h3>🎯 Trò chơi trí tuệ</h3>
+      <p>Ôn luyện kiến thức qua các mini game, vừa vui vừa giúp ghi nhớ lâu.</p>
+    </div>
+    <div class="card">
+      <h3>🏆 Hệ thống thành tích</h3>
+      <p>Thu thập huy hiệu và đạt cấp độ mới khi bạn tiến bộ qua từng bài học!</p>
+    </div>
+  </div>
+<footer>
+    &copy; 2024 HọcVui. Tất cả quyền được bảo lưu.
+   <div class="fter">
+    Thiết kế và phát triển bởi Công ty công nghệ DangDat.
+   </div>
+   <div class="fter">
+    Contact:
+   </div>
+</footer>
+
+    <script>// Vocabulary Database System
+class VocabularyDatabase {
+    constructor() {
+        this.vocabulary = {
+            // Cấp độ A1 (Cơ bản nhất)
+            A1: {
+                family: [
+                    { english: "father", vietnamese: "bố", pronunciation: "/ˈfɑːðər/", example: "My father is a teacher." },
+                    { english: "mother", vietnamese: "mẹ", pronunciation: "/ˈmʌðər/", example: "My mother cooks dinner." },
+                    { english: "brother", vietnamese: "anh/em trai", pronunciation: "/ˈbrʌðər/", example: "I have one brother." },
+                    { english: "sister", vietnamese: "chị/em gái", pronunciation: "/ˈsɪstər/", example: "My sister is tall." },
+                    { english: "grandfather", vietnamese: "ông", pronunciation: "/ˈɡrændˌfɑːðər/", example: "My grandfather is 70 years old." },
+                    { english: "grandmother", vietnamese: "bà", pronunciation: "/ˈɡrændˌmʌðər/", example: "My grandmother bakes cookies." },
+                    { english: "uncle", vietnamese: "chú/cậu", pronunciation: "/ˈʌŋkəl/", example: "My uncle lives in the city." },
+                    { english: "aunt", vietnamese: "cô/dì", pronunciation: "/ænt/", example: "My aunt is very kind." }
+                ],
+                animals: [
+                    { english: "cat", vietnamese: "con mèo", pronunciation: "/kæt/", example: "The cat is sleeping." },
+                    { english: "dog", vietnamese: "con chó", pronunciation: "/dɔːɡ/", example: "The dog is playing." },
+                    { english: "bird", vietnamese: "con chim", pronunciation: "/bɜːrd/", example: "The bird is singing." },
+                    { english: "fish", vietnamese: "con cá", pronunciation: "/fɪʃ/", example: "The fish is swimming." },
+                    { english: "horse", vietnamese: "con ngựa", pronunciation: "/hɔːrs/", example: "The horse is running." },
+                    { english: "cow", vietnamese: "con bò", pronunciation: "/kaʊ/", example: "The cow is eating grass." },
+                    { english: "pig", vietnamese: "con lợn", pronunciation: "/pɪɡ/", example: "The pig is in the mud." },
+                    { english: "chicken", vietnamese: "con gà", pronunciation: "/ˈtʃɪkɪn/", example: "The chicken lays eggs." }
+                ],
+                colors: [
+                    { english: "red", vietnamese: "màu đỏ", pronunciation: "/red/", example: "The apple is red." },
+                    { english: "blue", vietnamese: "màu xanh dương", pronunciation: "/bluː/", example: "The sky is blue." },
+                    { english: "green", vietnamese: "màu xanh lá", pronunciation: "/ɡriːn/", example: "The grass is green." },
+                    { english: "yellow", vietnamese: "màu vàng", pronunciation: "/ˈjeloʊ/", example: "The sun is yellow." },
+                    { english: "black", vietnamese: "màu đen", pronunciation: "/blæk/", example: "The cat is black." },
+                    { english: "white", vietnamese: "màu trắng", pronunciation: "/waɪt/", example: "The snow is white." },
+                    { english: "orange", vietnamese: "màu cam", pronunciation: "/ˈɔːrɪndʒ/", example: "The orange is orange." },
+                    { english: "purple", vietnamese: "màu tím", pronunciation: "/ˈpɜːrpəl/", example: "The flower is purple." }
+                ],
+                food: [
+                    { english: "apple", vietnamese: "quả táo", pronunciation: "/ˈæpəl/", example: "I eat an apple every day." },
+                    { english: "banana", vietnamese: "quả chuối", pronunciation: "/bəˈnænə/", example: "The banana is yellow." },
+                    { english: "bread", vietnamese: "bánh mì", pronunciation: "/bred/", example: "I have bread for breakfast." },
+                    { english: "milk", vietnamese: "sữa", pronunciation: "/mɪlk/", example: "I drink milk every morning." },
+                    { english: "water", vietnamese: "nước", pronunciation: "/ˈwɔːtər/", example: "I need to drink water." },
+                    { english: "rice", vietnamese: "cơm", pronunciation: "/raɪs/", example: "We eat rice for dinner." },
+                    { english: "meat", vietnamese: "thịt", pronunciation: "/miːt/", example: "The meat is delicious." },
+                    { english: "vegetable", vietnamese: "rau củ", pronunciation: "/ˈvedʒtəbəl/", example: "Vegetables are healthy." }
+                ],
+                numbers: [
+                    { english: "one", vietnamese: "một", pronunciation: "/wʌn/", example: "I have one book." },
+                    { english: "two", vietnamese: "hai", pronunciation: "/tuː/", example: "I see two cats." },
+                    { english: "three", vietnamese: "ba", pronunciation: "/θriː/", example: "There are three apples." },
+                    { english: "four", vietnamese: "bốn", pronunciation: "/fɔːr/", example: "I have four pencils." },
+                    { english: "five", vietnamese: "năm", pronunciation: "/faɪv/", example: "The child is five years old." },
+                    { english: "six", vietnamese: "sáu", pronunciation: "/sɪks/", example: "I wake up at six o'clock." },
+                    { english: "seven", vietnamese: "bảy", pronunciation: "/ˈsevən/", example: "There are seven days in a week." },
+                    { english: "eight", vietnamese: "tám", pronunciation: "/eɪt/", example: "I have eight fingers." }
+                ]
+            },
+            
+            // Cấp độ A2 (Cơ bản)
+            A2: {
+                emotions: [
+                    { english: "happy", vietnamese: "vui vẻ", pronunciation: "/ˈhæpi/", example: "I feel happy today." },
+                    { english: "sad", vietnamese: "buồn", pronunciation: "/sæd/", example: "She looks sad." },
+                    { english: "angry", vietnamese: "tức giận", pronunciation: "/ˈæŋɡri/", example: "Don't be angry with me." },
+                    { english: "excited", vietnamese: "hào hứng", pronunciation: "/ɪkˈsaɪtɪd/", example: "I'm excited about the trip." },
+                    { english: "nervous", vietnamese: "lo lắng", pronunciation: "/ˈnɜːrvəs/", example: "I'm nervous about the exam." },
+                    { english: "confident", vietnamese: "tự tin", pronunciation: "/ˈkɑːnfɪdənt/", example: "She is confident in her abilities." },
+                    { english: "surprised", vietnamese: "ngạc nhiên", pronunciation: "/sərˈpraɪzd/", example: "I was surprised by the news." },
+                    { english: "worried", vietnamese: "lo lắng", pronunciation: "/ˈwɜːrid/", example: "My mother is worried about me." }
+                ],
+                weather: [
+                    { english: "sunny", vietnamese: "nắng", pronunciation: "/ˈsʌni/", example: "It's sunny today." },
+                    { english: "rainy", vietnamese: "mưa", pronunciation: "/ˈreɪni/", example: "It's rainy outside." },
+                    { english: "cloudy", vietnamese: "nhiều mây", pronunciation: "/ˈklaʊdi/", example: "The sky is cloudy." },
+                    { english: "windy", vietnamese: "có gió", pronunciation: "/ˈwɪndi/", example: "It's windy today." },
+                    { english: "snowy", vietnamese: "có tuyết", pronunciation: "/ˈsnoʊi/", example: "It's snowy in winter." },
+                    { english: "hot", vietnamese: "nóng", pronunciation: "/hɑːt/", example: "The weather is hot." },
+                    { english: "cold", vietnamese: "lạnh", pronunciation: "/koʊld/", example: "The water is cold." },
+                    { english: "warm", vietnamese: "ấm", pronunciation: "/wɔːrm/", example: "The room is warm." }
+                ]
+            },
+            
+            // Cấp độ B1 (Trung bình thấp)
+            B1: {
+                school: [
+                    { english: "student", vietnamese: "học sinh", pronunciation: "/ˈstuːdənt/", example: "I am a student." },
+                    { english: "teacher", vietnamese: "giáo viên", pronunciation: "/ˈtiːtʃər/", example: "My teacher is kind." },
+                    { english: "classroom", vietnamese: "lớp học", pronunciation: "/ˈklæsruːm/", example: "The classroom is big." },
+                    { english: "homework", vietnamese: "bài tập về nhà", pronunciation: "/ˈhoʊmwɜːrk/", example: "I do my homework every day." },
+                    { english: "exam", vietnamese: "kỳ thi", pronunciation: "/ɪɡˈzæm/", example: "I have an exam tomorrow." },
+                    { english: "book", vietnamese: "sách", pronunciation: "/bʊk/", example: "I read a book." },
+                    { english: "pencil", vietnamese: "bút chì", pronunciation: "/ˈpensəl/", example: "I write with a pencil." },
+                    { english: "computer", vietnamese: "máy tính", pronunciation: "/kəmˈpjuːtər/", example: "I use a computer for work." }
+                ],
+                travel: [
+                    { english: "airplane", vietnamese: "máy bay", pronunciation: "/ˈerpleɪn/", example: "I travel by airplane." },
+                    { english: "hotel", vietnamese: "khách sạn", pronunciation: "/hoʊˈtel/", example: "We stay at a hotel." },
+                    { english: "passport", vietnamese: "hộ chiếu", pronunciation: "/ˈpæspɔːrt/", example: "I need my passport to travel." },
+                    { english: "luggage", vietnamese: "hành lý", pronunciation: "/ˈlʌɡɪdʒ/", example: "My luggage is heavy." },
+                    { english: "ticket", vietnamese: "vé", pronunciation: "/ˈtɪkɪt/", example: "I bought a train ticket." },
+                    { english: "map", vietnamese: "bản đồ", pronunciation: "/mæp/", example: "I use a map to navigate." },
+                    { english: "camera", vietnamese: "máy ảnh", pronunciation: "/ˈkæmərə/", example: "I take photos with my camera." },
+                    { english: "souvenir", vietnamese: "quà lưu niệm", pronunciation: "/ˌsuːvəˈnɪr/", example: "I buy souvenirs for my family." }
+                ]
+            },
+            
+            // Cấp độ B2 (Trung bình cao)
+            B2: {
+                business: [
+                    { english: "meeting", vietnamese: "cuộc họp", pronunciation: "/ˈmiːtɪŋ/", example: "We have a meeting at 3 PM." },
+                    { english: "project", vietnamese: "dự án", pronunciation: "/ˈprɑːdʒekt/", example: "This project is important." },
+                    { english: "budget", vietnamese: "ngân sách", pronunciation: "/ˈbʌdʒɪt/", example: "We need to manage our budget." },
+                    { english: "deadline", vietnamese: "hạn chót", pronunciation: "/ˈdedlaɪn/", example: "The deadline is tomorrow." },
+                    { english: "teamwork", vietnamese: "làm việc nhóm", pronunciation: "/ˈtiːmwɜːrk/", example: "Teamwork is essential." },
+                    { english: "presentation", vietnamese: "thuyết trình", pronunciation: "/ˌprezənˈteɪʃən/", example: "I gave a presentation." },
+                    { english: "feedback", vietnamese: "phản hồi", pronunciation: "/ˈfiːdbæk/", example: "Please give me feedback." },
+                    { english: "efficiency", vietnamese: "hiệu quả", pronunciation: "/ɪˈfɪʃənsi/", example: "We need to improve efficiency." }
+                ]
+            },
+            
+            // Cấp độ C1 (Cao cấp)
+            C1: {
+                business: [
+                    { english: "entrepreneur", vietnamese: "doanh nhân", pronunciation: "/ˌɑːntrəprəˈnɜːr/", example: "He is a successful entrepreneur." },
+                    { english: "negotiate", vietnamese: "đàm phán", pronunciation: "/nɪˈɡoʊʃieɪt/", example: "We need to negotiate the contract." },
+                    { english: "investment", vietnamese: "đầu tư", pronunciation: "/ɪnˈvestmənt/", example: "This is a good investment opportunity." },
+                    { english: "strategy", vietnamese: "chiến lược", pronunciation: "/ˈstrætədʒi/", example: "We need a new marketing strategy." },
+                    { english: "revenue", vietnamese: "doanh thu", pronunciation: "/ˈrevənuː/", example: "Our revenue increased this year." },
+                    { english: "partnership", vietnamese: "đối tác", pronunciation: "/ˈpɑːrtnərʃɪp/", example: "We formed a new partnership." },
+                    { english: "innovation", vietnamese: "đổi mới", pronunciation: "/ˌɪnəˈveɪʃən/", example: "Innovation is key to success." },
+                    { english: "competition", vietnamese: "cạnh tranh", pronunciation: "/ˌkɑːmpəˈtɪʃən/", example: "The competition is fierce." }
+                ],
+                technology: [
+                    { english: "artificial intelligence", vietnamese: "trí tuệ nhân tạo", pronunciation: "/ˌɑːrtɪˈfɪʃəl ɪnˈtelɪdʒəns/", example: "AI is changing the world." },
+                    { english: "algorithm", vietnamese: "thuật toán", pronunciation: "/ˈælɡərɪðəm/", example: "This algorithm is very efficient." },
+                    { english: "cybersecurity", vietnamese: "an ninh mạng", pronunciation: "/ˈsaɪbərsɪˌkjʊrəti/", example: "Cybersecurity is important." },
+                    { english: "blockchain", vietnamese: "chuỗi khối", pronunciation: "/ˈblɑːktʃeɪn/", example: "Blockchain technology is revolutionary." },
+                    { english: "machine learning", vietnamese: "học máy", pronunciation: "/məˈʃiːn ˈlɜːrnɪŋ/", example: "Machine learning improves accuracy." },
+                    { english: "virtual reality", vietnamese: "thực tế ảo", pronunciation: "/ˈvɜːrtʃuəl riˈæləti/", example: "VR provides immersive experiences." },
+                    { english: "cloud computing", vietnamese: "điện toán đám mây", pronunciation: "/klaʊd kəmˈpjuːtɪŋ/", example: "Cloud computing is cost-effective." },
+                    { english: "data analytics", vietnamese: "phân tích dữ liệu", pronunciation: "/ˈdeɪtə ˌænəˈlɪtɪks/", example: "Data analytics helps decision making." }
+                ]
+            },
+            
+            // Cấp độ C2 (Thành thạo)
+            C2: {
+                science: [
+                    { english: "hypothesis", vietnamese: "giả thuyết", pronunciation: "/haɪˈpɑːθəsɪs/", example: "We need to test this hypothesis." },
+                    { english: "experiment", vietnamese: "thí nghiệm", pronunciation: "/ɪkˈsperɪmənt/", example: "The experiment was successful." },
+                    { english: "microscope", vietnamese: "kính hiển vi", pronunciation: "/ˈmaɪkrəskoʊp/", example: "We use a microscope to see cells." },
+                    { english: "photosynthesis", vietnamese: "quang hợp", pronunciation: "/ˌfoʊtoʊˈsɪnθəsɪs/", example: "Plants use photosynthesis to make food." },
+                    { english: "ecosystem", vietnamese: "hệ sinh thái", pronunciation: "/ˈiːkoʊsɪstəm/", example: "We must protect the ecosystem." },
+                    { english: "evolution", vietnamese: "tiến hóa", pronunciation: "/ˌevəˈluːʃən/", example: "Evolution explains species development." },
+                    { english: "molecule", vietnamese: "phân tử", pronunciation: "/ˈmɑːlɪkjuːl/", example: "Water is made of molecules." },
+                    { english: "gravity", vietnamese: "trọng lực", pronunciation: "/ˈɡrævəti/", example: "Gravity keeps us on Earth." }
+                ],
+                literature: [
+                    { english: "metaphor", vietnamese: "ẩn dụ", pronunciation: "/ˈmetəfɔːr/", example: "The poem uses beautiful metaphors." },
+                    { english: "protagonist", vietnamese: "nhân vật chính", pronunciation: "/proʊˈtæɡənɪst/", example: "The protagonist faces many challenges." },
+                    { english: "symbolism", vietnamese: "biểu tượng", pronunciation: "/ˈsɪmbəlɪzəm/", example: "The novel is rich in symbolism." },
+                    { english: "narrative", vietnamese: "câu chuyện", pronunciation: "/ˈnærətɪv/", example: "The narrative is compelling." },
+                    { english: "irony", vietnamese: "tính mỉa mai", pronunciation: "/ˈaɪrəni/", example: "The story has dramatic irony." },
+                    { english: "alliteration", vietnamese: "điệp âm", pronunciation: "/əˌlɪtəˈreɪʃən/", example: "The poem uses alliteration effectively." },
+                    { english: "foreshadowing", vietnamese: "dự báo", pronunciation: "/fɔːrˈʃædoʊɪŋ/", example: "The author uses foreshadowing." },
+                    { english: "theme", vietnamese: "chủ đề", pronunciation: "/θiːm/", example: "The main theme is love." }
+                ]
+            }
+        };
+        
+        this.userProgress = this.loadUserProgress();
+        this.favorites = this.loadFavorites();
+    }
+    
+    // Lấy từ vựng theo cấp độ và chủ đề
+    getVocabulary(level = 'beginner', topic = null) {
+        if (topic) {
+            return this.vocabulary[level]?.[topic] || [];
+        }
+        
+        // Trả về tất cả từ vựng của cấp độ
+        const allWords = [];
+        if (this.vocabulary[level]) {
+            Object.values(this.vocabulary[level]).forEach(topicWords => {
+                allWords.push(...topicWords);
+            });
+        }
+        return allWords;
+    }
+    
+    // Lấy từ vựng ngẫu nhiên
+    getRandomVocabulary(level = 'beginner', topic = null, count = 1) {
+        const words = this.getVocabulary(level, topic);
+        const shuffled = this.shuffleArray([...words]);
+        return shuffled.slice(0, count);
+    }
+    
+    // Tìm kiếm từ vựng
+    searchVocabulary(query) {
+        const results = [];
+        const searchTerm = query.toLowerCase();
+        
+        Object.keys(this.vocabulary).forEach(level => {
+            Object.keys(this.vocabulary[level]).forEach(topic => {
+                this.vocabulary[level][topic].forEach(word => {
+                    if (word.english.toLowerCase().includes(searchTerm) || 
+                        word.vietnamese.toLowerCase().includes(searchTerm)) {
+                        results.push({
+                            ...word,
+                            level,
+                            topic
+                        });
+                    }
+                });
+            });
+        });
+        
+        return results;
+    }
+    
+    // Lấy danh sách chủ đề theo cấp độ
+    getTopics(level) {
+        return Object.keys(this.vocabulary[level] || {});
+    }
+    
+    // Lấy tất cả cấp độ
+    getLevels() {
+        return Object.keys(this.vocabulary);
+    }
+    
+    // Lưu tiến độ học tập
+    saveProgress(word, isCorrect) {
+        if (!this.userProgress[word.english]) {
+            this.userProgress[word.english] = {
+                attempts: 0,
+                correct: 0,
+                lastStudied: null,
+                level: word.level,
+                topic: word.topic
+            };
+        }
+        
+        this.userProgress[word.english].attempts++;
+        this.userProgress[word.english].lastStudied = new Date().toISOString();
+        
+        if (isCorrect) {
+            this.userProgress[word.english].correct++;
+        }
+        
+        localStorage.setItem('vocabularyProgress', JSON.stringify(this.userProgress));
+    }
+    
+    // Lấy tiến độ học tập
+    getProgress(word) {
+        return this.userProgress[word.english] || null;
+    }
+    
+    // Lấy từ vựng cần ôn tập (tỷ lệ đúng thấp)
+    getWordsToReview() {
+        const wordsToReview = [];
+        
+        Object.keys(this.userProgress).forEach(english => {
+            const progress = this.userProgress[english];
+            const accuracy = progress.correct / progress.attempts;
+            
+            if (accuracy < 0.7 && progress.attempts >= 3) {
+                wordsToReview.push({
+                    english,
+                    ...progress
+                });
+            }
+        });
+        
+        return wordsToReview.sort((a, b) => a.accuracy - b.accuracy);
+    }
+    
+    // Thêm từ vào yêu thích
+    addToFavorites(word) {
+        if (!this.favorites.includes(word.english)) {
+            this.favorites.push(word.english);
+            localStorage.setItem('vocabularyFavorites', JSON.stringify(this.favorites));
+        }
+    }
+    
+    // Xóa từ khỏi yêu thích
+    removeFromFavorites(word) {
+        this.favorites = this.favorites.filter(fav => fav !== word.english);
+        localStorage.setItem('vocabularyFavorites', JSON.stringify(this.favorites));
+    }
+    
+    // Kiểm tra từ có trong yêu thích không
+    isFavorite(word) {
+        return this.favorites.includes(word.english);
+    }
+    
+    // Lấy từ yêu thích
+    getFavorites() {
+        const favoriteWords = [];
+        
+        Object.keys(this.vocabulary).forEach(level => {
+            Object.keys(this.vocabulary[level]).forEach(topic => {
+                this.vocabulary[level][topic].forEach(word => {
+                    if (this.favorites.includes(word.english)) {
+                        favoriteWords.push({
+                            ...word,
+                            level,
+                            topic
+                        });
+                    }
+                });
+            });
+        });
+        
+        return favoriteWords;
+    }
+    
+    // Lấy thống kê học tập
+    getStatistics() {
+        const totalWords = Object.keys(this.userProgress).length;
+        const totalAttempts = Object.values(this.userProgress).reduce((sum, progress) => sum + progress.attempts, 0);
+        const totalCorrect = Object.values(this.userProgress).reduce((sum, progress) => sum + progress.correct, 0);
+        const overallAccuracy = totalAttempts > 0 ? (totalCorrect / totalAttempts) * 100 : 0;
+        
+        const levelStats = {};
+        Object.keys(this.vocabulary).forEach(level => {
+            const levelWords = Object.keys(this.userProgress).filter(word => 
+                this.userProgress[word].level === level
+            );
+            levelStats[level] = levelWords.length;
+        });
+        
+        return {
+            totalWords,
+            totalAttempts,
+            totalCorrect,
+            overallAccuracy: Math.round(overallAccuracy * 100) / 100,
+            levelStats,
+            wordsToReview: this.getWordsToReview().length,
+            favoritesCount: this.favorites.length
+        };
+    }
+    
+    // Utility functions
+    shuffleArray(array) {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    }
+    
+    loadUserProgress() {
+        const saved = localStorage.getItem('vocabularyProgress');
+        return saved ? JSON.parse(saved) : {};
+    }
+    
+    loadFavorites() {
+        const saved = localStorage.getItem('vocabularyFavorites');
+        return saved ? JSON.parse(saved) : [];
+    }
+    
+    // Export/Import data
+    exportData() {
+        return {
+            progress: this.userProgress,
+            favorites: this.favorites,
+            exportDate: new Date().toISOString()
+        };
+    }
+    
+    importData(data) {
+        if (data.progress) {
+            this.userProgress = data.progress;
+            localStorage.setItem('vocabularyProgress', JSON.stringify(this.userProgress));
+        }
+        
+        if (data.favorites) {
+            this.favorites = data.favorites;
+            localStorage.setItem('vocabularyFavorites', JSON.stringify(this.favorites));
+        }
+    }
+    
+    // Get level name in Vietnamese
+    getLevelName(level) {
+        const names = {
+            'A1': 'A1 - Cơ bản nhất',
+            'A2': 'A2 - Cơ bản',
+            'B1': 'B1 - Trung bình thấp',
+            'B2': 'B2 - Trung bình cao',
+            'C1': 'C1 - Cao cấp',
+            'C2': 'C2 - Thành thạo',
+            'beginner': 'A1 - Cơ bản nhất',
+            'intermediate': 'B1 - Trung bình thấp',
+            'advanced': 'C1 - Cao cấp'
+        };
+        return names[level] || level;
+    }
+    
+    // Get vocabulary by difficulty range
+    getVocabularyByDifficultyRange(minLevel, maxLevel) {
+        const levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+        const minIndex = levels.indexOf(minLevel);
+        const maxIndex = levels.indexOf(maxLevel);
+        
+        if (minIndex === -1 || maxIndex === -1 || minIndex > maxIndex) {
+            return [];
+        }
+        
+        const selectedLevels = levels.slice(minIndex, maxIndex + 1);
+        const allWords = [];
+        
+        selectedLevels.forEach(level => {
+            if (this.vocabulary[level]) {
+                Object.values(this.vocabulary[level]).forEach(topicWords => {
+                    allWords.push(...topicWords.map(word => ({ ...word, level })));
+                });
+            }
+        });
+        
+        return allWords;
+    }
+    
+    getRandomWord() {
+        const allWords = this.getAllWords();
+        return allWords[Math.floor(Math.random() * allWords.length)];
+    }
+    
+    getAllWords() {
+        const allWords = [];
+        Object.values(this.vocabulary).forEach(level => {
+            Object.values(level).forEach(topicWords => {
+                allWords.push(...topicWords);
+            });
+        });
+        return allWords;
+    }
+}
+
+// Khởi tạo database toàn cục
+window.vocabularyDB = new VocabularyDatabase();
+</script>
+    <script>// Learning Hub JavaScript
+class LearningHub {
+    constructor() {
+        // Use the vocabulary database instead of hardcoded array
+        
+        this.currentGame = null;
+        this.currentQuestion = 0;
+        this.score = 0;
+        this.currentDifficulty = 'easy';
+        this.gameData = this.loadGameData();
+        this.leaderboard = this.loadLeaderboard();
+        this.favorites = this.loadFavorites();
+        
+        this.init();
+    }
+    
+    init() {
+        this.updateStats();
+        this.updateLeaderboard();
+        this.setupEventListeners();
+    }
+    
+    loadGameData() {
+        const saved = localStorage.getItem('dolGameData');
+        return saved ? JSON.parse(saved) : {
+            totalScore: 0,
+            gamesPlayed: 0,
+            streak: 0,
+            lastPlayDate: null,
+            gameStats: {
+                flashcard: { highScore: 0, plays: 0 },
+                'multiple-choice': { highScore: 0, plays: 0 },
+                typing: { highScore: 0, plays: 0 },
+                speed: { highScore: 0, plays: 0 },
+                shooter: { highScore: 0, plays: 0 },
+                puzzle: { highScore: 0, plays: 0 },
+                memory: { highScore: 0, plays: 0 },
+                'word-shooter': { highScore: 0, plays: 0 }
+            }
+        };
+    }
+    
+    saveGameData() {
+        localStorage.setItem('dolGameData', JSON.stringify(this.gameData));
+    }
+    
+    loadLeaderboard() {
+        const saved = localStorage.getItem('dolLeaderboard');
+        return saved ? JSON.parse(saved) : [];
+    }
+    
+    saveLeaderboard() {
+        localStorage.setItem('dolLeaderboard', JSON.stringify(this.leaderboard));
+    }
+    
+    loadFavorites() {
+        const saved = localStorage.getItem('dolGameFavorites');
+        return saved ? JSON.parse(saved) : [];
+    }
+    
+    saveFavorites() {
+        localStorage.setItem('dolGameFavorites', JSON.stringify(this.favorites));
+    }
+    
+    updateStats() {
+        let totalScore = 0;
+        let totalPlays = 0;
+        
+        // Update individual game stats and calculate totals
+        Object.keys(this.gameData.gameStats).forEach(game => {
+            const highElement = document.getElementById(`${game}-high`);
+            const playsElement = document.getElementById(`${game}-plays`);
+            const favElement = document.getElementById(`${game}-fav`);
+            
+            if (highElement) highElement.textContent = this.gameData.gameStats[game].highScore;
+            if (playsElement) playsElement.textContent = this.gameData.gameStats[game].plays;
+            if (favElement) favElement.textContent = this.favorites.includes(game) ? '1' : '0';
+            
+            // Calculate total score from game history
+            const history = this.getGameHistory(game);
+            const gameTotalScore = history.reduce((sum, game) => sum + game.score, 0);
+            totalScore += gameTotalScore;
+            totalPlays += this.gameData.gameStats[game].plays;
+        });
+        
+        // Update total stats
+        document.getElementById('totalScore').textContent = totalScore;
+        document.getElementById('totalPlays').textContent = totalPlays;
+        
+        // Update other stats if elements exist
+        const streakElement = document.getElementById('streak');
+        if (streakElement) streakElement.textContent = this.gameData.streak;
+    }
+    
+    updateLeaderboard() {
+        const leaderboardList = document.getElementById('leaderboardList');
+        if (!leaderboardList) return;
+        
+        const sortedLeaderboard = [...this.leaderboard].sort((a, b) => b.score - a.score);
+        
+        leaderboardList.innerHTML = sortedLeaderboard.slice(0, 10).map((player, index) => `
+            <div class="leaderboard-item ${index < 3 ? `rank-${index + 1}` : ''}">
+                <div class="rank-number">${index + 1}</div>
+                <div class="player-name">${player.name}</div>
+                <div class="player-score">${player.score} điểm</div>
+            </div>
+        `).join('');
+    }
+    
+    setupEventListeners() {
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Floating buttons
+        document.querySelectorAll('.floating-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const platform = btn.classList.contains('fb-btn') ? 'Facebook' : 'Zalo';
+                alert(`Liên hệ với DOL English qua ${platform}!`);
+            });
+        });
+    }
+    
+    startGame(gameType) {
+        this.currentGame = gameType;
+        this.currentQuestion = 0;
+        this.score = 0;
+        
+        // Show difficulty selection for games that support it
+        if (['flashcard', 'multiple-choice', 'speed'].includes(gameType)) {
+            this.showDifficultySelection(gameType);
+        } else {
+            this.launchGame(gameType, 'easy');
+        }
+    }
+    
+    showDifficultySelection(gameType) {
+        const modal = document.getElementById('gameModal');
+        const gameContainer = document.getElementById('gameContainer');
+        
+        const difficulties = {
+            'flashcard': [
+                { id: 'easy', name: 'Dễ (A1-A2)', description: '19 từ vựng cơ bản' },
+                { id: 'medium', name: 'Trung bình (B1-C1)', description: '19 từ vựng trung cấp' },
+                { id: 'hard', name: 'Khó (C1-C2)', description: '19 từ vựng nâng cao' }
+            ],
+            'multiple-choice': [
+                { id: 'easy', name: 'Dễ (A1-A2)', description: '4 lựa chọn, từ A1-A2' },
+                { id: 'medium', name: 'Trung bình (A2-B2)', description: '6 lựa chọn, từ A2-B2' },
+                { id: 'hard', name: 'Khó (B2-C2)', description: '8 lựa chọn, từ B2-C2' }
+            ],
+            'speed': [
+                { id: 'easy', name: 'Dễ (A1-A2)', description: '40s, 3 lựa chọn' },
+                { id: 'medium', name: 'Trung bình (A1-B1)', description: '30s, 4 lựa chọn' },
+                { id: 'hard', name: 'Khó (B1-C1)', description: '25s, 5 lựa chọn' },
+                { id: 'expert', name: 'Chuyên gia (C1-C2)', description: '20s, 6 lựa chọn' }
+            ]
+        };
+        
+        const gameNames = {
+            'flashcard': 'Flashcard Quiz',
+            'multiple-choice': 'Multiple Choice',
+            'speed': 'Speed Mode'
+        };
+        
+        gameContainer.innerHTML = `
+            <div class="difficulty-selection">
+                <h2>Chọn độ khó - ${gameNames[gameType]}</h2>
+                <div class="difficulty-options">
+                    ${difficulties[gameType].map(diff => `
+                        <div class="difficulty-card" onclick="learningHub.launchGame('${gameType}', '${diff.id}')">
+                            <h3>${diff.name}</h3>
+                            <p>${diff.description}</p>
+                        </div>
+                    `).join('')}
+                </div>
+                <button class="action-btn secondary" onclick="learningHub.closeGame()">
+                    <i class="fas fa-times"></i> Hủy
+                </button>
+            </div>
+        `;
+        
+        modal.style.display = 'block';
+    }
+    
+    launchGame(gameType, difficulty) {
+        this.currentDifficulty = difficulty;
+        const modal = document.getElementById('gameModal');
+        const gameContainer = document.getElementById('gameContainer');
+        
+        switch (gameType) {
+            case 'flashcard':
+                this.startFlashcardGame(gameContainer, difficulty);
+                break;
+            case 'multiple-choice':
+                this.startMultipleChoiceGame(gameContainer, difficulty);
+                break;
+            case 'typing':
+                this.startTypingGame(gameContainer);
+                break;
+            case 'speed':
+                this.startSpeedGame(gameContainer, difficulty);
+                break;
+            case 'shooter':
+                this.startShooterGame(gameContainer);
+                break;
+            case 'puzzle':
+                this.startPuzzleGame(gameContainer);
+                break;
+            case 'memory':
+                this.startMemoryGame(gameContainer);
+                break;
+        }
+        
+        modal.style.display = 'block';
+    }
+    
+    startFlashcardGame(container, difficulty = 'easy') {
+        // Show mode selection first
+        container.innerHTML = `
+            <div class="flashcard-mode-selection">
+                <h2>Chọn chế độ Flashcard</h2>
+                <div class="mode-options">
+                    <div class="mode-card" onclick="learningHub.startFlashcardMode('study', '${difficulty}')">
+                        <h3>📚 Chế độ Học</h3>
+                        <p>Xem từ vựng và nghĩa để học</p>
+                    </div>
+                    <div class="mode-card" onclick="learningHub.startFlashcardMode('test', '${difficulty}')">
+                        <h3>🧪 Chế độ Kiểm tra</h3>
+                        <p>Trả lời đúng/sai và điền từ</p>
+                    </div>
+                </div>
+                <div class="difficulty-info">
+                    <p><strong>Độ khó đã chọn:</strong> ${this.getDifficultyName(difficulty)}</p>
+                </div>
+                <button class="action-btn secondary" onclick="learningHub.closeGame()">
+                    <i class="fas fa-times"></i> Hủy
+                </button>
+            </div>
+        `;
+    }
+    
+    startFlashcardMode(mode, difficulty) {
+        const container = document.getElementById('gameContainer');
+        this.flashcardMode = mode;
+        this.flashcardWords = this.getFlashcardWords(difficulty);
+        this.currentFlashcardIndex = 0;
+        this.flashcardScore = 0;
+        
+        if (mode === 'study') {
+            this.showFlashcardStudy(container);
+        } else {
+            this.showFlashcardTest(container);
+        }
+    }
+    
+    getFlashcardWords(difficulty) {
+        let words = [];
+        switch (difficulty) {
+            case 'easy':
+                words = vocabularyDB.getVocabularyByDifficultyRange('A1', 'A2');
+                break;
+            case 'medium':
+                words = vocabularyDB.getVocabularyByDifficultyRange('B1', 'C1');
+                break;
+            case 'hard':
+                words = vocabularyDB.getVocabularyByDifficultyRange('C1', 'C2');
+                break;
+        }
+        
+        // Get 19 random words
+        const shuffled = vocabularyDB.shuffleArray([...words]);
+        return shuffled.slice(0, 19);
+    }
+    
+    showFlashcardStudy(container) {
+        if (this.currentFlashcardIndex >= this.flashcardWords.length) {
+            this.endFlashcardStudy(container);
+            return;
+        }
+        
+        const word = this.flashcardWords[this.currentFlashcardIndex];
+        
+        container.innerHTML = `
+            <div class="flashcard-study">
+                <div class="game-header">
+                    <div class="game-progress">Từ ${this.currentFlashcardIndex + 1}/${this.flashcardWords.length}</div>
+                </div>
+                <div class="flashcard-container" onclick="learningHub.flipFlashcard()">
+                    <div class="flashcard" id="flashcard">
+                        <div class="flashcard-front">
+                            <div class="word-english">${word.english}</div>
+                            <div class="word-pronunciation">${word.pronunciation}</div>
+                            <div class="word-example">"${word.example}"</div>
+                            <div class="flip-hint">Nhấn để xem nghĩa</div>
+                        </div>
+                        <div class="flashcard-back">
+                            <div class="word-vietnamese">${word.vietnamese}</div>
+                            <div class="flip-hint">Nhấn để lật lại</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flashcard-actions">
+                    <button class="action-btn primary" onclick="learningHub.nextFlashcard()">
+                        <i class="fas fa-arrow-right"></i> Tiếp theo
+                    </button>
+                    <button class="action-btn secondary" onclick="learningHub.closeGame()">
+                        Dừng
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+    
+    flipFlashcard() {
+        const flashcard = document.getElementById('flashcard');
+        flashcard.classList.toggle('flipped');
+    }
+    
+    nextFlashcard() {
+        this.currentFlashcardIndex++;
+        this.showFlashcardStudy(document.getElementById('gameContainer'));
+    }
+    
+    endFlashcardStudy(container) {
+        container.innerHTML = `
+            <div class="study-complete">
+                <h2>🎉 Hoàn thành học tập!</h2>
+                <p>Bạn đã học xong ${this.flashcardWords.length} từ vựng</p>
+                <div class="study-actions">
+                    <button class="action-btn primary" onclick="learningHub.startFlashcardMode('test', '${this.currentDifficulty}')">
+                        <i class="fas fa-question-circle"></i> Kiểm tra ngay
+                    </button>
+                    <button class="action-btn secondary" onclick="learningHub.startFlashcardMode('study', '${this.currentDifficulty}')">
+                        <i class="fas fa-redo"></i> Học lại
+                    </button>
+                    <button class="action-btn tertiary" onclick="learningHub.closeGame()">
+                        <i class="fas fa-times"></i> Đóng
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+    
+    showFlashcardTest(container) {
+        if (this.currentFlashcardIndex >= this.flashcardWords.length) {
+            this.endFlashcardTest(container);
+            return;
+        }
+        
+        const word = this.flashcardWords[this.currentFlashcardIndex];
+        const isTrueFalse = this.currentFlashcardIndex < 14;
+        
+        container.innerHTML = `
+            <div class="flashcard-test">
+                <div class="game-header">
+                    <div class="game-score">Điểm: ${this.flashcardScore}</div>
+                    <div class="game-progress">Câu ${this.currentFlashcardIndex + 1}/${this.flashcardWords.length}</div>
+                </div>
+                <div class="test-question">
+                    <h2>${word.english}</h2>
+                    <p class="word-pronunciation">${word.pronunciation}</p>
+                    ${isTrueFalse ? `
+                        <div class="true-false-options">
+                            <button class="action-btn success" onclick="learningHub.answerFlashcardTest(true, '${word.english}')">
+                                ✅ Đúng
+                            </button>
+                            <button class="action-btn danger" onclick="learningHub.answerFlashcardTest(false, '${word.english}')">
+                                ❌ Sai
+                            </button>
+                        </div>
+                    ` : `
+                        <div class="fill-blank">
+                            <p>Nghĩa tiếng Việt: <strong>${word.vietnamese}</strong></p>
+                            <input type="text" id="fillAnswer" placeholder="Nhập từ tiếng Anh..." class="game-input">
+                            <button class="action-btn primary" onclick="learningHub.checkFillAnswer('${word.english}')">
+                                Kiểm tra
+                            </button>
+                        </div>
+                    `}
+                </div>
+                <div class="test-feedback" id="testFeedback" style="display: none;">
+                    <div id="feedbackContent"></div>
+                    <button class="action-btn primary" onclick="learningHub.nextFlashcardTest()">
+                        Tiếp theo
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        // Add enter key listener for fill-in-the-blank
+        if (!isTrueFalse) {
+            document.getElementById('fillAnswer').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.checkFillAnswer(word.english);
+                }
+            });
+        }
+    }
+    
+    answerFlashcardTest(isCorrect, english) {
+        const word = this.flashcardWords.find(w => w.english === english);
+        const feedback = document.getElementById('testFeedback');
+        const feedbackContent = document.getElementById('feedbackContent');
+        
+        if (isCorrect === (word.vietnamese !== 'Sai nghĩa')) {
+            this.flashcardScore += 10;
+            feedbackContent.innerHTML = `
+                <div class="correct-answer">
+                    <h3>✅ Đúng rồi!</h3>
+                    <p>Nghĩa: ${word.vietnamese}</p>
+                </div>
+            `;
+        } else {
+            this.flashcardScore = Math.max(0, this.flashcardScore - 5);
+            feedbackContent.innerHTML = `
+                <div class="wrong-answer">
+                    <h3>❌ Sai rồi!</h3>
+                    <p>Nghĩa đúng: ${word.vietnamese}</p>
+                </div>
+            `;
+        }
+        
+        feedback.style.display = 'block';
+    }
+    
+    checkFillAnswer() {
+        const input = document.getElementById('fillAnswer');
+        const answer = input.value.toLowerCase().trim();
+        const expected = input.dataset.expected.toLowerCase();
+        const feedback = document.getElementById('testFeedback');
+        const feedbackContent = document.getElementById('feedbackContent');
+        
+        if (answer === expected) {
+            this.flashcardScore += 10;
+            feedbackContent.innerHTML = `
+                <div class="correct-answer">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Chính xác! +10 điểm</p>
+                    <p>Đáp án: ${input.dataset.expected}</p>
+                </div>
+            `;
+        } else {
+            this.flashcardScore -= 5;
+            feedbackContent.innerHTML = `
+                <div class="wrong-answer">
+                    <i class="fas fa-times-circle"></i>
+                    <p>Sai rồi! -5 điểm</p>
+                    <p>Đáp án đúng: <strong>${input.dataset.expected}</strong></p>
+                </div>
+            `;
+        }
+        
+        feedback.style.display = 'block';
+    }
+    
+    nextFlashcardTest() {
+        this.currentFlashcardIndex++;
+        this.showFlashcardTest(document.getElementById('gameContainer'));
+    }
+    
+    endFlashcardTest(container) {
+        const title = this.getFlashcardTitle(this.flashcardScore);
+        
+        container.innerHTML = `
+            <div class="test-results">
+                <h2>${title}</h2>
+                <div class="final-score">
+                    <h3>Điểm số: ${this.flashcardScore}</h3>
+                    <p>Tổng số câu: ${this.flashcardWords.length}</p>
+                </div>
+                <div class="test-actions">
+                    <button class="action-btn primary" onclick="learningHub.startFlashcardMode('test', '${this.currentDifficulty}')">
+                        Chơi lại
+                    </button>
+                    <button class="action-btn secondary" onclick="learningHub.closeGame()">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        // Save score
+        this.saveFlashcardScore(this.flashcardScore);
+    }
+    
+    getFlashcardTitle(score) {
+        if (score >= 40) {
+            return "Hãy cố gắng hết sức nhé !!";
+        } else if (score >= 100) {
+            return "Continue your Streak !!!";
+        } else {
+            return "Phá vỡ mọi giới hạn.";
+        }
+    }
+    
+    saveFlashcardScore(score) {
+        this.gameData.gameStats.flashcard.plays++;
+        if (score > this.gameData.gameStats.flashcard.highScore) {
+            this.gameData.gameStats.flashcard.highScore = score;
+        }
+        this.gameData.totalScore += score;
+        this.gameData.gamesPlayed++;
+        this.saveGameData();
+        this.saveGameHistory('flashcard', score, this.currentDifficulty);
+        this.updateStats();
+    }
+    
+    showAnswer() {
+        document.getElementById('answer').style.display = 'block';
+        document.querySelector('.action-btn.secondary').style.display = 'none';
+        document.getElementById('correctBtn').style.display = 'inline-block';
+        document.getElementById('wrongBtn').style.display = 'inline-block';
+    }
+    
+    answerFlashcard(isCorrect) {
+        if (isCorrect) {
+            this.score += 10;
+        }
+        this.nextQuestion();
+    }
+    
+    startMultipleChoiceGame(container, difficulty = 'easy') {
+        this.multipleChoiceScore = 0;
+        this.multipleChoiceQuestion = 0;
+        this.multipleChoiceWords = this.getMultipleChoiceWords(difficulty);
+        this.multipleChoiceDifficulty = difficulty;
+        
+        this.showMultipleChoiceQuestion(container);
+    }
+    
+    getMultipleChoiceWords(difficulty) {
+        let words = [];
+        switch (difficulty) {
+            case 'easy':
+                words = vocabularyDB.getVocabularyByDifficultyRange('A1', 'A2');
+                break;
+            case 'medium':
+                words = vocabularyDB.getVocabularyByDifficultyRange('A2', 'B2');
+                break;
+            case 'hard':
+                words = vocabularyDB.getVocabularyByDifficultyRange('B2', 'C2');
+                break;
+        }
+        
+        // Get 15 random words
+        const shuffled = vocabularyDB.shuffleArray([...words]);
+        return shuffled.slice(0, 15);
+    }
+    
+    showMultipleChoiceQuestion(container) {
+        if (this.multipleChoiceQuestion >= this.multipleChoiceWords.length) {
+            this.endMultipleChoiceGame(container);
+            return;
+        }
+        
+        const word = this.multipleChoiceWords[this.multipleChoiceQuestion];
+        const options = this.getMultipleChoiceOptions(word, this.multipleChoiceDifficulty);
+        
+        container.innerHTML = `
+            <div class="multiple-choice-game">
+                <div class="game-header">
+                    <div class="game-score">Điểm: ${this.multipleChoiceScore}</div>
+                    <div class="game-progress">Câu ${this.multipleChoiceQuestion + 1}/${this.multipleChoiceWords.length}</div>
+                </div>
+                <div class="game-question">
+                    <h2>Nghĩa của "${word.vietnamese}" là gì?</h2>
+                </div>
+                <div class="game-options multiple-choice-layout">
+                    ${options.map((option, index) => `
+                        <button class="option-btn" onclick="learningHub.selectMultipleChoiceOption('${option}', '${word.english}')">
+                            ${option}
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+    
+    getMultipleChoiceOptions(correctWord, difficulty) {
+        const options = [correctWord.english];
+        let numOptions = 4;
+        
+        switch (difficulty) {
+            case 'easy':
+                numOptions = 4;
+                break;
+            case 'medium':
+                numOptions = 6;
+                break;
+            case 'hard':
+                numOptions = 8;
+                break;
+        }
+        
+        // Get words from appropriate difficulty range
+        let allWords = [];
+        switch (difficulty) {
+            case 'easy':
+                allWords = vocabularyDB.getVocabularyByDifficultyRange('A1', 'A2');
+                break;
+            case 'medium':
+                allWords = vocabularyDB.getVocabularyByDifficultyRange('A2', 'B2');
+                break;
+            case 'hard':
+                allWords = vocabularyDB.getVocabularyByDifficultyRange('B2', 'C2');
+                break;
+        }
+        
+        const wordList = allWords.map(w => w.english);
+        
+        while (options.length < numOptions) {
+            const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
+            if (!options.includes(randomWord)) {
+                options.push(randomWord);
+            }
+        }
+        
+        return vocabularyDB.shuffleArray(options);
+    }
+    
+    selectMultipleChoiceOption(selected, correct) {
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons.forEach(btn => {
+            btn.disabled = true;
+            if (btn.textContent === correct) {
+                btn.classList.add('correct');
+            } else if (btn.textContent === selected && selected !== correct) {
+                btn.classList.add('incorrect');
+            }
+        });
+        
+        if (selected === correct) {
+            this.multipleChoiceScore += 10;
+        } else {
+            this.multipleChoiceScore = Math.max(0, this.multipleChoiceScore - 5);
+        }
+        
+        setTimeout(() => {
+            this.multipleChoiceQuestion++;
+            this.showMultipleChoiceQuestion(document.getElementById('gameContainer'));
+        }, 1500);
+    }
+    
+    endMultipleChoiceGame(container) {
+        const title = this.getMultipleChoiceTitle(this.multipleChoiceScore);
+        
+        container.innerHTML = `
+            <div class="test-results">
+                <h2>${title}</h2>
+                <div class="final-score">
+                    <h3>Điểm số: ${this.multipleChoiceScore}</h3>
+                    <p>Tổng số câu: ${this.multipleChoiceWords.length}</p>
+                </div>
+                <div class="test-actions">
+                    <button class="action-btn primary" onclick="learningHub.launchGame('multiple-choice', '${this.multipleChoiceDifficulty}')">
+                        Chơi lại
+                    </button>
+                    <button class="action-btn secondary" onclick="learningHub.closeGame()">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        // Save score
+        this.saveMultipleChoiceScore(this.multipleChoiceScore);
+    }
+    
+    getMultipleChoiceTitle(score) {
+        if (score >= 45) {
+            return "Hãy cố gắng hết sức nhé !!";
+        } else if (score >= 50) {
+            return "Continue your Streak !!!";
+        } else {
+            return "Phá vỡ mọi giới hạn.";
+        }
+    }
+    
+    saveMultipleChoiceScore(score) {
+        this.gameData.gameStats['multiple-choice'].plays++;
+        if (score > this.gameData.gameStats['multiple-choice'].highScore) {
+            this.gameData.gameStats['multiple-choice'].highScore = score;
+        }
+        this.gameData.totalScore += score;
+        this.gameData.gamesPlayed++;
+        this.saveGameData();
+        this.saveGameHistory('multiple-choice', score, this.multipleChoiceDifficulty);
+        this.updateStats();
+    }
+    
+    selectOption(selected, correct) {
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons.forEach(btn => {
+            btn.disabled = true;
+            if (btn.textContent === correct) {
+                btn.classList.add('correct');
+            } else if (btn.textContent === selected && selected !== correct) {
+                btn.classList.add('incorrect');
+            }
+        });
+        
+        if (selected === correct) {
+            this.score += 10;
+        } else {
+            this.score = Math.max(0, this.score - 5);
+        }
+        
+        setTimeout(() => this.nextQuestion(), 1500);
+    }
+    
+    startTypingGame(container) {
+        const vocab = this.getRandomVocabulary();
+        
+        container.innerHTML = `
+            <div class="game-header">
+                <div class="game-score">Điểm: ${this.score}</div>
+                <div class="game-timer">Câu: ${this.currentQuestion + 1}/10</div>
+            </div>
+            <div class="game-question">
+                <h2>Gõ từ tiếng Anh có nghĩa là: "${vocab.vietnamese}"</h2>
+            </div>
+            <input type="text" class="game-input" id="typingInput" placeholder="Gõ từ tiếng Anh..." autocomplete="off">
+            <div class="game-actions">
+                <button class="action-btn primary" onclick="learningHub.checkTypingAnswer('${vocab.english}')">Kiểm tra</button>
+                <button class="action-btn secondary" onclick="learningHub.skipQuestion()">Bỏ qua</button>
+            </div>
+        `;
+        
+        document.getElementById('typingInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.checkTypingAnswer(vocab.english);
+            }
+        });
+    }
+    
+    checkTypingAnswer(correct) {
+        const input = document.getElementById('typingInput');
+        const answer = input.value.toLowerCase().trim();
+        
+        if (answer === correct.toLowerCase()) {
+            this.score += 15;
+            input.style.borderColor = 'var(--dol-green)';
+            input.style.backgroundColor = 'rgba(39, 174, 96, 0.1)';
+        } else {
+            this.score = Math.max(0, this.score - 3);
+            input.style.borderColor = 'var(--dol-red)';
+            input.style.backgroundColor = 'rgba(231, 76, 60, 0.1)';
+        }
+        
+        setTimeout(() => this.nextQuestion(), 1000);
+    }
+    
+    startSpeedGame(container, difficulty = 'easy') {
+        // Show ready screen first
+        this.showSpeedReadyScreen(container, difficulty);
+    }
+    
+    showSpeedReadyScreen(container, difficulty) {
+        const settings = this.getSpeedSettings(difficulty);
+        
+        container.innerHTML = `
+            <div class="speed-ready-screen">
+                <div class="ready-container">
+                    <h2>Are You Ready?</h2>
+                    <div class="speed-settings">
+                        <p><strong>Độ khó:</strong> ${settings.name}</p>
+                        <p><strong>Thời gian:</strong> ${settings.time}s</p>
+                        <p><strong>Lựa chọn:</strong> ${settings.choices} options</p>
+                        <p><strong>Từ vựng:</strong> ${settings.levels}</p>
+                    </div>
+                    <div class="ready-buttons">
+                        <button class="action-btn primary" onclick="learningHub.startSpeedCountdown('${difficulty}')">
+                            <i class="fas fa-play"></i> Yes
+                        </button>
+                        <button class="action-btn secondary" onclick="learningHub.closeGame()">
+                            <i class="fas fa-times"></i> Later
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    getSpeedSettings(difficulty) {
+        const settings = {
+            'easy': {
+                name: 'Dễ (A1-A2)',
+                time: 40,
+                choices: 3,
+                levels: 'A1-A2',
+                minLevel: 'A1',
+                maxLevel: 'A2'
+            },
+            'medium': {
+                name: 'Trung bình (A1-B1)',
+                time: 30,
+                choices: 4,
+                levels: 'A1-B1',
+                minLevel: 'A1',
+                maxLevel: 'B1'
+            },
+            'hard': {
+                name: 'Khó (B1-C1)',
+                time: 25,
+                choices: 5,
+                levels: 'B1-C1',
+                minLevel: 'B1',
+                maxLevel: 'C1'
+            },
+            'expert': {
+                name: 'Chuyên gia (C1-C2)',
+                time: 20,
+                choices: 6,
+                levels: 'C1-C2',
+                minLevel: 'C1',
+                maxLevel: 'C2'
+            }
+        };
+        return settings[difficulty];
+    }
+    
+    startSpeedCountdown(difficulty) {
+        const container = document.getElementById('gameContainer');
+        this.speedDifficulty = difficulty;
+        this.speedSettings = this.getSpeedSettings(difficulty);
+        this.speedScore = 0;
+        this.speedQuestionCount = 0;
+        
+        container.innerHTML = `
+            <div class="speed-countdown">
+                <div class="countdown-container">
+                    <div class="countdown-number" id="countdownNumber">3</div>
+                </div>
+            </div>
+        `;
+        
+        let count = 3;
+        const countdownInterval = setInterval(() => {
+            const countdownElement = document.getElementById('countdownNumber');
+            
+            if (count > 0) {
+                countdownElement.textContent = count;
+                countdownElement.style.opacity = '0';
+                setTimeout(() => {
+                    countdownElement.style.opacity = '1';
+                }, 100);
+                count--;
+            } else if (count === 0) {
+                countdownElement.textContent = 'GO!';
+                countdownElement.style.opacity = '0';
+                setTimeout(() => {
+                    countdownElement.style.opacity = '1';
+                }, 100);
+                count--;
+            } else {
+                clearInterval(countdownInterval);
+                this.startSpeedGameplay(container);
+            }
+        }, 1000);
+    }
+    
+    startSpeedGameplay(container) {
+        this.speedTimeLeft = this.speedSettings.time;
+        this.speedWords = vocabularyDB.getVocabularyByDifficultyRange(
+            this.speedSettings.minLevel, 
+            this.speedSettings.maxLevel
+        );
+        
+        this.startSpeedTimer();
+        this.showSpeedQuestion(container);
+    }
+    
+    startSpeedTimer() {
+        this.speedTimer = setInterval(() => {
+            this.speedTimeLeft--;
+            const timerElement = document.querySelector('.game-timer');
+            if (timerElement) {
+                timerElement.textContent = `Thời gian: ${this.speedTimeLeft}s`;
+            }
+            
+            if (this.speedTimeLeft <= 0) {
+                this.endSpeedGame();
+            }
+        }, 1000);
+    }
+    
+    showSpeedQuestion(container) {
+        const vocab = vocabularyDB.shuffleArray([...this.speedWords])[0];
+        const options = this.getSpeedOptions(vocab);
+        
+        container.innerHTML = `
+            <div class="speed-game">
+                <div class="game-header">
+                    <div class="game-score">Điểm: ${this.speedScore}</div>
+                    <div class="game-timer">Thời gian: ${this.speedTimeLeft}s</div>
+                    <div class="game-questions">Câu: ${this.speedQuestionCount + 1}</div>
+                </div>
+                <div class="game-question">
+                    <h2>Nghĩa của "${vocab.vietnamese}" là gì?</h2>
+                </div>
+                <div class="game-options speed-layout" data-choices="${this.speedSettings.choices}">
+                    ${options.map((option, index) => `
+                        <button class="option-btn" onclick="learningHub.selectSpeedOption('${option}', '${vocab.english}')">
+                            ${option}
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+    
+    getSpeedOptions(correctWord) {
+        const options = [correctWord.english];
+        const allWords = this.speedWords.map(w => w.english);
+        
+        while (options.length < this.speedSettings.choices) {
+            const randomWord = allWords[Math.floor(Math.random() * allWords.length)];
+            if (!options.includes(randomWord)) {
+                options.push(randomWord);
+            }
+        }
+        
+        return vocabularyDB.shuffleArray(options);
+    }
+    
+    selectSpeedOption(selected, correct) {
+        this.speedQuestionCount++;
+        
+        if (selected === correct) {
+            this.speedScore += 10;
+        } else {
+            this.speedScore = Math.max(0, this.speedScore - 2);
+        }
+        
+        this.showSpeedQuestion(document.getElementById('gameContainer'));
+    }
+    
+    endSpeedGame() {
+        clearInterval(this.speedTimer);
+        
+        const container = document.getElementById('gameContainer');
+        const title = this.getSpeedTitle(this.speedScore);
+        
+        container.innerHTML = `
+            <div class="test-results">
+                <h2>${title}</h2>
+                <div class="final-score">
+                    <h3>Điểm số: ${this.speedScore}</h3>
+                    <p>Câu đã trả lời: ${this.speedQuestionCount}</p>
+                    <p>Thời gian: ${this.speedSettings.time}s</p>
+                </div>
+                <div class="test-actions">
+                    <button class="action-btn primary" onclick="learningHub.launchGame('speed', '${this.speedDifficulty}')">
+                        Chơi lại
+                    </button>
+                    <button class="action-btn secondary" onclick="learningHub.closeGame()">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        // Save score
+        this.saveSpeedScore(this.speedScore);
+    }
+    
+    getSpeedTitle(score) {
+        if (score >= 40) {
+            return "Try your best";
+        } else if (score >= 150) {
+            return "Continue your Streak !!!";
+        } else if (score >= 300) {
+            return "Bullet !?";
+        } else {
+            return "How?";
+        }
+    }
+    
+    saveSpeedScore(score) {
+        this.gameData.gameStats.speed.plays++;
+        if (score > this.gameData.gameStats.speed.highScore) {
+            this.gameData.gameStats.speed.highScore = score;
+        }
+        this.gameData.totalScore += score;
+        this.gameData.gamesPlayed++;
+        this.saveGameData();
+        this.saveGameHistory('speed', score, this.speedDifficulty);
+        this.updateStats();
+    }
+    
+    startShooterGame(container) {
+        container.innerHTML = `
+            <div class="game-header">
+                <div class="game-score">Điểm: ${this.score}</div>
+                <div class="game-timer">Thời gian: 60s</div>
+            </div>
+            <div class="game-question">
+                <h2>Bắn từ tiếng Anh đang rơi xuống!</h2>
+                <p>Gõ từ tiếng Anh để bắn từ tương ứng</p>
+            </div>
+            <div id="shooterCanvas" style="height: 400px; border: 2px solid var(--dol-orange); border-radius: 15px; position: relative; overflow: hidden; background: linear-gradient(180deg, #87CEEB, #98FB98);">
+                <div id="fallingWords"></div>
+            </div>
+            <input type="text" class="game-input" id="shooterInput" placeholder="Gõ từ để bắn..." autocomplete="off">
+            <div class="game-actions">
+                <button class="action-btn secondary" onclick="learningHub.endGame()">Kết thúc</button>
+            </div>
+        `;
+        
+        this.startShooterLoop();
+    }
+    
+    startShooterLoop() {
+        this.shooterTimer = 60;
+        this.fallingWords = [];
+        
+        // Start countdown
+        this.shooterCountdown = setInterval(() => {
+            this.shooterTimer--;
+            document.querySelector('.game-timer').textContent = `Thời gian: ${this.shooterTimer}s`;
+            
+            if (this.shooterTimer <= 0) {
+                this.endGame();
+            }
+        }, 1000);
+        
+        // Create falling words
+        this.wordCreationInterval = setInterval(() => {
+            this.createFallingWord();
+        }, 2000);
+        
+        // Setup input handler
+        document.getElementById('shooterInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.shootWord();
+            }
+        });
+    }
+    
+    createFallingWord() {
+        const vocab = this.getRandomVocabulary();
+        const wordElement = document.createElement('div');
+        wordElement.className = 'falling-word';
+        wordElement.textContent = vocab.english;
+        wordElement.style.cssText = `
+            position: absolute;
+            top: -50px;
+            left: ${Math.random() * 80 + 10}%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--dol-red);
+            background: var(--dol-white);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fall 5s linear forwards;
+        `;
+        
+        wordElement.dataset.word = vocab.english;
+        wordElement.dataset.vietnamese = vocab.vietnamese;
+        
+        document.getElementById('fallingWords').appendChild(wordElement);
+        this.fallingWords.push(wordElement);
+        
+        // Remove word after animation
+        setTimeout(() => {
+            if (wordElement.parentNode) {
+                wordElement.parentNode.removeChild(wordElement);
+                this.fallingWords = this.fallingWords.filter(w => w !== wordElement);
+            }
+        }, 5000);
+    }
+    
+    shootWord() {
+        const input = document.getElementById('shooterInput');
+        const typedWord = input.value.toLowerCase().trim();
+        
+        if (!typedWord) return;
+        
+        // Find matching falling word
+        const targetWord = this.fallingWords.find(word => 
+            word.dataset.word.toLowerCase() === typedWord
+        );
+        
+        if (targetWord) {
+            this.score += 25;
+            targetWord.style.animation = 'none';
+            targetWord.style.transform = 'scale(1.5)';
+            targetWord.style.color = 'var(--dol-green)';
+            targetWord.style.background = 'var(--dol-yellow)';
+            
+            setTimeout(() => {
+                if (targetWord.parentNode) {
+                    targetWord.parentNode.removeChild(targetWord);
+                    this.fallingWords = this.fallingWords.filter(w => w !== targetWord);
+                }
+            }, 500);
+        } else {
+            this.score = Math.max(0, this.score - 5);
+        }
+        
+        input.value = '';
+    }
+    
+    getRandomVocabulary(level = 'beginner') {
+        const words = vocabularyDB.getVocabulary(level);
+        return words[Math.floor(Math.random() * words.length)];
+    }
+    
+    getRandomOptions(correctAnswer, level = 'beginner') {
+        const options = [correctAnswer];
+        const allWords = vocabularyDB.getVocabulary(level).map(v => v.english);
+        
+        while (options.length < 4) {
+            const randomWord = allWords[Math.floor(Math.random() * allWords.length)];
+            if (!options.includes(randomWord)) {
+                options.push(randomWord);
+            }
+        }
+        
+        return this.shuffleArray(options);
+    }
+    
+    shuffleArray(array) {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    }
+    
+    nextQuestion() {
+        this.currentQuestion++;
+        
+        if (this.currentQuestion >= 10) {
+            this.endGame();
+        } else {
+            // Update question counter
+            const timerElement = document.querySelector('.game-timer');
+            if (timerElement) {
+                timerElement.textContent = `Câu: ${this.currentQuestion + 1}/10`;
+            }
+            
+            // Update score
+            const scoreElement = document.querySelector('.game-score');
+            if (scoreElement) {
+                scoreElement.textContent = `Điểm: ${this.score}`;
+            }
+            
+            // Show next question based on game type
+            switch (this.currentGame) {
+                case 'flashcard':
+                    this.startFlashcardGame(document.getElementById('gameContainer'));
+                    break;
+                case 'multiple-choice':
+                    this.startMultipleChoiceGame(document.getElementById('gameContainer'));
+                    break;
+                case 'typing':
+                    this.startTypingGame(document.getElementById('gameContainer'));
+                    break;
+            }
+        }
+    }
+    
+    skipQuestion() {
+        this.nextQuestion();
+    }
+    
+    endGame() {
+        // Clear any timers
+        if (this.timer) clearInterval(this.timer);
+        if (this.shooterCountdown) clearInterval(this.shooterCountdown);
+        if (this.wordCreationInterval) clearInterval(this.wordCreationInterval);
+        
+        // Update game data
+        this.gameData.totalScore += this.score;
+        this.gameData.gamesPlayed++;
+        this.gameData.gameStats[this.currentGame].plays++;
+        
+        if (this.score > this.gameData.gameStats[this.currentGame].highScore) {
+            this.gameData.gameStats[this.currentGame].highScore = this.score;
+        }
+        
+        // Update streak
+        const today = new Date().toDateString();
+        if (this.gameData.lastPlayDate !== today) {
+            this.gameData.streak++;
+            this.gameData.lastPlayDate = today;
+        }
+        
+        this.saveGameData();
+        this.updateStats();
+        
+        // Show game over screen
+        const container = document.getElementById('gameContainer');
+        container.innerHTML = `
+            <div style="text-align: center; padding: 2rem;">
+                <h2 style="color: var(--dol-red); margin-bottom: 1rem;">🎉 Game Over!</h2>
+                <div style="font-size: 1.5rem; margin-bottom: 1rem;">
+                    <strong>Điểm số: ${this.score}</strong>
+                </div>
+                <div style="margin-bottom: 2rem;">
+                    <p>Chúc mừng bạn đã hoàn thành minigame!</p>
+                    <p>Tiếp tục luyện tập để cải thiện kỹ năng tiếng Anh nhé!</p>
+                </div>
+                <div class="game-actions">
+                    <button class="action-btn primary" onclick="learningHub.startGame('${this.currentGame}')">
+                        Chơi lại
+                    </button>
+                    <button class="action-btn secondary" onclick="learningHub.closeGame()">
+                        Đóng
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+    
+    closeGame() {
+        document.getElementById('gameModal').style.display = 'none';
+        this.currentGame = null;
+    }
+    
+    showVocabulary() {
+        const modal = document.getElementById('vocabModal');
+        const vocabList = document.getElementById('vocabList');
+        
+        // Get all vocabulary from database
+        const allWords = [];
+        Object.keys(vocabularyDB.vocabulary).forEach(level => {
+            Object.keys(vocabularyDB.vocabulary[level]).forEach(topic => {
+                vocabularyDB.vocabulary[level][topic].forEach(word => {
+                    allWords.push(word);
+                });
+            });
+        });
+        
+        vocabList.innerHTML = allWords.map(vocab => `
+            <div class="vocab-item">
+                <div class="vocab-english">${vocab.english}</div>
+                <div class="vocab-vietnamese">${vocab.vietnamese}</div>
+                <div class="vocab-pronunciation">${vocab.pronunciation}</div>
+            </div>
+        `).join('');
+        
+        modal.style.display = 'block';
+    }
+    
+    closeVocabulary() {
+        document.getElementById('vocabModal').style.display = 'none';
+    }
+    
+    // Word Puzzle Game
+    startPuzzleGame(container) {
+        const vocab = this.getRandomVocabulary();
+        const scrambledWord = this.scrambleWord(vocab.english);
+        
+        container.innerHTML = `
+            <div class="game-header">
+                <div class="game-score">Điểm: ${this.score}</div>
+                <div class="game-timer">Câu: ${this.currentQuestion + 1}/10</div>
+            </div>
+            <div class="game-question">
+                <h2>Ghép từ tiếng Anh có nghĩa là: "${vocab.vietnamese}"</h2>
+                <div class="puzzle-letters" id="puzzleLetters">
+                    ${scrambledWord.split('').map(letter => 
+                        `<span class="puzzle-letter" onclick="learningHub.selectLetter('${letter}')">${letter}</span>`
+                    ).join('')}
+                </div>
+            </div>
+            <div class="puzzle-answer" id="puzzleAnswer"></div>
+            <div class="game-actions">
+                <button class="action-btn primary" onclick="learningHub.checkPuzzleAnswer('${vocab.english}')">
+                    Kiểm tra
+                </button>
+                <button class="action-btn secondary" onclick="learningHub.skipQuestion()">
+                    Bỏ qua
+                </button>
+            </div>
+        `;
+        
+        this.currentPuzzleAnswer = '';
+    }
+    
+    selectLetter(letter) {
+        this.currentPuzzleAnswer += letter;
+        document.getElementById('puzzleAnswer').innerHTML = this.currentPuzzleAnswer;
+    }
+    
+    checkPuzzleAnswer(correct) {
+        if (this.currentPuzzleAnswer.toLowerCase() === correct.toLowerCase()) {
+            this.score += 20;
+            document.getElementById('puzzleAnswer').style.color = 'var(--dol-green)';
+        } else {
+            this.score = Math.max(0, this.score - 5);
+            document.getElementById('puzzleAnswer').style.color = 'var(--dol-red)';
+        }
+        
+        setTimeout(() => this.nextQuestion(), 1500);
+    }
+    
+    scrambleWord(word) {
+        return word.split('').sort(() => Math.random() - 0.5).join('');
+    }
+    
+    // Memory Match Game
+    startMemoryGame(container) {
+        const words = this.getRandomVocabulary('beginner', null, 4);
+        const cards = [];
+        
+        // Tạo cặp thẻ
+        words.forEach(word => {
+            cards.push({ type: 'english', content: word.english, pair: word.vietnamese });
+            cards.push({ type: 'vietnamese', content: word.vietnamese, pair: word.english });
+        });
+        
+        // Xáo trộn thẻ
+        this.shuffleArray(cards);
+        
+        container.innerHTML = `
+            <div class="game-header">
+                <div class="game-score">Điểm: ${this.score}</div>
+                <div class="game-timer">Thời gian: 60s</div>
+            </div>
+            <div class="game-question">
+                <h2>Tìm cặp từ tiếng Anh và nghĩa tiếng Việt!</h2>
+            </div>
+            <div class="memory-grid" id="memoryGrid">
+                ${cards.map((card, index) => `
+                    <div class="memory-card" data-index="${index}" onclick="learningHub.flipCard(${index})">
+                        <div class="card-content">?</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        
+        this.memoryCards = cards;
+        this.flippedCards = [];
+        this.matchedPairs = 0;
+        this.startMemoryTimer();
+    }
+    
+    flipCard(index) {
+        const card = document.querySelector(`[data-index="${index}"]`);
+        const cardData = this.memoryCards[index];
+        
+        if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
+        
+        card.classList.add('flipped');
+        card.querySelector('.card-content').textContent = cardData.content;
+        
+        this.flippedCards.push({ index, data: cardData });
+        
+        if (this.flippedCards.length === 2) {
+            setTimeout(() => this.checkMemoryMatch(), 1000);
+        }
+    }
+    
+    checkMemoryMatch() {
+        const [card1, card2] = this.flippedCards;
+        
+        if (card1.data.pair === card2.data.content) {
+            // Match found
+            document.querySelector(`[data-index="${card1.index}"]`).classList.add('matched');
+            document.querySelector(`[data-index="${card2.index}"]`).classList.add('matched');
+            this.score += 25;
+            this.matchedPairs++;
+            
+            if (this.matchedPairs === 4) {
+                this.endMemoryGame();
+            }
+        } else {
+            // No match
+            document.querySelector(`[data-index="${card1.index}"]`).classList.remove('flipped');
+            document.querySelector(`[data-index="${card2.index}"]`).classList.remove('flipped');
+            document.querySelector(`[data-index="${card1.index}"] .card-content`).textContent = '?';
+            document.querySelector(`[data-index="${card2.index}"] .card-content`).textContent = '?';
+        }
+        
+        this.flippedCards = [];
+    }
+    
+    startMemoryTimer() {
+        this.memoryTimeLeft = 60;
+        this.memoryTimer = setInterval(() => {
+            this.memoryTimeLeft--;
+            document.querySelector('.game-timer').textContent = `Thời gian: ${this.memoryTimeLeft}s`;
+            
+            if (this.memoryTimeLeft <= 0) {
+                this.endMemoryGame();
+            }
+        }, 1000);
+    }
+    
+    endMemoryGame() {
+        clearInterval(this.memoryTimer);
+        this.endGame();
+    }
+    
+    startWordShooterLoop() {
+        this.shooterTimeLeft = 45;
+        this.cannonPosition = 50; // percentage
+        this.flyingWords = [];
+        
+        // Start countdown
+        this.shooterCountdown = setInterval(() => {
+            this.shooterTimeLeft--;
+            document.querySelector('.game-timer').textContent = `Thời gian: ${this.shooterTimeLeft}s`;
+            
+            if (this.shooterTimeLeft <= 0) {
+                this.endGame();
+            }
+        }, 1000);
+        
+        // Create flying words
+        this.shooterWordInterval = setInterval(() => {
+            this.createFlyingShooterWord();
+        }, 2500);
+        
+        // Setup keyboard controls
+        document.addEventListener('keydown', this.handleShooterKeydown.bind(this));
+    }
+    
+    handleShooterKeydown(e) {
+        const cannon = document.getElementById('cannon');
+        
+        switch(e.key) {
+            case 'ArrowLeft':
+                this.cannonPosition = Math.max(10, this.cannonPosition - 10);
+                cannon.style.left = this.cannonPosition + '%';
+                break;
+            case 'ArrowRight':
+                this.cannonPosition = Math.min(90, this.cannonPosition + 10);
+                cannon.style.left = this.cannonPosition + '%';
+                break;
+            case ' ':
+                e.preventDefault();
+                this.shootWord();
+                break;
+        }
+    }
+    
+    createFlyingShooterWord() {
+        const vocab = this.getRandomVocabulary();
+        const wordElement = document.createElement('div');
+        wordElement.className = 'flying-shooter-word';
+        wordElement.textContent = vocab.english;
+        wordElement.style.cssText = `
+            position: absolute;
+            top: -50px;
+            left: ${Math.random() * 80 + 10}%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--dol-red);
+            background: var(--dol-white);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: flyDown 4s linear forwards;
+        `;
+        
+        wordElement.dataset.word = vocab.english;
+        wordElement.dataset.vietnamese = vocab.vietnamese;
+        
+        document.getElementById('flyingWords').appendChild(wordElement);
+        this.flyingWords.push(wordElement);
+        
+        // Remove word after animation
+        setTimeout(() => {
+            if (wordElement.parentNode) {
+                wordElement.parentNode.removeChild(wordElement);
+                this.flyingWords = this.flyingWords.filter(w => w !== wordElement);
+            }
+        }, 4000);
+    }
+    
+    shootWord() {
+        const cannon = document.getElementById('cannon');
+        const cannonRect = cannon.getBoundingClientRect();
+        const cannonCenter = cannonRect.left + cannonRect.width / 2;
+        
+        // Find word near cannon
+        const nearbyWord = this.flyingWords.find(word => {
+            const wordRect = word.getBoundingClientRect();
+            const wordCenter = wordRect.left + wordRect.width / 2;
+            return Math.abs(cannonCenter - wordCenter) < 100;
+        });
+        
+        if (nearbyWord) {
+            this.score += 30;
+            nearbyWord.style.animation = 'none';
+            nearbyWord.style.transform = 'scale(1.5)';
+            nearbyWord.style.color = 'var(--dol-green)';
+            nearbyWord.style.background = 'var(--dol-yellow)';
+            
+            setTimeout(() => {
+                if (nearbyWord.parentNode) {
+                    nearbyWord.parentNode.removeChild(nearbyWord);
+                    this.flyingWords = this.flyingWords.filter(w => w !== nearbyWord);
+                }
+            }, 500);
+        } else {
+            this.score = Math.max(0, this.score - 3);
+        }
+    }
+    
+    showLeaderboard(type) {
+        // Update tab buttons
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        // For now, show the same leaderboard for all types
+        // In a real app, you would filter by date range
+        this.updateLeaderboard();
+    }
+    
+    toggleFavorite(gameType) {
+        const index = this.favorites.indexOf(gameType);
+        if (index > -1) {
+            this.favorites.splice(index, 1);
+        } else {
+            this.favorites.push(gameType);
+        }
+        this.saveFavorites();
+        this.updateStats();
+        
+        // Update button appearance
+        const btn = document.querySelector(`[onclick="toggleFavorite('${gameType}')"]`);
+        if (btn) {
+            btn.classList.toggle('active');
+        }
+    }
+    
+    showGameHistory(gameType) {
+        const modal = document.getElementById('gameModal');
+        const gameContainer = document.getElementById('gameContainer');
+        
+        const history = this.getGameHistory(gameType);
+        
+        gameContainer.innerHTML = `
+            <div class="game-history">
+                <h2>Lịch sử chơi - ${this.getGameName(gameType)}</h2>
+                <div class="history-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">${history.plays}</span>
+                        <span class="stat-label">Lượt chơi</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">${history.highScore}</span>
+                        <span class="stat-label">Điểm cao nhất</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">${history.totalScore}</span>
+                        <span class="stat-label">Tổng điểm</span>
+                    </div>
+                </div>
+                <div class="history-list">
+                    ${history.recentGames.map(game => `
+                        <div class="history-item">
+                            <div class="history-date">${game.date}</div>
+                            <div class="history-score">${game.score} điểm</div>
+                            <div class="history-difficulty">${game.difficulty}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                <button class="action-btn secondary" onclick="learningHub.closeGame()">
+                    Đóng
+                </button>
+            </div>
+        `;
+        
+        modal.style.display = 'block';
+    }
+    
+    getGameHistory(gameType) {
+        const stats = this.gameData.gameStats[gameType] || { highScore: 0, plays: 0 };
+        const recentGames = JSON.parse(localStorage.getItem(`gameHistory_${gameType}`) || '[]');
+        
+        return {
+            plays: stats.plays,
+            highScore: stats.highScore,
+            totalScore: recentGames.reduce((sum, game) => sum + game.score, 0),
+            recentGames: recentGames.slice(0, 10)
+        };
+    }
+    
+    getGameName(gameType) {
+        const names = {
+            'flashcard': 'Flashcard Quiz',
+            'multiple-choice': 'Multiple Choice',
+            'speed': 'Speed Mode',
+            'typing': 'Typing Challenge',
+            'shooter': 'Word Shooter',
+            'puzzle': 'Word Puzzle',
+            'memory': 'Memory Match'
+        };
+        return names[gameType] || gameType;
+    }
+    
+    getDifficultyName(difficulty) {
+        const names = {
+            'easy': 'Dễ (A1-A2)',
+            'medium': 'Trung bình (B1-C1)',
+            'hard': 'Khó (C1-C2)',
+            'expert': 'Chuyên gia (C1-C2)'
+        };
+        return names[difficulty] || difficulty;
+    }
+    
+    saveGameHistory(gameType, score, difficulty) {
+        const history = JSON.parse(localStorage.getItem(`gameHistory_${gameType}`) || '[]');
+        history.unshift({
+            date: new Date().toLocaleDateString('vi-VN'),
+            score: score,
+            difficulty: difficulty
+        });
+        
+        // Keep only last 50 games
+        if (history.length > 50) {
+            history.splice(50);
+        }
+        
+        localStorage.setItem(`gameHistory_${gameType}`, JSON.stringify(history));
+    }
+}
+
+// Add CSS for falling animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fall {
+        from { transform: translateY(-50px); }
+        to { transform: translateY(450px); }
+    }
+`;
+document.head.appendChild(style);
+
+// Initialize the learning hub
+let learningHub;
+
+document.addEventListener('DOMContentLoaded', function() {
+    learningHub = new LearningHub();
+    initializeModeButtons();
+});
+
+// Global functions for HTML onclick events
+function startGame(gameType) {
+    learningHub.startGame(gameType);
+}
+
+function showVocabulary() {
+    learningHub.showVocabulary();
+}
+
+function showLeaderboard(type) {
+    learningHub.showLeaderboard(type);
+}
+
+// Learning Mode Management
+let currentMode = 'all';
+
+// Initialize mode buttons
+function initializeModeButtons() {
+    const modeButtons = document.querySelectorAll('.mode-btn');
+    
+    modeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            modeButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Get the mode from data attribute
+            currentMode = this.getAttribute('data-mode');
+            
+            // Filter games based on selected mode
+            filterGamesByMode(currentMode);
+        });
+    });
+}
+
+// Filter games by mode
+function filterGamesByMode(mode) {
+    const gameCards = document.querySelectorAll('.game-card');
+    
+    gameCards.forEach(card => {
+        const gameType = card.getAttribute('data-game');
+        let shouldShow = false;
+        
+        switch(mode) {
+            case 'all':
+                shouldShow = true;
+                break;
+            case 'beginner':
+                shouldShow = ['flashcard', 'multiple-choice', 'typing'].includes(gameType);
+                break;
+            case 'intermediate':
+                shouldShow = ['word-shooter', 'puzzle', 'memory'].includes(gameType);
+                break;
+            case 'advanced':
+                shouldShow = ['speed'].includes(gameType);
+                break;
+            case 'favorites':
+                // Check if game is in favorites (you can implement this based on user preferences)
+                shouldShow = checkIfGameIsFavorite(gameType);
+                break;
+        }
+        
+        if (shouldShow) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeInUp 0.5s ease forwards';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    
+    // Update the games section title based on mode
+    updateGamesSectionTitle(mode);
+}
+
+// Check if game is favorite (placeholder function)
+function checkIfGameIsFavorite(gameType) {
+    // You can implement this based on user preferences stored in localStorage
+    const favorites = JSON.parse(localStorage.getItem('favoriteGames') || '[]');
+    return favorites.includes(gameType);
+}
+
+// Update games section title
+function updateGamesSectionTitle(mode) {
+    const gamesSection = document.querySelector('.games-section h2');
+    if (!gamesSection) return;
+    
+    const titles = {
+        'all': '🎮 Tất Cả Minigames',
+        'beginner': '🟢 Games Cơ Bản',
+        'intermediate': '🟡 Games Trung Bình', 
+        'advanced': '🔴 Games Nâng Cao',
+        'favorites': '⭐ Games Yêu Thích'
+    };
+    
+    gamesSection.textContent = titles[mode] || '🎮 Minigames';
+}
+
+function closeGame() {
+    learningHub.closeGame();
+}
+
+function closeVocabulary() {
+    learningHub.closeVocabulary();
+}
+
+// Global functions for new features
+function toggleFavorite(gameType) {
+    learningHub.toggleFavorite(gameType);
+}
+
+function showGameHistory(gameType) {
+    learningHub.showGameHistory(gameType);
+}
+</script>
 </body>
 </html>
