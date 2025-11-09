@@ -1,657 +1,118 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Main Study - HọcVui</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --primary:#ff6b35;
-  --accent:#ffd6a5;
-  --bg:#0b1220;
-  --card: rgba(255,255,255,0.02);
-  --muted:#9aa7bf;
-  --text:#e6eef8;
-  --glass: rgba(255,255,255,0.03);
+  --primary:#ff6b35;--accent:#ffd6a5;--bg:#0b1220;--card:rgba(255,255,255,0.02);
+  --text:#e6eef8;--muted:#9aa7bf;
 }
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(180deg,#07101a,#0b1220);color:var(--text);-webkit-font-smoothing:antialiased}
-.header{position:fixed;left:0;right:0;top:0;height:64px;background:rgba(2,6,23,0.6);display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid rgba(255,255,255,0.03);z-index:60}
-.brand{font-weight:800; font-size:20px; color:var(--primary)}
-.header-right{display:flex;gap:12px;align-items:center}
-.avatar-small{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--primary)}
-.container{display:flex;gap:18px;max-width:1200px;margin:84px auto 40px;padding:16px}
-.sidebar{width:260px;background:var(--card);border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.03);height:calc(100vh - 160px);display:flex;flex-direction:column;gap:12px}
-.search{display:flex;gap:8px;align-items:center}
-.input{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text);outline:none}
-.nav-btn{display:flex;align-items:center;gap:12px;padding:10px;border-radius:8px;border:none;background:none;color:var(--text);cursor:pointer;font-weight:700}
-.nav-btn.active{background:linear-gradient(90deg,rgba(255,107,53,0.12),rgba(255,184,107,0.03));border-left:4px solid var(--primary)}
-.main{flex:1;display:flex;flex-direction:column;gap:12px}
-.top-panel{display:flex;justify-content:space-between;gap:12px;align-items:center}
-.card{background:var(--card);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 30px rgba(2,6,23,0.45)}
-.content{min-height:420px;padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid rgba(255,255,255,0.02)}
-.controls{display:flex;gap:8px;align-items:center}
-
-/* quiz/listen layout */
-.question-box{display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;height:320px}
-.choice-list{display:flex;flex-direction:column;gap:10px;width:100%;max-width:720px;margin:0 auto}
-.choice{padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);cursor:pointer;font-weight:700}
-.choice.correct{border-color:rgba(16,185,129,0.6);background:linear-gradient(90deg,rgba(16,185,129,0.12),rgba(110,231,183,0.04))}
-.choice.wrong{border-color:rgba(239,68,68,0.6);background:linear-gradient(90deg,rgba(239,68,68,0.08),transparent)}
-
-/* progress */
-.progress-bar{height:12px;background:rgba(255,255,255,0.04);border-radius:8px;overflow:hidden}
-.progress-bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));width:0%}
-
-/* footer */
-.footer{margin-top:auto;padding:12px;text-align:center;color:var(--muted);font-size:13px}
-
-/* toast */
-.toast-wrap{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:8px;z-index:200}
-.toast{min-width:220px;padding:12px 14px;border-radius:10px;color:#07101a;font-weight:700;display:flex;gap:10px;align-items:center;box-shadow:0 8px 30px rgba(2,6,23,0.6);transform:translateX(120%);opacity:0}
-.toast.show{transform:translateX(0);opacity:1;transition:transform .34s cubic-bezier(.2,.9,.3,1),opacity .34s}
-.toast.success{background:linear-gradient(90deg,#10b981,#6ee7b7)}
-.toast.error{background:linear-gradient(90deg,#ef4444,#fda4af)}
-.toast.warn{background:linear-gradient(90deg,#f59e0b,#ffd580)}
-.toast small{font-weight:600;color:rgba(7,16,36,0.9)}
-
-/* responsive */
-@media(max-width:980px){
-  .container{flex-direction:column;padding:12px}
-  .sidebar{width:100%;height:auto;order:2}
-  .main{order:1}
-}
-.footer-text{text-align:center;color:var(--muted);font-size:13px;margin-bottom:8px}
-.dailyQuote{font-style:italic}
-.footer-card{text-align: center;background:none !important;margin-bottom:12px}
-.br{background-color: #ffffff;height: 1px;width: 80px;margin: 0 auto 12px auto;}
+body{margin:0;font-family:Inter,sans-serif;background:linear-gradient(180deg,#07101a,#0b1220);color:var(--text);}
+.header{display:flex;justify-content:space-between;align-items:center;padding:10px 20px;
+background:rgba(2,6,23,0.6);backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,0.05);}
+.brand{font-weight:800;font-size:22px;color:var(--primary);cursor:pointer;transition:all .3s}
+.brand:hover{transform:scale(1.05);filter:brightness(1.2)}
+.container{max-width:1200px;margin:80px auto;padding:20px;display:flex;gap:24px;}
+.sidebar{width:280px;background:var(--card);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.nav-btn{padding:10px 14px;border:none;border-radius:8px;background:none;color:var(--text);
+font-weight:700;text-align:left;cursor:pointer;transition:0.2s;}
+.nav-btn:hover{background:rgba(255,255,255,0.05);}
+.nav-btn.active{background:linear-gradient(90deg,rgba(255,107,53,0.15),rgba(255,184,107,0.05));border-left:3px solid var(--primary);}
+.main{flex:1;background:var(--card);border-radius:12px;padding:24px;min-height:500px;border:1px solid rgba(255,255,255,0.03);}
+.game-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
+.game-card{background:rgba(255,255,255,0.03);border-radius:12px;padding:18px;cursor:pointer;transition:.25s;border:1px solid rgba(255,255,255,0.03);}
+.game-card:hover{transform:translateY(-4px);background:rgba(255,255,255,0.06);}
+.game-card h3{margin:0;font-weight:800;color:var(--accent);}
+.game-detail{display:none;animation:fadeSlide .4s forwards;position:relative;min-height:400px}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.btn{padding:10px 16px;border:none;border-radius:8px;font-weight:700;cursor:pointer;color:#fff;background:linear-gradient(90deg,var(--primary),var(--accent));transition:.3s}
+.btn:hover{filter:brightness(1.1)}
+.back-btn{background:none;color:var(--accent);font-weight:700;border:none;cursor:pointer;
+margin-top:40px;display:block;margin-left:auto;margin-right:auto;}
+.footer{text-align:center;color:var(--muted);padding:20px;font-size:13px;margin-top:40px}
 </style>
 </head>
 <body>
+<header class="header">
+    <div id="navbar"></div>
+</header>
 
-  <div class="header">
-    <div class="brand">Học<span style="background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Vui</span></div>
-    <div class="header-right">
-      <div id="todayProgress" class="small">Hôm nay: 0 từ</div>
-      <img id="headerAvatar" class="avatar-small" src="https://i.imgur.com/ZCk5pQp.png" alt="avatar">
+<div class="container">
+  <aside class="sidebar">
+    <button class="nav-btn active" data-tab="study">📚 Học</button>
+    <button class="nav-btn" data-tab="review">🔁 Ôn tập</button>
+    <button class="nav-btn" data-tab="challenge">🔥 Thử thách</button>
+    <button class="nav-btn" data-tab="stats">📊 Thống kê</button>
+  
+  </aside>
+
+  <main class="main">
+    <div id="gameList" class="game-list">
+      <div class="game-card" data-game="flashcard">
+        <h3>🃏 Flashcard</h3>
+        <p>Học từ vựng nhanh qua thẻ lật thông minh.</p>
+      </div>
+      <div class="game-card" data-game="quiz">
+        <h3>❓ Quiz</h3>
+        <p>Trắc nghiệm chọn đáp án đúng để ghi điểm.</p>
+      </div>
     </div>
-  </div>
+    <div id="gameDetail" class="game-detail"></div>
+  </main>
+</div>
 
-  <div class="container">
-    <aside class="sidebar card">
-      <div class="search">
-        <input id="searchInput" class="input" placeholder="Tìm từ, chủ đề, level...">
-      </div>
-
-      <div style="display:flex;flex-direction:column;margin-top:10px">
-        <button class="nav-btn active" data-tab="flashTab">🃏 Flashcard</button>
-        <button class="nav-btn" data-tab="quizTab">❓ Quiz (Multiple choice)</button>
-        <button class="nav-btn" data-tab="listenTab">🎧 Listening (Type)</button>
-        <button class="nav-btn" data-tab="reviewTab">🔁 Review (Seen words)</button>
-        <button class="nav-btn" data-tab="progressTab">📊 Progress</button>
-      </div>
-
-      <div style="margin-top:auto">
-        <div class="small" style="color:var(--muted)">Quick links</div>
-        <div style="display:flex;gap:8px;margin-top:8px">
-          <button id="gotoFlashBtn" class="btn" style="padding:8px 10px">Mở Flashcard</button>
-          <button id="gotoSettingBtn" class="btn ghost" style="padding:8px 10px">Setting</button>
-        </div>
-      </div>
-    </aside>
-
-    <main class="main">
-      <div class="top-panel">
-        <div class="card" style="flex:1">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <div class="small">Module</div>
-              <div id="moduleTitle" style="font-weight:800">Flashcard</div>
-            </div>
-            <div style="display:flex;gap:8px;align-items:center">
-              <select id="levelSelect" class="input" style="width:140px">
-                <option value="all">All (A1–C2)</option>
-                <option value="A1">A1</option><option value="A2">A2</option>
-                <option value="B1">B1</option><option value="B2">B2</option>
-                <option value="C1">C1</option><option value="C2">C2</option>
-              </select>
-              <select id="modeSelect" class="input" style="width:180px">
-                <option value="learn">Learn → Test (19)</option>
-                <option value="quiz">Quick Quiz (10)</option>
-                <option value="speed">Speed Mode</option>
-              </select>
-              <div id="moduleScore" style="font-weight:800">Score: 0</div>
-            </div>
-          </div>
-        </div>
-
-        <div style="width:320px">
-          <div class="card">
-            <div class="small">Today's streak</div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
-              <div style="font-weight:800" id="streakCount">0</div>
-              <div style="width:140px">
-                <div class="progress-bar"><i id="streakBar" style="width:0%"></i></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card content" id="mainContent">
-        <!-- Tab contents (only one visible) -->
-        <div id="flashTab" class="tab active">
-          <div style="display:flex;flex-direction:column;gap:12px">
-            <div class="small">Flashcard — preview</div>
-            <div style="display:flex;gap:12px;align-items:center">
-              <div style="flex:1">
-                <div style="padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);text-align:center">
-                  <div id="flashWord" style="font-size:36px;font-weight:800">...</div>
-                  <div id="flashTrans" style="margin-top:18px;color:var(--muted)">Ấn Play để bắt đầu</div>
-                </div>
-              </div>
-              <div style="width:220px;display:flex;flex-direction:column;gap:8px">
-                <button id="startLearnBtn" class="btn">Bắt đầu (Learn)</button>
-                <button id="startTestBtn" class="btn ghost">Bắt đầu (Test)</button>
-                <button id="shuffleBtn" class="btn ghost">Shuffle</button>
-                <div class="small">Loaded: <span id="loadedCount">0</span> words</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="quizTab" class="tab" style="display:none">
-          <div class="question-box">
-            <div id="quizQ" style="font-size:22px;font-weight:800">Chọn đáp án đúng</div>
-            <div class="choice-list" id="quizChoices"></div>
-            <div style="margin-top:12px;display:flex;gap:8px">
-              <button id="quizNext" class="btn">Tiếp</button>
-              <button id="quizSkip" class="btn ghost">Bỏ qua (-5)</button>
-              <div id="quizScore" style="font-weight:800;margin-left:12px">0</div>
-            </div>
-          </div>
-        </div>
-
-        <div id="listenTab" class="tab" style="display:none">
-          <div style="display:flex;flex-direction:column;gap:12px;align-items:center">
-            <div class="small">Nghe & điền</div>
-            <div style="padding:18px;border-radius:12px;background:rgba(255,255,255,0.01);width:100%;max-width:720px;text-align:center">
-              <div id="listenPrompt" style="font-size:28px;font-weight:800">Press Play</div>
-              <div style="margin-top:12px">
-                <button id="playAudioWord" class="btn">Play</button>
-              </div>
-              <div style="margin-top:12px">
-                <input id="listenInput" class="input" placeholder="Gõ tiếng Anh...">
-              </div>
-              <div style="margin-top:12px;display:flex;gap:8px">
-                <button id="submitListen" class="btn">Nộp</button>
-                <button id="skipListen" class="btn ghost">Bỏ qua (-2)</button>
-                <div id="listenScore" style="font-weight:800;margin-left:12px">0</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="reviewTab" class="tab" style="display:none">
-          <div class="small">Từ đã gặp</div>
-          <div id="seenList" style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px"></div>
-        </div>
-
-        <div id="progressTab" class="tab" style="display:none">
-          <div class="small">Progress Overview</div>
-          <div style="display:flex;gap:12px;margin-top:12px">
-            <div style="flex:1" class="card">
-              <div class="small">Total points</div>
-              <div id="totalPoints" style="font-weight:800;font-size:28px">0</div>
-            </div>
-            <div style="width:320px" class="card">
-              <div class="small">Session history (last 7)</div>
-              <div id="sessionHistory" style="margin-top:8px"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    
-    </main>
-  </div>
-<footer>
-      <div class="footer-card">
-        <div id="dailyQuote">"Học hôm nay, chinh phục ngày mai."</div>
-      </div>
-    <div class="br"></div>
-    <div class="footer-text">&copy; 2024 HọcVui. All rights reserved.</div>
-</footer>
-  <div class="toast-wrap" id="toastWrap"></div>
-
-  <!-- base64 audio cues (tiny) -->
-  <audio id="popSound" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAIlYAAESsAAACABAAZGF0YQAAAAA="></audio>
-  <audio id="wordSound" src=""></audio>
-
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<div class="footer">© 2025 HọcVui. Tất cả quyền được bảo lưu.</div>
 
 <script>
-/* ====== CONFIG ====== */
-const firebaseConfig = {
-  apiKey: "AIzaSyC_8Y5vYXvXc0kvYH0jNOziiR0t1TtStTg",
-  authDomain: "myproject-7ba9f.firebaseapp.com",
-  projectId: "myproject-7ba9f",
-  storageBucket: "myproject-7ba9f.appspot.com",
-  messagingSenderId: "614709937741",
-  appId: "1:614709937741:web:d11e5325162c249cfdfe04",
-  measurementId: "G-LB9VZG4BHB"
+const detailEl = document.getElementById('gameDetail');
+const listEl = document.getElementById('gameList');
+const games = {
+  flashcard:{
+    title:'Flashcard',
+    desc:'Phương pháp học bằng thẻ lật thông minh giúp ghi nhớ từ nhanh hơn.',
+    best:'1200 điểm', last:'Hôm qua',
+    link:'../../html/playground/flashcards-ver/flashcard_final2.html'
+  },
+  quiz:{
+    title:'Quiz',
+    desc:'Trả lời các câu hỏi trắc nghiệm, phương pháp học trắc nghiệm nhanh chóng.',
+    best:'890 điểm', last:'2 ngày trước',
+    link:'../../html/playground/quiz-ver/quizfinal2.html'
+  },
 };
-if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
 
-/* ====== UI refs ====== */
-const navBtns = document.querySelectorAll('.nav-btn');
-const tabs = { flash: document.getElementById('flashTab'), quiz: document.getElementById('quizTab'), listen: document.getElementById('listenTab'), review: document.getElementById('reviewTab'), progress: document.getElementById('progressTab') };
-const moduleTitle = document.getElementById('moduleTitle');
-const levelSelect = document.getElementById('levelSelect');
-const modeSelect = document.getElementById('modeSelect');
-const startLearnBtn = document.getElementById('startLearnBtn');
-const startTestBtn = document.getElementById('startTestBtn');
-const shuffleBtn = document.getElementById('shuffleBtn');
-const flashWord = document.getElementById('flashWord');
-const flashTrans = document.getElementById('flashTrans');
-const loadedCount = document.getElementById('loadedCount');
-const gotoFlashBtn = document.getElementById('gotoFlashBtn');
-const gotoSettingBtn = document.getElementById('gotoSettingBtn');
-const headerAvatar = document.getElementById('headerAvatar');
-const todayProgress = document.getElementById('todayProgress');
-
-const quizQ = document.getElementById('quizQ');
-const quizChoices = document.getElementById('quizChoices');
-const quizNext = document.getElementById('quizNext');
-const quizSkip = document.getElementById('quizSkip');
-const quizScoreEl = document.getElementById('quizScore');
-
-const listenPrompt = document.getElementById('listenPrompt');
-const playAudioWord = document.getElementById('playAudioWord');
-const listenInput = document.getElementById('listenInput');
-const submitListen = document.getElementById('submitListen');
-const skipListen = document.getElementById('skipListen');
-const listenScoreEl = document.getElementById('listenScore');
-
-const seenList = document.getElementById('seenList');
-const totalPoints = document.getElementById('totalPoints');
-const sessionHistory = document.getElementById('sessionHistory');
-const streakCount = document.getElementById('streakCount');
-const streakBar = document.getElementById('streakBar');
-const moduleScore = document.getElementById('moduleScore');
-
-/* toast */
-const toastWrap = document.getElementById('toastWrap');
-const popSound = document.getElementById('popSound');
-const wordSound = document.getElementById('wordSound');
-
-function toast(msg, type='success', t=3000){
-  const el = document.createElement('div');
-  el.className = 'toast ' + (type==='error'?'error':type==='warn'?'warn':'success');
-  el.innerHTML = `<small>${msg}</small>`;
-  toastWrap.prepend(el);
-  try{ popSound.currentTime=0; popSound.play().catch(()=>{}); }catch(e){}
-  requestAnimationFrame(()=> el.classList.add('show'));
-  setTimeout(()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(),350); }, t);
-}
-
-/* ====== LOCAL STORAGE KEYS & state ====== */
-const LS = {
-  SEEN: 'hv_seen_words',
-  POINTS: 'hv_points_total',
-  SESSIONS: 'hv_sessions'
-};
-let vocabPool = []; // loaded words
-let workingList = []; // current session list
-let currentIndex = 0;
-let mode = 'learn';
-let totalPointsNum = Number(localStorage.getItem(LS.POINTS) || 0);
-let sessionHistoryArr = JSON.parse(localStorage.getItem(LS.SESSIONS) || '[]');
-let seenWords = JSON.parse(localStorage.getItem(LS.SEEN) || '[]');
-
-function saveSeen(){ localStorage.setItem(LS.SEEN, JSON.stringify(seenWords)); }
-function savePoints(){ localStorage.setItem(LS.POINTS, String(totalPointsNum)); totalPoints.textContent = totalPointsNum; }
-function saveSessions(){ localStorage.setItem(LS.SESSIONS, JSON.stringify(sessionHistoryArr)); }
-
-/* ====== Helper: fetch vocab from Firestore (collection 'vocabularies') ====== */
-async function loadVocab(level='all'){
-  vocabPool = [];
-  loadedCount.textContent = '...';
-  try{
-    const col = db.collection('vocabularies');
-    const snap = await col.get();
-    if(snap.empty){ loadedCount.textContent = '0'; toast('Không có dữ liệu từ vựng trên cloud', 'warn'); return; }
-    snap.docs.forEach(d=>{
-      const data = d.data();
-      // allow either flat doc or array stored in field 'vocabularies'
-      if(Array.isArray(data.vocabularies)) data.vocabularies.forEach(v=>vocabPool.push(v));
-      else if(data.en && data.vi) vocabPool.push(data);
-      else {
-        // try detect array-like string fields
-        Object.values(data).forEach(val=>{
-          if(typeof val === 'string' && val.trim().startsWith('[') && val.includes('"en"')) {
-            try{ JSON.parse(val).forEach(v=>vocabPool.push(v)); }catch(e){}
-          }
-        });
-      }
-    });
-    // filter by level
-    if(level && level !== 'all') vocabPool = vocabPool.filter(w=>w.level === level);
-    loadedCount.textContent = vocabPool.length;
-    toast(`Loaded ${vocabPool.length} words`, 'success');
-  }catch(e){
-    console.error(e);
-    loadedCount.textContent = '0';
-    toast('Lỗi tải vocab: ' + (e.message||e), 'error');
-  }
-}
-
-/* ====== Session builders ====== */
-function buildLearnList(){
-  // for learn: pick up to 19 words (as user requested)
-  let arr = [...vocabPool];
-  shuffleArr(arr);
-  workingList = arr.slice(0, Math.min(19, arr.length));
-  currentIndex = 0;
-  mode = 'learn';
-  moduleScore.textContent = 'Score: 0';
-  showFlash();
-}
-
-function buildTestList(){
-  // test: 19 items: first 14 TF then 5 fill-in (we'll implement simplified test using random choices)
-  let arr = [...vocabPool];
-  shuffleArr(arr);
-  workingList = arr.slice(0, Math.min(19, arr.length));
-  currentIndex = 0;
-  mode = 'test';
-  moduleScore.textContent = 'Score: 0';
-  showFlash();
-}
-
-function shuffleArr(a){
-  for(let i=a.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [a[i],a[j]]=[a[j],a[i]];
-  }
-}
-
-/* ====== Flash display ====== */
-function showFlash(){
-  if(!workingList.length){ flashWord.textContent='No words'; flashTrans.textContent=''; return; }
-  const w = workingList[currentIndex];
-  flashWord.textContent = w.en || '—';
-  flashTrans.textContent = 'Ấn "Next" hoặc click để lật (demo)';
-  // clicking toggles reveal (simple)
-  flashWord.onclick = ()=> {
-    flashTrans.textContent = w.vi || '—';
+document.querySelectorAll('.game-card').forEach(card=>{
+  card.onclick=()=>{
+    const g=games[card.dataset.game];
+    if(!g)return;
+    listEl.style.display='none';
+    detailEl.style.display='block';
+    detailEl.innerHTML=`
+      <h2 style="font-weight:800;color:var(--accent)">${g.title}</h2>
+      <p>${g.desc}</p>
+      <p><strong>Best score:</strong> ${g.best}<br><strong>Lần gần nhất:</strong> ${g.last}</p>
+      <div style="margin-top:20px">
+        <button class="btn" onclick="window.location.href='${g.link}'">Bắt đầu ngay</button>
+      </div>
+      <button class="back-btn" onclick="backToList()">← Quay lại</button>`;
   };
+});
+
+function backToList(){
+  detailEl.style.display='none';
+  listEl.style.display='grid';
 }
-
-/* next flash */
-function nextFlash(){
-  if(currentIndex < workingList.length - 1){
-    currentIndex++;
-    showFlash();
-  } else {
-    // finish learn mode => auto go to test if mode was learn
-    toast('Hoàn thành lượt học. Chuyển sang test...', 'sync');
-    buildTestList();
-  }
-}
-
-/* ====== QUIZ (multiple choice) ====== */
-let quizState = { idx: 0, list: [], score: 0 };
-function initQuiz(){
-  const pool = vocabPool.length ? [...vocabPool] : [];
-  shuffleArr(pool);
-  quizState.list = pool.slice(0, Math.min(10, pool.length));
-  quizState.idx = 0; quizState.score = 0;
-  renderQuiz();
-}
-function renderQuiz(){
-  const item = quizState.list[quizState.idx];
-  if(!item){ quizQ.textContent = 'No question'; quizChoices.innerHTML=''; return; }
-  // present vietnamese meaning, choices english
-  quizQ.textContent = item.vi || item.en;
-  // prepare choices: correct + 3 distractors (if possible)
-  let choices = [item.en];
-  const others = vocabPool.filter(v=>v.en !== item.en).map(v=>v.en);
-  shuffleArr(others);
-  while(choices.length < 4 && others.length) choices.push(others.shift());
-  shuffleArr(choices);
-  quizChoices.innerHTML = '';
-  choices.forEach(c=>{
-    const el = document.createElement('div');
-    el.className = 'choice';
-    el.textContent = c;
-    el.onclick = ()=> {
-      if(c === item.en){
-        el.classList.add('correct');
-        quizState.score += 10;
-        toast('+10', 'success');
-      } else {
-        el.classList.add('wrong');
-        quizState.score -= 5;
-        toast('-5', 'error');
-      }
-      // disable further clicks
-      Array.from(quizChoices.children).forEach(ch=>ch.onclick=null);
-      quizScoreEl.textContent = quizState.score;
-    };
-    quizChoices.appendChild(el);
-  });
-}
-quizNext.addEventListener('click', ()=>{
-  if(!quizState.list.length) return;
-  if(quizState.idx < quizState.list.length - 1){
-    quizState.idx++;
-    renderQuiz();
-  } else {
-    // finish
-    totalPointsNum += quizState.score;
-    savePoints();
-    sessionHistoryArr.unshift({ date: Date.now(), score: quizState.score });
-    sessionHistoryArr = sessionHistoryArr.slice(0, 20);
-    saveSessions();
-    toast('Kết thúc Quiz. Score: ' + quizState.score, 'success');
-    showProgress();
-  }
-});
-quizSkip.addEventListener('click', ()=>{
-  quizState.score -= 5;
-  quizScoreEl.textContent = quizState.score;
-  toast('-5 (skipped)', 'warn');
-  // next immediately
-  quizNext.click();
-});
-
-/* ====== LISTENING (simple TTS-free impl) ====== */
-let listenState = { list: [], idx: 0, score: 0 };
-function initListen(){
-  shuffleArr(vocabPool);
-  listenState.list = vocabPool.slice(0, Math.min(10, vocabPool.length));
-  listenState.idx = 0; listenState.score = 0;
-  renderListen();
-}
-function renderListen(){
-  const w = listenState.list[listenState.idx];
-  if(!w){ listenPrompt.textContent='No words'; return; }
-  listenPrompt.textContent = 'Nghe & gõ nghĩa tiếng Anh của: ' + (w.vi || '—');
-  // prepare audio if available (none) — we use speechSynthesis as fallback
-  playWordSynth(w.en);
-}
-function playWordSynth(text){
-  try{
-    if('speechSynthesis' in window){
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'en-US';
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(u);
-    } else {
-      toast('No TTS', 'warn');
-    }
-  }catch(e){}
-}
-playAudioWord.addEventListener('click', ()=>{ const w = listenState.list[listenState.idx]; if(w) playWordSynth(w.en); });
-
-submitListen.addEventListener('click', ()=>{
-  const w = listenState.list[listenState.idx];
-  if(!w) return;
-  const ans = listenInput.value.trim().toLowerCase();
-  if(!ans){ toast('Nhập câu trả lời', 'warn'); return; }
-  if(ans === (w.en||'').toLowerCase()){
-    listenState.score += 10;
-    toast('+10','success');
-  } else {
-    listenState.score -= 5;
-    toast('-5','error');
-  }
-  listenScoreEl.textContent = listenState.score;
-  listenInput.value = '';
-  if(listenState.idx < listenState.list.length - 1){ listenState.idx++; renderListen(); } else {
-    totalPointsNum += listenState.score; savePoints();
-    sessionHistoryArr.unshift({date:Date.now(),score:listenState.score});
-    saveSessions();
-    toast('Kết thúc Listening. Score: ' + listenState.score, 'success');
-    showProgress();
-  }
-});
-skipListen.addEventListener('click', ()=>{
-  listenState.score -= 2;
-  toast('-2 (skipped)','warn');
-  if(listenState.idx < listenState.list.length - 1){ listenState.idx++; renderListen(); } else {
-    totalPointsNum += listenState.score; savePoints();
-    sessionHistoryArr.unshift({date:Date.now(),score:listenState.score});
-    saveSessions();
-    toast('Kết thúc Listening. Score: ' + listenState.score, 'success');
-    showProgress();
-  }
-});
-
-/* ====== Review & Progress ====== */
-function addSeen(word){
-  if(!word) return;
-  if(!seenWords.find(s=>s.en === word.en)){
-    seenWords.unshift({ ...word, seenAt: Date.now() });
-    seenWords = seenWords.slice(0, 200);
-    saveSeen();
-  }
-}
-function renderSeen(){
-  seenList.innerHTML = '';
-  if(!seenWords.length){ seenList.innerHTML = '<div class="small">Chưa có từ nào</div>'; return; }
-  seenWords.forEach(w=>{
-    const el = document.createElement('div');
-    el.className = 'card';
-    el.style.padding = '8px';
-    el.innerHTML = `<div style="font-weight:700">${w.en}</div><div class="small">${w.vi} • ${w.level||''}</div>`;
-    seenList.appendChild(el);
-  });
-}
-function showProgress(){
-  totalPoints.textContent = totalPointsNum;
-  sessionHistory.innerHTML = '';
-  sessionHistoryArr.slice(0,7).forEach(s=>{
-    const d = new Date(s.date);
-    const el = document.createElement('div');
-    el.className = 'small';
-    el.textContent = `${d.toLocaleDateString()} — ${s.score} pts`;
-    sessionHistory.appendChild(el);
-  });
-  // streak basic: count sessions today
-  const today = new Date(); today.setHours(0,0,0,0);
-  const todayCount = sessionHistoryArr.filter(s=> s.date >= today.getTime()).length;
-  streakCount.textContent = todayCount;
-  streakBar.style.width = Math.min(100, (todayCount / 5) * 100) + '%';
-  moduleScore.textContent = 'Score: ' + totalPointsNum;
-}
-
-/* ====== Navigation & events ====== */
-document.querySelectorAll('.nav-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    // hide all tabs
-    Object.values(tabs).forEach(t=>t.style.display='none');
-    const key = btn.dataset.tab;
-    document.getElementById(key).style.display = 'block';
-    moduleTitle.textContent = btn.textContent.trim();
-  });
-});
-
-/* quick links */
-gotoFlashBtn.addEventListener('click', ()=>{
-  // open flashcard full page — adjust the path to your flashcard file if needed
-  // if your flashcard is at html/playground/flashcard_fixed2.html -> use relative path accordingly
-  window.location.href = '../../html/playground/flashcards-ver/flashcard_final2.html'; // <- change path if necessary
-});
-
-gotoSettingBtn.addEventListener('click', ()=>{ window.location.href = '../navbar-console/navbar-setting/setting_v2.html'; /* adjust path if needed */ });
-
-/* start actions */
-startLearnBtn.addEventListener('click', ()=>{
-  mode = 'learn';
-  if(!vocabPool.length){ toast('Đang tải từ...'); loadVocab(levelSelect.value); return; }
-  buildLearnList();
-  // show words, and add to seen when shown
-  showFlash();
-});
-startTestBtn.addEventListener('click', ()=>{
-  mode = 'test';
-  if(!vocabPool.length){ toast('Đang tải từ...'); loadVocab(levelSelect.value); return; }
-  buildTestList();
-  showFlash();
-});
-shuffleBtn.addEventListener('click', ()=>{ shuffleArr(vocabPool); toast('Shuffled', 'sync'); });
-
-/* level change triggers load */
-levelSelect.addEventListener('change', ()=> loadVocab(levelSelect.value));
-
-/* search filter (local) */
-document.getElementById('searchInput').addEventListener('input', (e)=>{
-  const q = e.target.value.trim().toLowerCase();
-  if(!q){ loadedCount.textContent = vocabPool.length; return; }
-  const filtered = vocabPool.filter(w=> (w.en||'').toLowerCase().includes(q) || (w.vi||'').toLowerCase().includes(q) || (w.topic||'').toLowerCase().includes(q));
-  loadedCount.textContent = filtered.length;
-});
-
-/* ====== UTIL ====== */
-function shuffleArray(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } }
-
-/* ====== Auth & init ====== */
-let currentUser = null;
-auth.onAuthStateChanged(u=>{
-  currentUser = u;
-  if(u){
-    headerAvatar.src = u.photoURL || 'https://i.imgur.com/ZCk5pQp.png';
-    toast('Xin chào ' + (u.displayName || u.email), 'success');
-  } else {
-    headerAvatar.src = 'https://i.imgur.com/ZCk5pQp.png';
-  }
-});
-
-// load initial vocab (all) but tolerate permission errors
-loadVocab('all').then(()=> {
-  // auto-init small UI states
-  loadedCount.textContent = vocabPool.length;
-  todayProgress.textContent = `Hôm nay: ${seenWords.length} từ`;
-  showProgress();
-  renderSeen();
-}).catch(err=>{
-  console.warn('vocab load err', err);
-  toast('Chưa thể kết nối Firestore (permissions?)', 'warn');
-});
-
-/* ensure sound allowed */
-document.addEventListener('click', ()=>{ try{ popSound.play().then(()=>popSound.pause(), ()=>{}); }catch(e){} }, {once:true});
-
 </script>
+
+<script src="../../js/theme_toggle.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<!-- bundled navbar script -->
+<script src="../../js/setting_nav.js"></script>
+
+
 </body>
 </html>

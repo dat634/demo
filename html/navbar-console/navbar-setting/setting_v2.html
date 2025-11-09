@@ -5,127 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Setting v2 - HọcVui</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root {
-  --primary: #ff6b35;
-  --accent: #ffd6a5;
-  --bg-dark: #0f1724;
-  --card: rgba(255,255,255,0.03);
-  --muted: #9aa7bf;
-  --text: #e6eef8;
-  --success: #10b981;
-  --error: #ef4444;
-  --warn: #f59e0b;
-  --sync: #fb923c;
-  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-}
-
-.brand, .logo-gradient {
-  color: var(--primary) !important;
-}
-
-option{
-  background:var(--bg-dark);
-  color:var(--success);
-}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;background:linear-gradient(180deg,#07101a,#0b1220);color:var(--text);-webkit-font-smoothing:antialiased}
-.header{position:fixed;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(2,6,23,0.6);backdrop-filter:blur(6px);z-index:60;border-bottom:1px solid rgba(255,255,255,0.03)}
-/* === LOGO “HọcVui” fix lỗi gradient và hover === */
-.brand {font-weight: 800;font-size: 20px;color: var(--primary);display: inline-flex;align-items: center;gap: 4px;cursor: pointer;transition: transform 0.35s ease, filter 0.35s ease;}
-
-/* Gradient chữ “Vui” */
-.logo-gradient {
-  background: linear-gradient(90deg, var(--primary), var(--accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-  line-height: 1;
-  transition: transform 0.35s ease, background-position 0.6s ease, filter 0.35s ease;
-  background-size: 200% auto;
-  background-position: 0 center;
-}
-
-
-/* Khi hover toàn bộ logo */
-.brand:hover {transform: scale(1.05);filter: brightness(1.15);}
-
-/* Khi hover riêng phần “Vui” */
-.brand:hover .logo-gradient {background-position: 100% center;background-image: linear-gradient(90deg, var(--accent), var(--primary));transform: scale(1.15);filter: drop-shadow(0 0 10px rgba(255, 200, 0, 0.5));text-decoration: overline;}
-
-/* Ngăn gradient bị lỗi khi đổi theme */
-:root {--primary: #ff6b35;--accent: #ffd6a5;}
-
-.container{display:flex;margin-top:84px;gap:20px;padding:20px;max-width:1200px;margin-left:auto;margin-right:auto}
-aside{width:260px;background:rgba(255,255,255,0.02);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;gap:12px;height:calc(100vh - 140px)}
-.user-mini{display:flex;flex-direction:column;align-items:center;gap:8px}
-.avatar-small{width:64px;height:64px;border-radius:50%;border:3px solid var(--primary);object-fit:cover}
-.email{font-size:13px;color:var(--muted);text-align:center}
-nav{display:flex;flex-direction:column;gap:6px;margin-top:6px}
-.tab-btn{background:none;border:none;color:var(--text);text-align:left;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:600;display:flex;align-items:center;gap:10px}
-.tab-btn.active{background:linear-gradient(90deg, rgba(255,107,53,0.12), rgba(255,184,107,0.03));border-left:3px solid var(--primary)}
-.footer-actions{margin-top:auto;display:flex;flex-direction:column;gap:8px}
-.main{flex:1;display:flex;flex-direction:column;gap:18px;min-height:600px}
-.card{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(2,6,23,0.6)}
-.grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
-.left{display:flex;flex-direction:column;gap:12px}
-.right{display:flex;flex-direction:column;gap:12px}
-.label{font-size:13px;color:var(--muted);margin-bottom:6px}
-.input,select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text);outline:none}
-.avatar-preview{width:120px;height:120px;border-radius:50%;border:3px solid var(--primary);object-fit:cover}
-.btn{background:linear-gradient(90deg,var(--primary),var(--accent));border:none;padding:10px 12px;border-radius:10px;color:#07101a;font-weight:800;cursor:pointer}
-.btn.ghost{background:transparent;border:1px solid rgba(255, 0, 0, 0.06);color:var(--muted)}
-.small{font-size:13px;color:var(--muted)}
-.badges{display:flex;flex-wrap:wrap;gap:12px}
-.badge{width:160px;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255, 0, 0, 0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;align-items:center;gap:8px}
-.badge img{width:64px;height:64px}
-
-/* Toast */
-.toast-wrap{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:8px;z-index:200}
-.toast{min-width:220px;padding:12px 14px;border-radius:10px;color:#07101a;font-weight:700;display:flex;gap:10px;align-items:center;box-shadow:0 8px 30px rgba(2,6,23,0.6);transform:translateX(120%);opacity:0}
-.toast.show{transform:translateX(0);opacity:1;transition:transform .34s cubic-bezier(.2,.9,.3,1),opacity .34s}
-.toast.success{background:linear-gradient(90deg,var(--success),#6ee7b7)}
-.toast.error{background:linear-gradient(90deg,var(--error),#fda4af)}
-.toast.warn{background:linear-gradient(90deg,var(--warn),#ffd580)}
-.toast.sync{background:linear-gradient(90deg,var(--sync),#fdba74)}
-.toast small{font-weight:600;color:rgba(7,16,36,0.9)}
-
-/* tab content animation */
-.tab-content{display:none;animation:fadeIn .36s ease both}
-.tab-content.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.quick-save-cloud{
-  background: linear-gradient(90deg, var(--primary), var(--accent));
-  border: none;
-  padding: 10px 12px;
-  border-radius: 10px;
-  color: #07101a;
-  font-weight: 800;
-  cursor: pointer;
-}
-.quickSaveCloud{
-  background: linear-gradient(90deg, var(--primary), var(--accent));
-  border: none;
-  padding: 10px 12px;
-  border-radius: 10px;
-  color: #07101a;
-  font-weight: 800;
-  cursor: pointer;
-}
-/* responsive */
-@media(max-width:1000px)
-{ .container{flex-direction:column;padding:12px}
- aside{width:100%;height:auto}
-  .grid{grid-template-columns:1fr}
-  .right{width:100%}
-  .avatar-preview{width:88px;height:88px} }
-</style>
+<link rel="stylesheet" href="../../../css/setting.css">
+<link rel="stylesheet" href="../../../css/light_mode.css">
 </head>
 <body>
-  <div class="header">
-    <div class="brand"><span class="logo-gradient" style="background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent">HọcVui</span></div>
-    <div class="small" id="topStatus">Loading...</div>
-  </div>
+<div id="navbar"></div>
 
   <div class="container">
     <aside>
@@ -138,7 +22,6 @@ nav{display:flex;flex-direction:column;gap:6px;margin-top:6px}
         <button class="tab-btn active" data-tab="profileTab">👤 Hồ sơ</button>
         <button class="tab-btn" data-tab="themeTab">🎨 Giao diện</button>
         <button class="tab-btn" data-tab="gameTab">🎮 Trò chơi</button>
-        <button class="tab-btn" data-tab="cloudTab">☁️ Cloud Sync</button>
         <button class="tab-btn" data-tab="badgeTab">🏆 Thành tích</button>
         <button class="tab-btn" data-tab="accountTab">⚙️ Tài khoản</button>
         <a class="tab-btn" href="../../mainAll/main-lobby.html" style="text-decoration: none;"> ⬅ Back to main page</a>
@@ -177,12 +60,11 @@ nav{display:flex;flex-direction:column;gap:6px;margin-top:6px}
           <div id="themeTab" class="card tab-content">
             <h3>Giao diện</h3>
             <div class="label">Chế độ</div>
-            <select id="themeMode" class="input">
-              <option value="dark">Dark (mặc định)</option>
-              <option value="light">Light</option>
-            </select>
-            <div class="label">Màu chủ đạo</div>
-            <input id="themeColor" type="color" value="#ff6b35">
+
+              <select id="themeMode">
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+              </select>
             <div style="display:flex;gap:8px;margin-top:8px">
               <button id="saveThemeBtn" class="btn">Lưu giao diện</button>
               <button id="resetThemeBtn" class="btn ghost">Reset giao diện</button>
@@ -200,23 +82,10 @@ nav{display:flex;flex-direction:column;gap:6px;margin-top:6px}
             <label><input id="effectToggle" type="checkbox" checked> Hiệu ứng chuyển cảnh</label>
             <div style="display:flex;gap:8px;margin-top:8px">
               <button id="saveGameBtn" class="btn">Lưu cài đặt trò chơi</button>
-              <button class="btn"><a href="../../playground/MainConsole_Playground.html"><p>Chơi ngay</p></a></button>
+              <button class="btn"><a href="../../playground/MainConsole_Playground.html" style="text-decoration: none; color: #111;"><p>Chơi ngay</p></a></button>
                <button id="resetGameBtn" class="btn ghost">Reset trò chơi</button>
             </div>
           </div>
-
-          <!-- CLOUD -->
-          <div id="cloudTab" class="card tab-content">
-            <h3>Cloud Sync</h3>
-            <p class="small">Đồng bộ cài đặt giữa thiết bị và tài khoản (Firestore).</p>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-              <button id="uploadCloudBtn" class="btn">⬆️ Upload lên Cloud</button>
-              <button id="downloadCloudBtn" class="btn ghost">⬇️ Restore từ Cloud</button>
-              <button id="deleteCloudBtn" class="btn ghost">🗑️ Xóa settings trên Cloud</button>
-            </div>
-            <div id="cloudStatus" class="small" style="margin-top:12px;color:var(--muted)">—</div>
-          </div>
-
           <!-- BADGES -->
           <div id="badgeTab" class="card tab-content">
             <h3>Thành tích</h3>
@@ -484,7 +353,7 @@ async function restoreFromCloud(){
 logoutBtn.addEventListener('click', ()=>{
   auth.signOut().then(()=>{
     toast('Đã đăng xuất','success');
-    setTimeout(()=>window.location.href='../../../loginNregister/login.html',800);
+    setTimeout(()=>window.location.href='../../loginNregister/login.html',800);
   }).catch(e=>toast(e.message,'error'));
 });
 
@@ -534,8 +403,50 @@ loadProfileLocal(); loadThemeLocal(); loadGameLocal();
 
 /* fix first sound interaction */
 document.addEventListener('click',()=>{try{popSound.play().then(()=>popSound.pause(),()=>{});}catch(e){}},{once:true});
+// theme-toggle.js
+function setTheme(mode){
+  const root = document.documentElement;
+  if(mode === 'light'){
+    root.style.setProperty('--bg-dark', '#f7f8fb');
+    root.style.setProperty('--card', '#ffffff');
+    root.style.setProperty('--text', '#1e293b');
+    root.style.setProperty('--muted', '#64748b');
+    document.body.style.background = '#f7f8fb';
+    document.body.style.color = '#1e293b';
+  } else {
+    root.style.setProperty('--bg-dark', '#0f1724');
+    root.style.setProperty('--card', 'rgba(255,255,255,0.03)');
+    root.style.setProperty('--text', '#e6eef8');
+    root.style.setProperty('--muted', '#9aa7bf');
+    document.body.style.background = 'linear-gradient(180deg,#07101a,#0b1220)';
+    document.body.style.color = '#e6eef8';
+  }
+  localStorage.setItem('hv_theme_mode', mode);
+}
+
+function loadTheme(){
+  const saved = localStorage.getItem('hv_theme_mode') || 'dark';
+  setTheme(saved);
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  loadTheme();
+});
+// Light mode switch
+const themeModeSelect = document.getElementById('themeMode');
+themeModeSelect.addEventListener('change', ()=>{
+  const mode = themeModeSelect.value;
+  setTheme(mode);
+});
+themeMode.addEventListener("change", () => {
+  toggleTheme(themeMode.value);
+});
 
 </script>
-
+<script src="../../../js/theme_toggle.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="../../../js/setting_nav.js"></script>
 </body>
 </html>

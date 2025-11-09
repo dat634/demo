@@ -1,0 +1,82 @@
+/* === light-mode.css === */
+/* Import 1 lần cho mọi trang. Theme mặc định: dark */
+
+/* Card, Panel, Summary */
+body.light .card,
+body.light .panel,
+body.light .summary-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #1e293b !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Inputs, Textareas, Selects */
+body.light input,
+body.light select,
+body.light textarea {
+  background: #fff !important;
+  color: #1e293b !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+/* Header, Navbar */
+body.light .header,
+body.light nav {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  color: #1e293b !important;
+  transition: all 0.3s ease;
+}
+
+/* Ghost Buttons */
+body.light .btn.ghost {
+  border-color: #cbd5e1 !important;
+  color: #475569 !important;
+}
+
+/* Brand Text, Gradient Accent */
+body.light .brand span,
+body.light .highlight {
+  background: linear-gradient(90deg, #ff6b35, #ffd6a5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Toasts */
+body.light .toast.success {
+  background: linear-gradient(90deg, #10b981, #6ee7b7);
+}
+body.light .toast.error {
+  background: linear-gradient(90deg, #ef4444, #fca5a5);
+}
+body.light .toast.warn {
+  background: linear-gradient(90deg, #f59e0b, #fcd34d);
+}
+body.light .toast.sync {
+  background: linear-gradient(90deg, #fb923c, #fdba74);
+}
+
+/* Flashcard Specific */
+body.light .flashcard {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+}
+body.light .flashcard .front {
+  background: linear-gradient(180deg, #ffffff, #f1f5f9);
+  color: #1e293b;
+}
+body.light .flashcard .back {
+  background: linear-gradient(180deg, #fff7ef, #ffffff);
+  color: #1e293b;
+}
+html.light{
+  background: linear-gradient(180deg, #fff7ef, #ffffff);
+  color: #1e293b;
+}
+/* Animations for smoother mode transition */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+  }
+}

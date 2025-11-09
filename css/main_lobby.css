@@ -1,0 +1,110 @@
+:root{
+  --primary:#ff6b35;
+  --accent:#ffd6a5;
+  --bg:#08111c;
+  --text:#e6eef8;
+  --muted:#9aa7bf;
+
+  /* khoảng cách từ tâm chữ -> ảnh theo cả X và Y (bằng nhau để tạo 45deg).
+     Giá trị dùng viewport để ảnh nằm gần mép phải trên màn lớn.
+     Chỉnh giá trị này nếu muốn ảnh xa/gần hơn. */
+  --offset: min(22vw, 240px);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{height:100%;background: linear-gradient(-270deg, #663823,#07101a,#07101a, #07101a,#08111c,#07101a,#07101a,#07101a, #663823);color:var(--text);scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+/* header (giữ nguyên phong cách cũ) */
+.header{position:fixed;top:0;left:0;right:0;height:68px;display:flex;align-items:center;justify-content:space-between;padding:10px 24px;background:rgba(10,15,30,0.7);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.05);z-index:50;}
+.brand{font-size:22px;font-weight:800;color:var(--primary)}
+.nav-links{display:flex;gap:14px;align-items: left;justify-content: left;}
+.nav-links a{font-weight:600;color:var(--text);padding:6px 10px;border-radius:6px}
+.avatar{width:44px;height:44px;border-radius:50%;border:2px solid var(--primary);object-fit:cover}
+
+/* hero */
+.hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 20px;}
+.hero h1{font-size:46px;font-weight:800;background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:18px;color:var(--muted);max-width:720px;margin:12px auto 24px}
+.btn{padding:12px 20px;border:none;border-radius:12px;font-weight:700;cursor:pointer}
+.btn.primary{background:linear-gradient(90deg,var(--primary),var(--accent));color:#07101a}
+.btn.ghost{border:1px solid rgba(255,255,255,0.1);background:transparent;color:var(--text)}
+.btns{display:flex;gap:12px;justify-content:center;margin-top:20px}
+
+/* ---------- vùng chữ + ảnh (ý bạn) ---------- */
+.Wtitle {
+  position: relative;
+  width: 100%;
+  height: 100px;           /* chiều cao vùng chứa. chỉnh nếu cần */
+  margin-top: 40px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* heading nằm chính giữa vùng .Wtitle (tâm chữ) */
+.Wtitle h2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%); /* TÂM chữ = điểm gốc */
+  z-index: 3;
+  font-size: clamp(22px, 3.4vw, 40px);
+  font-weight: 800;
+  text-align: center;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 6px 12px;
+  line-height: 1.05;
+  pointer-events: none;
+}
+
+/* ảnh position absolute được đặt theo công thức:
+   top = 50% + offset, left = 50% + offset -> tạo vector 45° xuống phải từ tâm chữ.
+   transform translate(-50%,-50%) để center image center tới điểm đó.
+*/
+.footprint {
+  position: absolute;
+  top: calc(50% + var(--offset));
+  left: calc(50% + var(--offset));
+  transform: translate(-50%, -50%) rotate(-8deg); /* rotate để ảnh hơi nghiêng tự nhiên */
+  z-index: 2;
+  width: clamp(140px, 18vw, 320px); /* responsive kích thước ảnh */
+  max-width: 40%;
+  opacity: 0.95;
+  transition: transform .35s ease, opacity .25s ease, filter .25s ease;
+  filter: drop-shadow(-20px 10px 30px rgba(0,0,0,0.6));
+  margin-bottom: 10vh !important; /* đẩy ảnh xuống dưới để không che chữ */
+}
+
+/* nếu muốn hover nhẹ */
+.Wtitle:hover .footprint {
+  transform: translate(-50%, -50%) rotate(-6deg) scale(1.03);
+  opacity: 1;
+}
+
+/* nhỏ màn hình: giảm offset để ảnh không bị đẩy quá ra ngoài */
+@media (max-width: 1000px){
+  :root{ --offset: min(16vw, 160px); }
+  .Wtitle{ height: 260px; }
+}
+@media (max-width: 700px){
+  :root{ --offset: min(9.5vw, 80px); }
+  .Wtitle{ height: 220px; margin-top:20px; margin-bottom:10px;}
+  .footprint{ width: clamp(100px, 26vw, 160px); }
+  .hero h1{ font-size: 28px; }
+}
+
+/* phần còn lại giữ nguyên phong cách */
+.section{padding:20px 20px 40px 20px;max-width:1200px;margin:auto;text-align:center}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.card{background:rgba(255,255,255,0.03);border-radius:16px;padding:24px;border:1px solid rgba(255,255,255,0.05);transition:.3s;box-shadow:0 6px 20px rgba(2,6,23,0.5)}
+.card h3{margin:10px 0;color:var(--accent)}
+.card p{font-size:14px;color:var(--muted);}
+
+.hero-subtitle{max-width:100%;margin:0 auto 40px;font-size:18px;color:var(--muted)}
+  .info-zone{background:rgba(255,255,255,0.02);padding:60px 20px;border-top:1px solid rgba(255,255,255,0.05);text-align:center}
+  .footer{text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;border-top:1px solid rgba(255,255,255,0.05)}

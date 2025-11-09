@@ -211,19 +211,7 @@
   </style>
 </head>
 <body>
-
-  <header>
-    <div class="brand">Học<span>Vui</span></div>
-    <nav>
-      <ul>
-        <li><a href="../study-place/main.study.html">Study</a></li>
-        <li><a href="../html/playground/MainConsole_Playground.html">Game</a></li>
-        <li><a href="#">Advance</a></li>
-        <li><a href="#">Setting</a></li>
-      </ul>
-    </nav>
-  </header>
-
+  <div id="navbar"></div>
   <main>
     <!-- FORM BÊN TRÁI -->
     <section class="left-panel">
@@ -291,12 +279,13 @@
         const userCred = await auth.signInWithEmailAndPassword(emailVal, pass);
         showFeedback('Đăng nhập thành công!', 'success');
         setTimeout(() => {
-          window.location.href = "../study-place/main-study.html";
+          window.location.href = "../mainAll/main-lobby.html";
         }, 1000);
       } catch (err) {
         showFeedback("Sai email hoặc mật khẩu.", 'error');
       }
     });
   </script>
+  <script src="../../js/setting_nav.js"></script>
 </body>
 </html>
